@@ -1,78 +1,90 @@
-<script lang="ts">
-import {defineComponent} from 'vue'
+<script>
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: "Header"
-})
+});
+</script>
+
+<script setup>
+const config = useRuntimeConfig();
+const { currentLang, changeLanguage } = useLanguage();
+
+const dropdownActive = ref(false);
+const toggleDropdown = () => {
+  dropdownActive.value = !dropdownActive.value;
+};
+
+const { data: headerData } = await useAsyncData(`header-${currentLang.value}`, () =>
+    $fetch(
+        `${config.public.apiBase}/header`, {
+          params: {
+            pLevel: 3,
+            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+          }
+        }
+    )
+);
+const { data: mainMenuData } = await useAsyncData(`mainMenu-${currentLang.value}`, () =>
+    $fetch(
+        `${config.public.apiBase}/main-menu`, {
+          params: {
+            pLevel: 4,
+            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+          }
+        }
+    )
+);
+
+const availableLanguages = [
+  { code: "en", label: "English" },
+  { code: "de", label: "Deutsch" },
+  { code: "it", label: "Italiano" },
+  { code: "fr", label: "Français" },
+];
 </script>
 
 <template>
   <header>
     <div class="wrap">
       <div class="box">
-        <div class="logo"><a href="index.html"><img src="/img/logo.svg" alt="reboost - logo"></a></div>
+        <div class="logo">
+          <a href="index.html">
+            <img :src="config.public.publicUrl+headerData.data.Logo.url" alt="reboost - logo">
+          </a>
+        </div>
         <div class="menu">
           <ul>
-            <li>
-              <a href="macbook-air-13-repair.html">Computer Repair</a>
-              <div class="submenu">
-                <ul>
-                  <li class="title">Apple</li>
-                  <li><a href="">Macbook Pro</a></li>
-                  <li><a href="macbook-air-13-repair.html">Macbook Air</a></li>
-                  <li><a href="">iMac</a></li>
-                </ul>
-                <ul>
-                  <li class="title">PC</li>
-                  <li><a href="">Microsoft</a></li>
-                  <li><a href="">Dell</a></li>
-                  <li><a href="">Lenovo</a></li>
-                  <li><a href="">HP</a></li>
-                </ul>
-              </div>
+            <li v-for="itemMenu in mainMenuData.data.Items">
+              <template v-if="itemMenu.__component === 'menu.menu-sub-items'">
+                <a @click.prevent="false">{{itemMenu.Title}}</a>
+                <div class="submenu" v-if="itemMenu.menu_sections.length > 0">
+                  <ul v-for="subItem in itemMenu.menu_sections">
+                    <template v-if="subItem.Title !== null">
+                      <li class="title">{{subItem.Title}}</li>
+                    </template>
+                    <template v-if="subItem.Items.length > 0">
+                      <li v-for="childItem in subItem.Items">
+                        <a :href="childItem.Url" :target="childItem.Target">{{childItem.Title}}</a>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </template>
+              <template v-else>
+                <a :href="itemMenu.Url" :target="itemMenu.Target">{{itemMenu.Title}}</a>
+              </template>
             </li>
-            <li>
-              <a href="iphone-repairs.html">Phone Repair</a>
-              <div class="submenu">
-                <ul>
-                  <li><a href="iphone-repairs.html">iPhone</a></li>
-                  <li><a href="">Samsung Galaxy</a></li>
-                  <li><a href="">Xiaomi</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a href="">Sell</a>
-              <div class="submenu">
-                <ul>
-                  <li><a href="">iPhone</a></li>
-                  <li><a href="">Macbook</a></li>
-                  <li><a href="">iPad</a></li>
-                  <li><a href="">Laptop</a></li>
-                </ul>
-              </div>
-            </li>
-            <li><a href="services.html">Business IT</a></li>
-            <li>
-              <a href="">Other</a>
-              <div class="submenu">
-                <ul>
-                  <li><a href="phone-protection-service.html">Phone Protection</a></li>
-                </ul>
-              </div>
-            </li>
-            <li><a href="">Contact Us</a></li>
           </ul>
         </div>
-        <div class="number"><a href="tel:+380912101188">091 210 11 88</a></div>
+        <div class="number"><a :href="'tel:' + headerData.data.Phone">{{ headerData.data.Phone }}</a></div>
         <div class="lang">
-          <div class="selected">EN</div>
-          <div class="dropdown">
+          <div @click="toggleDropdown" class="selected">{{currentLang.toUpperCase()}}</div>
+          <div class="dropdown" :class="{ active: dropdownActive }">
             <ul>
-              <li><a href="">English</a></li>
-              <li><a href="">Deutsch</a></li>
-              <li><a href="">Italiano</a></li>
-              <li><a href="">Français</a></li>
+              <li v-for="item in headerData.data.menu_section.Items">
+                <a href="#" @click.prevent="changeLanguage(item.Url)">{{ item.Title }}</a>
+              </li>
             </ul>
           </div>
         </div>

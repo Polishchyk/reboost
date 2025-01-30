@@ -8,18 +8,22 @@
   import Proposals from "@/components/sections/Proposals.vue";
   import FAQ from "@/components/sections/FAQ.vue";
   import InfoText from "@/components/sections/InfoText.vue";
+
+  const { currentLang } = useLanguage();
 </script>
 
 <template>
-  <MainOffer />
-  <DevicesList />
-  <Solutions />
-  <Principle />
-  <Benefits />
-  <RepairCenters />
-  <Proposals />
-  <FAQ />
-  <InfoText />
+  <div :key="currentLang">
+    <MainOffer />
+    <DevicesList />
+    <Solutions />
+    <Principle />
+    <Benefits />
+    <RepairCenters />
+    <Proposals />
+    <FAQ />
+    <InfoText />
+  </div>
 </template>
 
 <style scoped>
