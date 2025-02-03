@@ -94,6 +94,44 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedSocialMediaButtons extends Struct.ComponentSchema {
+  collectionName: 'components_shared_social_media_buttons';
+  info: {
+    description: '';
+    displayName: 'SocialMediaButtons';
+    icon: 'globe';
+  };
+  attributes: {
+    SvgImage: Schema.Attribute.Text & Schema.Attribute.Required;
+    Url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShopShop extends Struct.ComponentSchema {
+  collectionName: 'components_shop_shops';
+  info: {
+    displayName: 'Shop';
+    icon: 'shoppingCart';
+  };
+  attributes: {
+    Address: Schema.Attribute.String & Schema.Attribute.Required;
+    Phone: Schema.Attribute.String & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShopsShops extends Struct.ComponentSchema {
+  collectionName: 'components_shops_shops';
+  info: {
+    displayName: 'Shops';
+    icon: 'shoppingCart';
+  };
+  attributes: {
+    Shop: Schema.Attribute.Component<'shop.shop', true>;
+    TitleComponent: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -104,6 +142,9 @@ declare module '@strapi/strapi' {
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.social-media-buttons': SharedSocialMediaButtons;
+      'shop.shop': ShopShop;
+      'shops.shops': ShopsShops;
     }
   }
 }

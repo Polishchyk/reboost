@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_social_media_buttons",
+  "info": {
+    "displayName": "SocialMediaButtons",
+    "icon": "globe",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Url": {
+      "type": "string",
+      "required": true
+    },
+    "SvgImage": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

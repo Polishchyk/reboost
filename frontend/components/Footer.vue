@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,128 +6,137 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+const config = useRuntimeConfig();
+const { currentLang, changeLanguage } = useLanguage();
+
+const dropdownActive = ref(false);
+const toggleDropdown = () => {
+  dropdownActive.value = !dropdownActive.value;
+};
+
+const { data: footerData } = await useAsyncData(`footer-${currentLang.value}`, () =>
+    $fetch(
+        `${config.public.apiBase}/footer`, {
+          params: {
+            pLevel: 3,
+            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+          }
+        }
+    )
+);
+const { data: footerMenuData } = await useAsyncData(`footerMenu-${currentLang.value}`, () =>
+    $fetch(
+        `${config.public.apiBase}/footer-menu`, {
+          params: {
+            pLevel: 4,
+            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+          }
+        }
+    )
+);
+
+const availableLanguages = [
+  { code: "en", label: "English" },
+  { code: "de", label: "Deutsch" },
+  { code: "it", label: "Italiano" },
+  { code: "fr", label: "Français" },
+];
+</script>
+
 <template>
   <footer>
     <div class="wrap">
       <div class="box">
         <div class="col">
-          <div class="logo"><a href="index.html"><img src="/img/logo.svg" alt="reboost - logo"></a></div>
-          <div class="number"><a href="tel:+380912101188">091 210 11 88</a></div>
-          <div class="copy">© Reboost. All rights reserved.</div>
+          <div class="logo">
+            <a href="/">
+              <img :src="config.public.publicUrl+footerData.data.Logo.url" alt="reboost - logo">
+            </a>
+          </div>
+          <div class="number"><a :href="'tel:'+footerData.data.Phone">{{footerData.data.Phone}}</a></div>
+          <div class="copy">{{footerData.data.Copyright}}</div>
         </div>
         <div class="col">
           <div class="menu">
-            <div class="cap">Computer Repair</div>
-            <ul>
-              <li>
-                <a href="">Apple</a>
-                <ul>
-                  <li><a href="">Macbook Pro</a></li>
-                  <li><a href="macbook-air-13-repair.html">Macbook Air</a></li>
-                  <li><a href="">iMac</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="">PC</a>
-                <ul>
-                  <li><a href="">Microsoft</a></li>
-                  <li><a href="">Dell</a></li>
-                  <li><a href="">Lenovo</a></li>
-                  <li><a href="">HP</a></li>
-                </ul>
-              </li>
-            </ul>
-            <div class="cap">Phone Repair</div>
-            <ul>
-              <li><a href="iphone-repairs.html">iPhone</a></li>
-              <li><a href="">Samsung Galaxy</a></li>
-              <li><a href="">Xiaomi</a></li>
-            </ul>
+            <template v-for="itemMenu in footerMenuData.data.Items">
+              <template v-if="itemMenu.__component === 'menu.menu-sub-items' && itemMenu.Title !== 'Other' && itemMenu.Title !== 'Sell'">
+                <div class="cap">{{itemMenu.Title}}</div>
+                <template v-if="itemMenu.menu_sections.length > 0">
+                  <ul v-for="subItem in itemMenu.menu_sections">
+                    <li>
+                      <template v-if="subItem.Title !== null">
+                        <a @click.prevent="false">{{subItem.Title}}</a>
+                      </template>
+                      <template v-if="subItem.Items.length > 0">
+                        <ul>
+                          <li v-for="childItem in subItem.Items">
+                            <a :href="childItem.Url" :target="childItem.Target">{{childItem.Title}}</a>
+                          </li>
+                        </ul>
+                      </template>
+                    </li>
+                  </ul>
+                </template>
+              </template>
+            </template>
           </div>
           <div class="menu">
-            <div class="cap">Other</div>
-            <ul>
-              <li><a href="">Sell</a></li>
-              <li><a href="services.html">Business IT</a></li>
-              <li><a href="">Contact Us</a></li>
-              <li><a href="">Terms & Conditions</a></li>
-              <li><a href="">Privacy Policy</a></li>
-            </ul>
+            <template v-for="itemMenu in footerMenuData.data.Items">
+              <template v-if="itemMenu.__component === 'menu.menu-sub-items' && itemMenu.Title === 'Other'">
+                <div class="cap">{{itemMenu.Title}}</div>
+                <template v-if="itemMenu.menu_sections.length > 0">
+                  <ul v-for="subItem in itemMenu.menu_sections">
+                    <li>
+                      <template v-if="subItem.Title !== null">
+                        <a @click.prevent="false">{{subItem.Title}}</a>
+                      </template>
+                      <template v-if="subItem.Items.length > 0">
+                        <ul>
+                          <li v-for="childItem in subItem.Items">
+                            <a :href="childItem.Url" :target="childItem.Target">{{childItem.Title}}</a>
+                          </li>
+                        </ul>
+                      </template>
+                    </li>
+                  </ul>
+                </template>
+              </template>
+            </template>
           </div>
           <div class="shops">
-            <div class="cap">Shops</div>
-            <div class="shop">
-              <div class="title">Lugano, Ticino</div>
-              <div class="address">via Giosuè Carducci 4, 6900</div>
-              <div class="tel"><a href="tel:+41912101188">+ 41 91 210 11 88</a></div>
-            </div>
-            <div class="shop">
-              <div class="title">Chiasso, Ticino</div>
-              <div class="address">Train station</div>
-              <div class="tel"><a href="tel:+41912101188">+ 41 91 210 11 88</a></div>
-            </div>
+            <div class="cap">{{footerData.data.Shops.TitleComponent}}</div>
+            <template v-if="footerData.data.Shops.Shop.length > 0">
+              <div class="shop" v-for="shop in footerData.data.Shops.Shop">
+                <div class="title">{{shop.Title}}</div>
+                <div class="address">{{shop.Address}}</div>
+                <div class="tel">
+                  <a :href="'tel:'+shop.Phone">{{shop.Phone}}</a>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
         <div class="col">
           <div class="lang">
-            <div class="selected">EN</div>
-            <div class="dropdown">
+            <div @click="toggleDropdown" class="selected">{{currentLang.toUpperCase()}}</div>
+            <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
-                <li><a href="">English</a></li>
-                <li><a href="">Deutsch</a></li>
-                <li><a href="">Italiano</a></li>
-                <li><a href="">Français</a></li>
+                <li v-for="item in footerData.data.menu_section.Items">
+                  <a href="#" @click.prevent="changeLanguage(item.Url)">{{ item.Title }}</a>
+                </li>
               </ul>
             </div>
           </div>
-          <div class="social">
-            <div class="icon">
-              <a href="">
-                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16.0324 11.6187V14.2974H18.9992L18.5294 17.9058H16.0324V26.2194C15.5318 26.2969 15.0195 26.3374 14.4996 26.3374C13.8995 26.3374 13.3101 26.284 12.7362 26.1806V17.9058H10V14.2974H12.7362V11.0199C12.7362 8.9865 14.2119 7.3374 16.0332 7.3374V7.33913C16.0386 7.33913 16.0432 7.3374 16.0486 7.3374H19V10.4581H17.0715C16.4983 10.4581 16.0332 10.9777 16.0332 11.6178L16.0324 11.6187Z" fill="#142835"/>
-                </svg>
-              </a>
+          <template v-if="footerData.data.SocialMediaButtons.length > 0">
+            <div class="social">
+              <div class="icon" v-for="button in footerData.data.SocialMediaButtons">
+                <a :href="button.Url" target="_blank">
+                  <template v-html="button.SvgImage"></template>
+                </a>
+              </div>
             </div>
-            <div class="icon">
-              <a href="">
-                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21.4735 6.91406H11.4742C8.71171 6.91406 6.46436 9.16208 6.46436 11.9254V21.076C6.46436 23.8393 8.71171 26.0873 11.4742 26.0873H21.4735C24.236 26.0873 26.4833 23.8393 26.4833 21.076V11.9254C26.4833 9.16208 24.236 6.91406 21.4735 6.91406ZM8.23167 11.9254C8.23167 10.1372 9.6865 8.6819 11.4742 8.6819H21.4735C23.2612 8.6819 24.716 10.1372 24.716 11.9254V21.076C24.716 22.8642 23.2612 24.3195 21.4735 24.3195H11.4742C9.6865 24.3195 8.23167 22.8642 8.23167 21.076V11.9254Z" fill="#142835"/>
-                  <path d="M16.474 21.1611C19.0429 21.1611 21.134 19.0705 21.134 16.4998C21.134 13.929 19.044 11.8384 16.474 11.8384C13.904 11.8384 11.814 13.929 11.814 16.4998C11.814 19.0705 13.904 21.1611 16.474 21.1611ZM16.474 13.6073C18.0692 13.6073 19.3667 14.9052 19.3667 16.5009C19.3667 18.0966 18.0692 19.3944 16.474 19.3944C14.8787 19.3944 13.5813 18.0966 13.5813 16.5009C13.5813 14.9052 14.8787 13.6073 16.474 13.6073Z" fill="#142835"/>
-                  <path d="M21.5651 12.5915C22.2569 12.5915 22.8207 12.0286 22.8207 11.3355C22.8207 10.6424 22.258 10.0796 21.5651 10.0796C20.8723 10.0796 20.3096 10.6424 20.3096 11.3355C20.3096 12.0286 20.8723 12.5915 21.5651 12.5915Z" fill="#142835"/>
-                </svg>
-              </a>
-            </div>
-            <div class="icon">
-              <a href="">
-                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.18363 7.46533L14.6356 17.4313L7.13721 25.5344H8.82527L15.3907 18.4404L20.6949 25.5344H26.4384L18.5676 15.0078L25.5474 7.46533H23.8593L17.8135 13.9987L12.9282 7.46533H7.18475H7.18363ZM9.66533 8.70882H12.3033L23.9544 24.2909H21.3165L9.66533 8.70882Z" fill="#142835"/>
-                </svg>
-              </a>
-            </div>
-            <div class="icon">
-              <a href="">
-                <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24.4445 23.8078C23.953 23.8611 23.4499 23.8704 22.9678 23.8692C19.2065 23.8658 15.4452 23.8623 11.6851 23.86C10.5016 23.86 9.21272 23.8217 8.29819 23.0692C7.26775 22.2194 7.05332 20.7457 6.96987 19.4124C6.85396 17.5851 6.84468 15.752 6.93973 13.9236C6.99189 12.9195 7.08346 11.8911 7.5158 10.9821C7.82644 10.3293 8.34455 9.74262 9.00756 9.43421C9.77836 9.07594 10.5851 9.13971 11.415 9.13855C13.4017 9.13623 15.3884 9.13507 17.3751 9.13275C19.4406 9.13043 21.5073 9.12927 23.5728 9.12695C24.5488 9.12695 25.5966 9.14666 26.3929 9.71131C27.421 10.4394 27.7004 11.825 27.829 13.0783C28.0666 15.3868 28.0701 17.7196 27.8383 20.028C27.7421 20.9799 27.5821 21.9863 26.955 22.7086C26.3338 23.4252 25.4123 23.7011 24.4456 23.8066L24.4445 23.8078Z" fill="#142835"/>
-                  <path d="M20.8061 16.4999L15.2007 13.2627V19.737L20.8061 16.4999Z" fill="white"/>
-                </svg>
-              </a>
-            </div>
-            <div class="icon">
-              <a href="">
-                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24.6731 12.0749V15.0972C24.1451 15.0456 23.4589 14.9256 22.6999 14.6475C21.7089 14.2841 20.9712 13.7873 20.488 13.4027V19.5112L20.4756 19.4921C20.4835 19.6133 20.488 19.7366 20.488 19.8611C20.488 22.8946 18.0204 25.364 14.9867 25.364C11.9529 25.364 9.48535 22.8946 9.48535 19.8611C9.48535 16.8276 11.9529 14.357 14.9867 14.357C15.2838 14.357 15.5753 14.3806 15.86 14.4266V17.4051C15.5865 17.3076 15.2927 17.2549 14.9867 17.2549C13.5505 17.2549 12.3812 18.4234 12.3812 19.8611C12.3812 21.2988 13.5505 22.4673 14.9867 22.4673C16.4228 22.4673 17.5921 21.2977 17.5921 19.8611C17.5921 19.8073 17.591 19.7534 17.5877 19.6996V7.8291H20.6068C20.618 8.08479 20.6281 8.34272 20.6393 8.59841C20.6595 9.10194 20.8389 9.58528 21.1517 9.98116C21.5183 10.4466 22.0598 10.9871 22.8199 11.4188C23.5318 11.8214 24.2 11.9953 24.6731 12.0771V12.0749Z" fill="#142835"/>
-                </svg>
-              </a>
-            </div>
-            <div class="icon">
-              <a href="">
-                <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.64521 11.0825C8.21951 10.6872 8.00781 10.198 8.00781 9.61587C8.00781 9.03377 8.22065 8.52301 8.64521 8.12663C9.0709 7.73139 9.61888 7.5332 10.2903 7.5332C10.9616 7.5332 11.4881 7.73139 11.9127 8.12663C12.3384 8.52188 12.5501 9.01904 12.5501 9.61587C12.5501 10.2127 12.3372 10.6872 11.9127 11.0825C11.487 11.4777 10.9469 11.6759 10.2903 11.6759C9.6336 11.6759 9.0709 11.4777 8.64521 11.0825ZM12.1923 13.3497V25.4675H8.36443V13.3497H12.1923Z" fill="#142835"/>
-                  <path d="M24.9353 14.5465C25.7697 15.4525 26.1864 16.696 26.1864 18.2792V25.2532H22.551V18.7707C22.551 17.9723 22.3438 17.3517 21.9306 16.91C21.5173 16.4684 20.9603 16.2464 20.2629 16.2464C19.5655 16.2464 19.0084 16.4672 18.5952 16.91C18.1819 17.3517 17.9748 17.9723 17.9748 18.7707V25.2532H14.3179V13.3155H17.9748V14.8987C18.345 14.371 18.8443 13.9542 19.4715 13.6473C20.0987 13.3404 20.8041 13.1875 21.5886 13.1875C22.9857 13.1875 24.102 13.6405 24.9353 14.5465Z" fill="#142835"/>
-                </svg>
-              </a>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
     </div>
