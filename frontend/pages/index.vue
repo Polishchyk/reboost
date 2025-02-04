@@ -9,12 +9,23 @@
   import FAQ from "@/components/sections/FAQ.vue";
   import InfoText from "@/components/sections/InfoText.vue";
 
+  const config = useRuntimeConfig();
   const { currentLang } = useLanguage();
+  const { data: HomePageData } = await useAsyncData(`index-${currentLang.value}`, () =>
+      $fetch(
+          `${config.public.apiBase}/home-page`, {
+            params: {
+              pLevel: 2,
+              ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+            }
+          }
+      )
+  );
 </script>
 
 <template>
   <div :key="currentLang">
-    <MainOffer />
+    <MainOffer :data="HomePageData?.data.MainOffer"/>
     <DevicesList />
     <Solutions />
     <Principle />

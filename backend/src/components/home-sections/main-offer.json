@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_home_sections_main_offers",
+  "info": {
+    "displayName": "MainOffer",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "TitleBlue": {
+      "type": "string",
+      "required": true
+    },
+    "InfoLeft": {
+      "type": "string",
+      "required": true
+    },
+    "InfoRight": {
+      "type": "string",
+      "required": true
+    },
+    "SelectLabel": {
+      "type": "string",
+      "required": true
+    },
+    "SelectBrandPlaceholder": {
+      "type": "string",
+      "required": true
+    },
+    "SelectProductPlaceholder": {
+      "type": "string",
+      "required": true
+    },
+    "SelectDevicePlaceholder": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

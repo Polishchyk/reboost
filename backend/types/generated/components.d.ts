@@ -1,5 +1,26 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface HomeSectionsMainOffer extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_main_offers';
+  info: {
+    description: '';
+    displayName: 'MainOffer';
+    icon: 'dashboard';
+  };
+  attributes: {
+    InfoLeft: Schema.Attribute.String & Schema.Attribute.Required;
+    InfoRight: Schema.Attribute.String & Schema.Attribute.Required;
+    SelectBrandPlaceholder: Schema.Attribute.String & Schema.Attribute.Required;
+    SelectDevicePlaceholder: Schema.Attribute.String &
+      Schema.Attribute.Required;
+    SelectLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    SelectProductPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    TitleBlue: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface MenuLink extends Struct.ComponentSchema {
   collectionName: 'components_menu_links';
   info: {
@@ -135,6 +156,7 @@ export interface ShopsShops extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'home-sections.main-offer': HomeSectionsMainOffer;
       'menu.link': MenuLink;
       'menu.menu-sub-items': MenuMenuSubItems;
       'shared.media': SharedMedia;

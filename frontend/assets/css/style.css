@@ -535,9 +535,6 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 .sect-main-offer .selection select {
     margin-top: 8px;
 }
-.sect-main-offer .selection .select-2, .sect-main-offer .selection .select-3 {
-    display: none;
-}
 
 .sect-devices-list {
     text-align: center;
