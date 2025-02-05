@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,25 +6,25 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+defineProps({
+  data: Object,
+});
+</script>
+
 <template>
   <div class="sect-benefits">
     <div class="wrap">
       <div class="benefits-bg">
-        <h2>The benefits of Reboost</h2>
-        <div class="benefits">
-          <div class="item automation">
-            <div class="title">Process automation</div>
-            <div class="desc">Error-free and time-saving. Our automated processes replace over 10 hours of technician work!</div>
+        <h2>{{data.Title}}</h2>
+        <template v-if="data.BenefitsItem.length > 0">
+          <div class="benefits">
+            <div class="item" v-for="benefit in data.BenefitsItem" :class="benefit.ItemCssClass">
+              <div class="title">{{benefit.Title}}</div>
+              <div class="desc">{{benefit.Description}}</div>
+            </div>
           </div>
-          <div class="item protection">
-            <div class="title">Data Protection</div>
-            <div class="desc">Secure data backup and recovery with complete privacy. Trusted by professionals.</div>
-          </div>
-          <div class="item guarantee">
-            <div class="title">Price Guarantee</div>
-            <div class="desc">Fixed prices with no hidden fees. If unsatisfied, we refund and restore your computer.</div>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>

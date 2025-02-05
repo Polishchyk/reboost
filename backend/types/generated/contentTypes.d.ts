@@ -707,6 +707,8 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Benefits: Schema.Attribute.Component<'home-sections.benefits', false> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -723,6 +725,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     MainOffer: Schema.Attribute.Component<'home-sections.main-offer', false> &
       Schema.Attribute.Required;
+    Principle: Schema.Attribute.Component<'home-sections.principle', false>;
     publishedAt: Schema.Attribute.DateTime;
     Solutions: Schema.Attribute.Component<'home-sections.solutions', false> &
       Schema.Attribute.Required;

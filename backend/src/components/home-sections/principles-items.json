@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_home_sections_principles_items",
+  "info": {
+    "displayName": "PrinciplesItems"
+  },
+  "options": {},
+  "attributes": {
+    "Icon": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "PrinciplesItemList": {
+      "displayName": "PrinciplesItemList",
+      "type": "component",
+      "repeatable": true,
+      "component": "home-sections.principles-item-list",
+      "required": true
+    }
+  }
+}

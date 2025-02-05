@@ -28,8 +28,8 @@
     <MainOffer :data="HomePageData?.data.MainOffer"/>
     <DevicesList :data="HomePageData?.data.DevicesList"/>
     <Solutions :data="HomePageData?.data.Solutions"/>
-    <Principle />
-    <Benefits />
+    <Principle :data="HomePageData?.data.Principle"/>
+    <Benefits :data="HomePageData?.data.Benefits"/>
     <RepairCenters />
     <Proposals />
     <FAQ />

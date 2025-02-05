@@ -32,6 +32,19 @@
       "repeatable": false,
       "component": "home-sections.solutions",
       "required": true
+    },
+    "Principle": {
+      "displayName": "Principle",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.principle"
+    },
+    "Benefits": {
+      "displayName": "Benefits",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.benefits",
+      "required": true
     }
   }
 }

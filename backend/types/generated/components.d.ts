@@ -1,5 +1,32 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface HomeSectionsBenefits extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_benefits';
+  info: {
+    displayName: 'Benefits';
+  };
+  attributes: {
+    BenefitsItem: Schema.Attribute.Component<
+      'home-sections.benefits-item',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsBenefitsItem extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_benefits_items';
+  info: {
+    displayName: 'Benefits Item';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    ItemCssClass: Schema.Attribute.String & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface HomeSectionsBrandsItems extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_brands_items';
   info: {
@@ -62,6 +89,51 @@ export interface HomeSectionsMainOffer extends Struct.ComponentSchema {
       Schema.Attribute.Required;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     TitleBlue: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsPrinciple extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_principles';
+  info: {
+    displayName: 'Principle';
+  };
+  attributes: {
+    AdditionDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    PrinciplesItems: Schema.Attribute.Component<
+      'home-sections.principles-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsPrinciplesItemList extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_principles_item_lists';
+  info: {
+    displayName: 'PrinciplesItemList';
+  };
+  attributes: {
+    ItemTitle: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsPrinciplesItems extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_principles_items';
+  info: {
+    displayName: 'PrinciplesItems';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    PrinciplesItemList: Schema.Attribute.Component<
+      'home-sections.principles-item-list',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -228,10 +300,15 @@ export interface ShopsShops extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'home-sections.benefits': HomeSectionsBenefits;
+      'home-sections.benefits-item': HomeSectionsBenefitsItem;
       'home-sections.brands-items': HomeSectionsBrandsItems;
       'home-sections.devices-list': HomeSectionsDevicesList;
       'home-sections.devices-list-items': HomeSectionsDevicesListItems;
       'home-sections.main-offer': HomeSectionsMainOffer;
+      'home-sections.principle': HomeSectionsPrinciple;
+      'home-sections.principles-item-list': HomeSectionsPrinciplesItemList;
+      'home-sections.principles-items': HomeSectionsPrinciplesItems;
       'home-sections.solution-items': HomeSectionsSolutionItems;
       'home-sections.solutions': HomeSectionsSolutions;
       'menu.link': MenuLink;
