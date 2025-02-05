@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_home_sections_repair_centers_items",
+  "info": {
+    "displayName": "RepairCentersItems"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "Phone": {
+      "type": "string",
+      "required": true
+    },
+    "RepairCenterLinks": {
+      "displayName": "RepairCenterLinks",
+      "type": "component",
+      "repeatable": true,
+      "component": "home-sections.repair-center-links",
+      "required": true
+    }
+  }
+}

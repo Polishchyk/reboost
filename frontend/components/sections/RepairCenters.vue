@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,30 +6,32 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+defineProps({
+  data: Object,
+});
+</script>
+
 <template>
   <div class="sect-repair-centers">
     <div class="wrap">
-      <h2>Our repair centers</h2>
-      <div class="repair-centers">
-        <div class="item">
-          <h3>Lugano, Ticino</h3>
-          <div class="desc">via Giosuè Carducci 4, 6900</div>
-          <div class="tel"><a href="tel:+41912101188">+ 41 91 210 11 88</a></div>
-          <div class="links">
-            <a href=""><div class="but small map">View Map</div></a>
-            <a href=""><div class="but small whatsapp"></div></a>
+      <h2>{{data.Title}}</h2>
+      <template v-if="data.RepairCentersItems.length > 0">
+        <div class="repair-centers">
+          <div class="item" v-for="repairCenter in data.RepairCentersItems">
+            <h3>{{repairCenter.Title}}</h3>
+            <div class="desc">{{repairCenter.Description}}</div>
+            <div class="tel"><a :href="'tel:'+repairCenter.Phone">{{repairCenter.Phone}}</a></div>
+            <template v-if="repairCenter.RepairCenterLinks.length > 0">
+              <div class="links">
+                <a :href="link.Url" v-for="link in repairCenter.RepairCenterLinks">
+                  <div class="but small" :class="link.ItemCssClass">{{link.Title ?? '' }}</div>
+                </a>
+              </div>
+            </template>
           </div>
         </div>
-        <div class="item">
-          <h3>Chiasso, Ticino</h3>
-          <div class="desc">Train station</div>
-          <div class="tel"><a href="tel:+41912101188">+ 41 91 210 11 88</a></div>
-          <div class="links">
-            <a href=""><div class="but small map">View Map</div></a>
-            <a href=""><div class="but small whatsapp"></div></a>
-          </div>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

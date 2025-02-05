@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,29 +6,30 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+defineProps({
+  data: Object,
+});
+</script>
+
 <template>
   <div class="sect-proposals">
     <div class="wrap">
-      <div class="proposals">
-        <div class="item screen-protection">
-          <div class="title">Hydrogel Screen Protection</div>
-          <div class="row">
-            <div class="desc">Advanced Ultra-Thin and Durable Hydrogel Screen Protection</div>
-            <div class="link">
-              <a href="phone-protection-service.html"><div class="but colored small">Read more</div></a>
+      <template v-if="data.ProposalsItems.length > 0">
+        <div class="proposals">
+          <div class="item" :class="proposal.ItemCssClass" v-for="proposal in data.ProposalsItems">
+            <div class="title">{{proposal.Title}}</div>
+            <div class="row">
+              <div class="desc">{{proposal.Description}}</div>
+              <div class="link">
+                <a :href="proposal.Url.Url" :target="proposal.Url.Target">
+                  <div class="but colored small">{{proposal.Url.Title}}</div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="item sell">
-          <div class="title">Sell iPhone / Macbook</div>
-          <div class="row">
-            <div class="desc">Trade-In or Sell Your iPhone and MacBook with Ease</div>
-            <div class="link">
-              <a href=""><div class="but colored small">Read more</div></a>
-            </div>
-          </div>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

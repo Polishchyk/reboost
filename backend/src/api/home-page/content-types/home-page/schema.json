@@ -45,6 +45,27 @@
       "repeatable": false,
       "component": "home-sections.benefits",
       "required": true
+    },
+    "RepairCenters": {
+      "displayName": "RepairCenters",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.repair-centers",
+      "required": true
+    },
+    "Proposals": {
+      "displayName": "Proposals",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.proposals",
+      "required": true
+    },
+    "FAQ": {
+      "displayName": "FAQ",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.faq",
+      "required": true
     }
   }
 }

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,80 +6,78 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+import { onMounted, onBeforeUnmount, nextTick } from 'vue';
+
+const props = defineProps({
+  data: Object,
+});
+
+const faqLayoutAdjust = () => {
+  const questions = document.querySelector('.sect-faq .questions');
+  const answers = document.querySelectorAll('.sect-faq .answer');
+
+  if (questions) {
+    questions.classList.remove('ready');
+  }
+
+  answers.forEach(answer => {
+    answer.style.marginTop = `-${answer.offsetHeight}px`;
+  });
+
+  setTimeout(() => {
+    if (questions) {
+      questions.classList.add('ready');
+    }
+  }, 10);
+};
+
+const handleResize = () => {
+  faqLayoutAdjust();
+};
+
+const toggleFAQ = (index) => {
+  props.data.FAQItems.forEach((faq, i) => {
+    faq.active = i === index ? !faq.active : false;
+  });
+};
+
+onMounted(() => {
+  nextTick(() => {
+    faqLayoutAdjust();
+    window.addEventListener('resize', handleResize);
+  });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
+</script>
+
 <template>
   <div class="sect-faq">
     <div class="wrap">
       <div class="head-wrap">
-        <h2>FAQs</h2>
-        <div class="sub">Learn more about iCorrect, the essential repair services that we offer and the warranties that come with each repair.</div>
+        <h2>{{ data.Title }}</h2>
+        <div class="sub">{{ data.Description }}</div>
       </div>
-      <div class="questions">
-        <div class="item">
-          <div class="question">Do I need an appointment?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
+      <template v-if="data.FAQItems.length > 0">
+        <div class="questions">
+          <div
+              class="item"
+              v-for="(question, index) in data.FAQItems"
+              :key="index"
+              :class="{ active: question.active }"
+          >
+            <div class="question" @click="toggleFAQ(index)">{{ question.Question }}<i></i></div>
+            <div class="answer-wrap">
+              <div class="answer">
+                <p>{{ question.Answer }}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="question">Do I need to back-up my data before my repair?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">Are your repairs covered by a warranty?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour. </p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">How long does it take to diagnose an unknown fault?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">Where are you located?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">Will I be charged if you are unable to complete a repair?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">Do your prices include parts & labour?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="question">Can you repair a damaged logic board?<i></i></div>
-          <div class="answer-wrap">
-            <div class="answer">
-              <p>At iCorrect, we work on a no-fix-no-fee policy. If our technicians are unable to complete your repair, you will not be charged for parts or labour.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

@@ -30,9 +30,9 @@
     <Solutions :data="HomePageData?.data.Solutions"/>
     <Principle :data="HomePageData?.data.Principle"/>
     <Benefits :data="HomePageData?.data.Benefits"/>
-    <RepairCenters />
-    <Proposals />
-    <FAQ />
+    <RepairCenters :data="HomePageData?.data.RepairCenters"/>
+    <Proposals :data="HomePageData?.data.Proposals"/>
+    <FAQ :data="HomePageData?.data.FAQ"/>
     <InfoText />
   </div>
 </template>

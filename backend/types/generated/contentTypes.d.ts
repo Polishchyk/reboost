@@ -717,6 +717,8 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
       false
     > &
       Schema.Attribute.Required;
+    FAQ: Schema.Attribute.Component<'home-sections.faq', false> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -726,7 +728,14 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     MainOffer: Schema.Attribute.Component<'home-sections.main-offer', false> &
       Schema.Attribute.Required;
     Principle: Schema.Attribute.Component<'home-sections.principle', false>;
+    Proposals: Schema.Attribute.Component<'home-sections.proposals', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    RepairCenters: Schema.Attribute.Component<
+      'home-sections.repair-centers',
+      false
+    > &
+      Schema.Attribute.Required;
     Solutions: Schema.Attribute.Component<'home-sections.solutions', false> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

@@ -71,6 +71,30 @@ export interface HomeSectionsDevicesListItems extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeSectionsFaq extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_faqs';
+  info: {
+    displayName: 'FAQ';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    FAQItems: Schema.Attribute.Component<'home-sections.faq-items', true> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsFaqItems extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_faq_items';
+  info: {
+    displayName: 'FAQItems';
+  };
+  attributes: {
+    Answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    Question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface HomeSectionsMainOffer extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_main_offers';
   info: {
@@ -130,6 +154,78 @@ export interface HomeSectionsPrinciplesItems extends Struct.ComponentSchema {
       Schema.Attribute.Required;
     PrinciplesItemList: Schema.Attribute.Component<
       'home-sections.principles-item-list',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsProposals extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_proposals';
+  info: {
+    displayName: 'Proposals';
+  };
+  attributes: {
+    ProposalsItems: Schema.Attribute.Component<
+      'home-sections.proposals-items',
+      true
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsProposalsItems extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_proposals_items';
+  info: {
+    displayName: 'Proposals Items';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    ItemCssClass: Schema.Attribute.Enumeration<['screen-protection', 'sell']> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    Url: Schema.Attribute.Component<'menu.link', false>;
+  };
+}
+
+export interface HomeSectionsRepairCenterLinks extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_repair_center_links';
+  info: {
+    displayName: 'RepairCenterLinks';
+  };
+  attributes: {
+    ItemCssClass: Schema.Attribute.String & Schema.Attribute.Required;
+    Title: Schema.Attribute.String;
+    Url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsRepairCenters extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_repair_centers';
+  info: {
+    displayName: 'RepairCenters';
+  };
+  attributes: {
+    RepairCentersItems: Schema.Attribute.Component<
+      'home-sections.repair-centers-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface HomeSectionsRepairCentersItems extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_repair_centers_items';
+  info: {
+    displayName: 'RepairCentersItems';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Phone: Schema.Attribute.String & Schema.Attribute.Required;
+    RepairCenterLinks: Schema.Attribute.Component<
+      'home-sections.repair-center-links',
       true
     > &
       Schema.Attribute.Required;
@@ -305,10 +401,17 @@ declare module '@strapi/strapi' {
       'home-sections.brands-items': HomeSectionsBrandsItems;
       'home-sections.devices-list': HomeSectionsDevicesList;
       'home-sections.devices-list-items': HomeSectionsDevicesListItems;
+      'home-sections.faq': HomeSectionsFaq;
+      'home-sections.faq-items': HomeSectionsFaqItems;
       'home-sections.main-offer': HomeSectionsMainOffer;
       'home-sections.principle': HomeSectionsPrinciple;
       'home-sections.principles-item-list': HomeSectionsPrinciplesItemList;
       'home-sections.principles-items': HomeSectionsPrinciplesItems;
+      'home-sections.proposals': HomeSectionsProposals;
+      'home-sections.proposals-items': HomeSectionsProposalsItems;
+      'home-sections.repair-center-links': HomeSectionsRepairCenterLinks;
+      'home-sections.repair-centers': HomeSectionsRepairCenters;
+      'home-sections.repair-centers-items': HomeSectionsRepairCentersItems;
       'home-sections.solution-items': HomeSectionsSolutionItems;
       'home-sections.solutions': HomeSectionsSolutions;
       'menu.link': MenuLink;
