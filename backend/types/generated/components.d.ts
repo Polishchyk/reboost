@@ -95,6 +95,25 @@ export interface HomeSectionsFaqItems extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeSectionsInfoText extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_info_texts';
+  info: {
+    description: '';
+    displayName: 'InfoText';
+  };
+  attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface HomeSectionsMainOffer extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_main_offers';
   info: {
@@ -403,6 +422,7 @@ declare module '@strapi/strapi' {
       'home-sections.devices-list-items': HomeSectionsDevicesListItems;
       'home-sections.faq': HomeSectionsFaq;
       'home-sections.faq-items': HomeSectionsFaqItems;
+      'home-sections.info-text': HomeSectionsInfoText;
       'home-sections.main-offer': HomeSectionsMainOffer;
       'home-sections.principle': HomeSectionsPrinciple;
       'home-sections.principles-item-list': HomeSectionsPrinciplesItemList;

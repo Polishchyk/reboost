@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,19 +6,63 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+
+const props = defineProps({
+  data: Object,
+});
+
+const textRef = ref(null);
+const isOpened = ref(false);
+const isShrinked = ref(false);
+const windowWidth = ref(0);
+
+const toggleText = () => {
+  isOpened.value = !isOpened.value;
+};
+
+const textLayoutAdjust = () => {
+  if (textRef.value) {
+    const textHeight = textRef.value.scrollHeight;
+    isShrinked.value = textHeight > 297;
+  }
+};
+
+const handleResize = () => {
+  const newWidth = window.innerWidth;
+  if (newWidth !== windowWidth.value) {
+    nextTick(textLayoutAdjust);
+    windowWidth.value = newWidth;
+  }
+};
+
+onMounted(() => {
+  windowWidth.value = window.innerWidth;
+  nextTick(textLayoutAdjust);
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
+</script>
+
 <template>
   <div class="sect-info-text">
     <div class="wrap">
-      <h2>Why Reboost?</h2>
-      <div class="text">
-        <div class="text-wrap">
-          <p>Reboost is your go-to solution for fast, reliable, and secure computer support, designed to make your digital experience seamless. We specialize in advanced process automation, allowing us to deliver high-quality results in a fraction of the time compared to traditional technicians. By automating complex processes, we ensure minimal errors and maximize efficiency, saving our customers both time and money.</p>
-          <p>Our data protection services are unmatched. We prioritize your privacy and data security by implementing state-of-the-art protocols that guarantee your personal information is safe. Whether you’re a business professional, student, or everyday user, Reboost ensures your data is backed up, transferred, and restored with the highest level of confidentiality. Our process is fully automated, meaning no human intervention in handling your data – a feature that has earned the trust of lawyers, accountants, and other privacy-sensitive professionals.</p>
-          <p>At Reboost, we believe in transparency and customer satisfaction. Our fixed pricing structure means no hidden fees or surprise charges. You’ll know exactly what to expect before the service begins. In addition, we offer a satisfaction guarantee. If you’re not fully pleased with our service, we’ll refund the entire amount, no questions asked, and restore your device to its original state.</p>
-          <p>Choose Reboost for reliable, efficient, and customer-focused computer support. Our team is dedicated to simplifying technology for you, providing a hassle-free experience that saves you time, protects your data, and gives you peace of mind. With Reboost, you’re not just getting a service; you’re gaining a partner who values your time, privacy, and satisfaction. Discover the Reboost difference today – where technology meets trust.</p>
-        </div>
+      <h2>{{ data.Title }}</h2>
+      <div
+          ref="textRef"
+          class="text"
+          :class="{ opened: isOpened, shrinked: isShrinked }"
+      >
+        <div class="text-wrap" v-html="data.Description"></div>
       </div>
-      <div class="more"><a class="open">See more benefits</a><a class="close">Hide</a></div>
+      <div class="more">
+        <a @click="toggleText" v-if="!isOpened">See more benefits</a>
+        <a @click="toggleText" v-else>Hide</a>
+      </div>
     </div>
   </div>
 </template>

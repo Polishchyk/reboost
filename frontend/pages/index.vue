@@ -24,7 +24,7 @@
 </script>
 
 <template>
-  <div :key="currentLang">
+  <div :key="currentLang" :class="currentLang">
     <MainOffer :data="HomePageData?.data.MainOffer"/>
     <DevicesList :data="HomePageData?.data.DevicesList"/>
     <Solutions :data="HomePageData?.data.Solutions"/>
@@ -33,7 +33,7 @@
     <RepairCenters :data="HomePageData?.data.RepairCenters"/>
     <Proposals :data="HomePageData?.data.Proposals"/>
     <FAQ :data="HomePageData?.data.FAQ"/>
-    <InfoText />
+    <InfoText :data="HomePageData?.data.InfoText"/>
   </div>
 </template>
 

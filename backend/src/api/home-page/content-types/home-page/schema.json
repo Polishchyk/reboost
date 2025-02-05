@@ -66,6 +66,13 @@
       "repeatable": false,
       "component": "home-sections.faq",
       "required": true
+    },
+    "InfoText": {
+      "displayName": "InfoText",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.info-text",
+      "required": true
     }
   }
 }
