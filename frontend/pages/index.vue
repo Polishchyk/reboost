@@ -15,7 +15,7 @@
       $fetch(
           `${config.public.apiBase}/home-page`, {
             params: {
-              pLevel: 2,
+              pLevel: 4,
               ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
             }
           }
@@ -26,8 +26,8 @@
 <template>
   <div :key="currentLang">
     <MainOffer :data="HomePageData?.data.MainOffer"/>
-    <DevicesList />
-    <Solutions />
+    <DevicesList :data="HomePageData?.data.DevicesList"/>
+    <Solutions :data="HomePageData?.data.Solutions"/>
     <Principle />
     <Benefits />
     <RepairCenters />

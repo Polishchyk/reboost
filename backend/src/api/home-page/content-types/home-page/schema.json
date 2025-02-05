@@ -18,6 +18,20 @@
       "repeatable": false,
       "component": "home-sections.main-offer",
       "required": true
+    },
+    "DevicesList": {
+      "displayName": "DevicesList",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.devices-list",
+      "required": true
+    },
+    "Solutions": {
+      "displayName": "Solutions",
+      "type": "component",
+      "repeatable": false,
+      "component": "home-sections.solutions",
+      "required": true
     }
   }
 }

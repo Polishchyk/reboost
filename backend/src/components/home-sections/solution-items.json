@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_home_sections_solution_items",
+  "info": {
+    "displayName": "SolutionItems",
+    "icon": "lightbulb"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

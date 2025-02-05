@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue'
 
 export default defineComponent({
@@ -6,32 +6,115 @@ export default defineComponent({
 })
 </script>
 
+<script setup>
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+
+defineProps({
+  data: Object,
+});
+
+const imageRef = ref(null);
+const partsRef = ref(null);
+
+const handleScroll = () => {
+  if (!imageRef.value) return;
+
+  const image = imageRef.value;
+  const windowHeight = window.innerHeight;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const imageOffsetTop = image.offsetTop;
+  const imageHeight = image.offsetHeight;
+
+  if (
+      scrollTop + windowHeight > imageOffsetTop + imageHeight / 2 &&
+      scrollTop < imageOffsetTop + imageHeight
+  ) {
+    image.classList.add('animation-start');
+
+    nextTick(() => {
+      setTimeout(saveScrollTransforms, 100);
+    });
+  }
+};
+
+const saveScrollTransforms = () => {
+  if (!partsRef.value) return;
+  const figures = partsRef.value.querySelectorAll('.figure');
+
+  figures.forEach((figure) => {
+    const computedStyle = window.getComputedStyle(figure);
+    figure.dataset.scrollTransform = computedStyle.transform !== 'none' ? computedStyle.transform : '';
+  });
+};
+
+const handleMouseMove = (event) => {
+  if (!partsRef.value) return;
+
+  const { clientX, clientY } = event;
+  const { width, height, left, top } = partsRef.value.getBoundingClientRect();
+
+  const x = (clientX - left - width / 2) / (width / 2);
+  const y = (clientY - top - height / 2) / (height / 2);
+
+  const figures = partsRef.value.querySelectorAll('.figure');
+
+  figures.forEach((figure, index) => {
+    const depth = 5.18 + index * 2.59;
+    const rotateX = y * depth * 1.0368;
+    const rotateY = x * depth * 1.0368;
+    const translateZ = depth * 2.0736;
+
+    const baseTransform = figure.dataset.scrollTransform || '';
+
+    figure.style.transform = `${baseTransform} rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+  });
+};
+
+const handleMouseLeave = () => {
+  if (!partsRef.value) return;
+
+  const figures = partsRef.value.querySelectorAll('.figure');
+
+  figures.forEach((figure) => {
+    figure.style.transform = figure.dataset.scrollTransform || '';
+  });
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+
+  nextTick(() => {
+    setTimeout(saveScrollTransforms, 200);
+  });
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+</script>
+
 <template>
   <div class="sect-solutions">
     <div class="wrap">
-      <h2>Reboost is the one stop <br>solution to all your problems</h2>
-      <div class="sub">Assistance and repair of Mobile, computers, PCs and <br>notebooks for companies and individuals</div>
+      <h2 v-html="data.Title"></h2>
+      <div class="sub" v-html="data.Description"></div>
       <div class="row">
-        <div class="solutions">
-          <div class="item">
-            <div class="title">The computer does not turn on</div>
-            <div class="desc">Blue or black screen? Constantly rebooting? Freezing or shutting down by itself? Or has it become slow? We revive it and make it better than when it was new!</div>
+        <template v-if="data.SolutionItems.length > 0">
+          <div class="solutions">
+            <div class="item" v-for="solution in data.SolutionItems" :key="solution.Title">
+              <div class="title">{{ solution.Title }}</div>
+              <div class="desc">{{ solution.Description }}</div>
+            </div>
           </div>
-          <div class="item">
-            <div class="title">Viruses or unwanted programs</div>
-            <div class="desc">There are more than 1.5 million viruses in the world. Anti-viruses help prevent them, but if your computer is already infected the only solution is to clean it and reinstall it.</div>
-          </div>
-          <div class="item">
-            <div class="title">Life is too short to wait</div>
-            <div class="desc">After several updates, installations and uninstallations of programs your computer becomes slower and slower. So slow that it takes forever to start. But how much is your time worth? For us it is invaluable!</div>
-          </div>
-          <div class="item">
-            <div class="title">Mobile Repair</div>
-            <div class="desc">Is your smartphone screen cracked? Battery draining too fast? Experiencing issues with software updates or unexpected shutdowns? We offer fast, reliable mobile repair services to get your device running like new.</div>
-          </div>
-        </div>
-        <div class="image">
-          <div class="parts">
+        </template>
+        <div
+            class="image"
+            ref="imageRef"
+            @mousemove="handleMouseMove"
+            @mouseleave="handleMouseLeave"
+        >
+          <div class="parts" ref="partsRef">
             <div class="figure case">
               <img src="/img/mobile-parts-1_1.png" alt="Mobile case">
             </div>

@@ -710,6 +710,11 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    DevicesList: Schema.Attribute.Component<
+      'home-sections.devices-list',
+      false
+    > &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -719,6 +724,8 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     MainOffer: Schema.Attribute.Component<'home-sections.main-offer', false> &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    Solutions: Schema.Attribute.Component<'home-sections.solutions', false> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
