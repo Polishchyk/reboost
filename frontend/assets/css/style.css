@@ -846,6 +846,8 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 }
 .sect-repair-centers .repair-centers .links {
     margin-top: 16px;
+    display: flex;
+    gap:5px;
 }
 .sect-repair-centers .repair-centers .but {
     color: #fff;
