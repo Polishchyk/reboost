@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
     <div class="wrap">
       <div class="box">
         <div class="logo">
-          <a href="index.html">
+          <a href="/">
             <img :src="config.public.publicUrl + headerData?.data?.Logo?.url" alt="reboost - logo" />
           </a>
         </div>
