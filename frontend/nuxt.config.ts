@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  vite: {
+    server: {
+      host: "0.0.0.0", // Дозволяє приймати запити з будь-якого хоста
+      strictPort: true,
+    },
+  },
   modules: ['@pinia/nuxt'],
   ssr: true,
   pages: true,
