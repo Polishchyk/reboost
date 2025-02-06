@@ -1,0 +1,20 @@
+{
+    "collectionName": "components_home_sections_repair_centers",
+    "info": {
+        "displayName": "RepairCenters"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "RepairCentersItems": {
+            "displayName": "RepairCentersItems",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.repair-centers-items",
+            "required": true
+        }
+    }
+}

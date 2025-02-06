@@ -1,0 +1,24 @@
+{
+    "collectionName": "components_home_sections_solutions",
+    "info": {
+        "displayName": "Solutions"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "Description": {
+            "type": "text",
+            "required": true
+        },
+        "SolutionItems": {
+            "displayName": "SolutionItems",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.solution-items",
+            "required": true
+        }
+    }
+}

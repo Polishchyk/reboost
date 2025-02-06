@@ -1,0 +1,21 @@
+{
+    "collectionName": "components_home_sections_devices_list_items",
+    "info": {
+        "displayName": "DevicesListItems",
+        "icon": "apps"
+    },
+    "options": {},
+    "attributes": {
+        "Url": {
+            "type": "string",
+            "required": true
+        },
+        "SvgImage": {
+            "type": "text",
+            "required": true
+        },
+        "Title": {
+            "type": "string"
+        }
+    }
+}

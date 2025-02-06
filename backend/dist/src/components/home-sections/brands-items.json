@@ -1,0 +1,18 @@
+{
+    "collectionName": "components_home_sections_brands_items",
+    "info": {
+        "displayName": "BrandsItems"
+    },
+    "options": {},
+    "attributes": {
+        "Image": {
+            "allowedTypes": [
+                "images",
+                "files"
+            ],
+            "type": "media",
+            "multiple": true,
+            "required": true
+        }
+    }
+}
