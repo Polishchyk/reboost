@@ -4,19 +4,29 @@
   "info": {
     "singularName": "main-menu",
     "pluralName": "main-menus",
-    "displayName": "MainMenu"
+    "displayName": "MainMenu",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "Items": {
       "type": "dynamiczone",
       "components": [
         "menu.link",
         "menu.menu-sub-items"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

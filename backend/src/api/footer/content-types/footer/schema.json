@@ -10,7 +10,11 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "Logo": {
       "type": "media",
@@ -19,20 +23,40 @@
       "allowedTypes": [
         "images",
         "files"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Phone": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Copyright": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Shops": {
       "type": "component",
       "repeatable": false,
-      "component": "shops.shops"
+      "component": "shops.shops",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "menu_section": {
       "type": "relation",
@@ -43,7 +67,12 @@
       "displayName": "SocialMediaButtons",
       "type": "component",
       "repeatable": true,
-      "component": "shared.social-media-buttons"
+      "component": "shared.social-media-buttons",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

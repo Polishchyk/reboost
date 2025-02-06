@@ -10,69 +10,118 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "MainOffer": {
       "displayName": "MainOffer",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.main-offer",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "DevicesList": {
       "displayName": "DevicesList",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.devices-list",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Solutions": {
       "displayName": "Solutions",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.solutions",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Principle": {
       "displayName": "Principle",
       "type": "component",
       "repeatable": false,
-      "component": "home-sections.principle"
+      "component": "home-sections.principle",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Benefits": {
       "displayName": "Benefits",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.benefits",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "RepairCenters": {
       "displayName": "RepairCenters",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.repair-centers",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Proposals": {
       "displayName": "Proposals",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.proposals",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "FAQ": {
       "displayName": "FAQ",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.faq",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "InfoText": {
       "displayName": "InfoText",
       "type": "component",
       "repeatable": false,
       "component": "home-sections.info-text",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

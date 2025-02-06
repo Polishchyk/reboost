@@ -7,6 +7,7 @@ export default defineComponent({
 </script>
 
 <script setup>
+import { useLanguage } from '@/composables/useLanguage';
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
