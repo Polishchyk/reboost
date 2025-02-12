@@ -24,7 +24,7 @@ const { data: headerData, refresh: refreshHeader } = useAsyncData('headerData', 
         `${config.public.apiBase}/header`, {
           params: {
             pLevel: 3,
-            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {}),
+            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           }
         }
     )
@@ -36,7 +36,7 @@ const { data: mainMenuData, refresh: refreshMainMenuData } = useAsyncData('mainM
         `${config.public.apiBase}/main-menu`, {
           params: {
             pLevel: 4,
-            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {}),
+            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           }
         }
     )

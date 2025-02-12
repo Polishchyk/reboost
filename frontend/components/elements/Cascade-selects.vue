@@ -24,7 +24,7 @@ const { data: brandsData } = await useAsyncData(`brands-${currentLang.value}`, (
     $fetch(`${apiBase}/brands`, {
       params: {
         pLevel: 2,
-        ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+        ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
       },
     })
 );
@@ -49,7 +49,7 @@ const fetchProducts = async () => {
     params: {
       "filters[brand][id][$eq]": selectedBrand.value,
       pLevel: 2,
-      ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+      ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
     },
   });
 
@@ -68,7 +68,7 @@ const fetchDevices = async () => {
     params: {
       "filters[product][id][$eq]": selectedProduct.value,
       pLevel: 2,
-      ...(currentLang.value !== "en" ? { locale: currentLang.value } : {})
+      ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
     },
   });
 

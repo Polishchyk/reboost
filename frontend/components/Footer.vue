@@ -24,7 +24,7 @@ const { data: footerData, refresh: refreshFooter } = await useAsyncData(
         $fetch(`${config.public.apiBase}/footer`, {
           params: {
             pLevel: 3,
-            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {}),
+            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           },
         }),
     { watch: [currentLang], server: true }
@@ -36,7 +36,7 @@ const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
         $fetch(`${config.public.apiBase}/footer-menu`, {
           params: {
             pLevel: 4,
-            ...(currentLang.value !== "en" ? { locale: currentLang.value } : {}),
+            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           },
         }),
     { watch: [currentLang], server: true }

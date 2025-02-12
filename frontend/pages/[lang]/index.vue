@@ -15,7 +15,7 @@ const config = useRuntimeConfig();
 const { currentLang } = useLanguage();
 
 const localeParam = computed(() =>
-    currentLang.value !== "en" ? { locale: currentLang.value } : {}
+    currentLang.value !== "it" ? { locale: currentLang.value } : {}
 );
 
 const { data: HomePageData, refresh, error } = await useAsyncData(
