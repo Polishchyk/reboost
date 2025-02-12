@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   vite: {
     server: {
-      host: "0.0.0.0", // Дозволяє приймати запити з будь-якого хоста
+      host: '0.0.0.0',
       strictPort: true,
     },
   },

@@ -1,6 +1,6 @@
 <script setup>
 definePageMeta({ middleware: 'lang' })
-import { useLanguage } from "@/composables/useLanguage";
+import { useLanguage } from "@/composables/useLanguage.ts";
 import MainOffer from "@/components/sections/MainOffer.vue";
 import DevicesList from "@/components/sections/DevicesList.vue";
 import Solutions from "@/components/sections/Solutions.vue";

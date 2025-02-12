@@ -1,45 +1,39 @@
-import { useLanguageStore } from '@/store/language';
+import { useLanguageStore } from '@/store/language'
+import { useRoute, useRouter } from '#app'
 
 export const useLanguage = () => {
-  const route = useRoute();
-  const router = useRouter();
-  const languageStore = useLanguageStore();
+  const route = useRoute()
+  const router = useRouter()
+  const languageStore = useLanguageStore()
 
-  // Ініціалізуємо мову за параметром URL або 'en'
-  const currentLang = computed(() => languageStore.currentLang);
+  const defaultLang = 'it'
+  const supportedLangs = ['en', 'fr', 'de', 'it']
 
-  // При клієнтському завантаженні ініціалізуємо мову зі шляху
-  if (process.client && route.params.lang) {
-    languageStore.setLanguage(String(route.params.lang));
-  }
+  
+  const currentLang = computed(() => languageStore.currentLang)
 
   const changeLanguage = (lang: string) => {
     if (currentLang.value !== lang) {
-      languageStore.setLanguage(lang);
+      languageStore.setLanguage(lang)
 
-      let newPath = route.fullPath;
+      
+      let newPath = route.fullPath.replace(/^\/(en|fr|de|it)/, '')
 
-      // Якщо мова - англійська
-      if (lang === "en") {
-        console.log(lang);
-        if (route.fullPath === '/') {
-          // Для головної сторінки, просто домен
-          newPath = '/';
-        } else {
-          // Для інших сторінок, видаляємо префікс мови
-          newPath = route.fullPath.replace(/^\/(de|it|fr)/, "").replace(/\/$/, "");
-        }
+      
+      if (lang === defaultLang) {
+        newPath = newPath || '/'  
       } else {
-        // Якщо мова не англійська, додаємо її як префікс
-        newPath = `/${lang}${route.fullPath.replace(/^\/(en|de|it|fr)/, "")}`;
+        newPath = `/${lang}${newPath}`
+
+        
+        if (newPath.endsWith('/')) {
+          newPath = newPath.slice(0, -1)
+        }
       }
 
-      newPath = newPath.replace(/\/$/, ""); // Видаляємо `/` в кінці
-
-      // Переходимо на новий шлях без перезавантаження
-      router.push(newPath, { replace: true });
+      router.replace(newPath)
     }
-  };
+  }
 
-  return { currentLang, changeLanguage };
-};
+  return { currentLang, changeLanguage }
+}

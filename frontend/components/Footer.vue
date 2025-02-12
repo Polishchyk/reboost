@@ -19,7 +19,7 @@ const toggleDropdown = () => {
 };
 
 const { data: footerData, refresh: refreshFooter } = await useAsyncData(
-    `footer-${currentLang.value}`, // ✅ Фікс: передаємо рядок
+    `footer-${currentLang.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer`, {
           params: {
@@ -31,7 +31,7 @@ const { data: footerData, refresh: refreshFooter } = await useAsyncData(
 );
 
 const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
-    `footerMenu-${currentLang.value}`, // ✅ Фікс: передаємо рядок
+    `footerMenu-${currentLang.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer-menu`, {
           params: {
@@ -42,7 +42,7 @@ const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
     { watch: [currentLang], server: true }
 );
 
-// Слідкуємо за зміною мови та оновлюємо дані
+
 watch(currentLang, () => {
   refreshFooter();
   refreshFooterMenu();
@@ -121,9 +121,14 @@ const availableLanguages = [
             <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
                 <li v-for="lang in availableLanguages" :key="lang.code">
-                  <a href="#" @click.prevent="changeLanguage(lang.code)">{{
-                      lang.label
-                    }}</a>
+                  <a
+                      :href="lang.code !== 'it' ?  '/'+lang.code : '/'"
+                      @click.prevent="changeLanguage(lang.code)"
+                      :hreflang="lang.code+'-CH'"
+                      rel="alternate"
+                  >
+                    {{ lang.label }}
+                  </a>
                 </li>
               </ul>
             </div>

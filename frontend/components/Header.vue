@@ -12,13 +12,13 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 const config = useRuntimeConfig();
 const { currentLang, changeLanguage } = useLanguage();
 
-// Для активування випадаючого меню
+
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-// Асинхронне отримання даних для хедера з сервером
+
 const { data: headerData, refresh: refreshHeader } = useAsyncData('headerData', () =>
     $fetch(
         `${config.public.apiBase}/header`, {
@@ -30,7 +30,7 @@ const { data: headerData, refresh: refreshHeader } = useAsyncData('headerData', 
     )
 );
 
-// Асинхронне отримання даних для головного меню
+
 const { data: mainMenuData, refresh: refreshMainMenuData } = useAsyncData('mainMenuData', () =>
     $fetch(
         `${config.public.apiBase}/main-menu`, {
@@ -42,7 +42,7 @@ const { data: mainMenuData, refresh: refreshMainMenuData } = useAsyncData('mainM
     )
 );
 
-// Перелік доступних мов
+
 const availableLanguages = [
   { code: "en", label: "English" },
   { code: "de", label: "Deutsch" },
@@ -50,17 +50,21 @@ const availableLanguages = [
   { code: "fr", label: "Français" },
 ];
 
-// Переміщуємо асинхронне оновлення даних через спостереження за зміною мови
+
 watch(currentLang, async () => {
-  await headerData.refresh();
-  await mainMenuData.refresh();
+  if (headerData.value && headerData.value.refresh) {
+    await headerData.refresh();
+  }
+  if (mainMenuData.value && mainMenuData.value.refresh) {
+    await mainMenuData.refresh();
+  }
 });
 
-// Для керування станом меню
+
 const menuActive = ref(false);
 const scrollPos = ref(0);
 
-// Функція для перемикання стану меню
+
 const toggleMenu = () => {
   menuActive.value = !menuActive.value;
   if (menuActive.value) {
@@ -72,19 +76,19 @@ const toggleMenu = () => {
   }
 };
 
-// Закриття випадаючого меню при кліку поза його межами
+
 const handleClickOutside = (event) => {
   if (!event.target.closest('.lang') && !event.target.classList.contains('selected')) {
     dropdownActive.value = false;
   }
 };
 
-// Додавання слухача подій при монтуванні компонента
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside);
 });
 
-// Видалення слухача подій при демонтажі компонента
+
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
 });
@@ -131,7 +135,14 @@ onBeforeUnmount(() => {
           <div class="dropdown" :class="{ active: dropdownActive }">
             <ul>
               <li v-for="item in headerData?.data?.menu_section.Items" :key="item.id">
-                <a href="#" @click.prevent="changeLanguage(item.Url)">{{ item.Title }}</a>
+                <a
+                    :href="item.Url !== 'it' ?  '/'+item.Url : '/'"
+                    @click.prevent="changeLanguage(item.Url)"
+                    :hreflang="item.Url+'-CH'"
+                    rel="alternate"
+                >
+                  {{ item.Title }}
+                </a>
               </li>
             </ul>
           </div>
@@ -143,5 +154,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-/* Додаткові стилі */
+
 </style>
