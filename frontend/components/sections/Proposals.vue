@@ -7,9 +7,12 @@ export default defineComponent({
 </script>
 
 <script setup>
+import { useLanguage } from '@/composables/useLanguage'
+
 defineProps({
   data: Object,
 });
+const {currentLang} = useLanguage();
 </script>
 
 <template>
@@ -22,7 +25,7 @@ defineProps({
             <div class="row">
               <div class="desc">{{proposal.Description}}</div>
               <div class="link">
-                <a :href="proposal.Url.Url" :target="proposal.Url.Target">
+                <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${proposal.Url.Url}`" :target="proposal.Url.Target">
                   <div class="but colored small">{{proposal.Url.Title}}</div>
                 </a>
               </div>

@@ -111,14 +111,14 @@ onBeforeUnmount(() => {
                     </template>
                     <template v-if="subItem.Items.length > 0">
                       <li v-for="childItem in subItem.Items" :key="childItem.id">
-                        <a :href="childItem.Url" :target="childItem.Target">{{ childItem.Title }}</a>
+                        <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${childItem.Url}`" :target="childItem.Target">{{ childItem.Title }}</a>
                       </li>
                     </template>
                   </ul>
                 </div>
               </template>
               <template v-else>
-                <a :href="itemMenu.Url" :target="itemMenu.Target">{{ itemMenu.Title }}</a>
+                <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${itemMenu.Url}`" :target="itemMenu.Target">{{ itemMenu.Title }}</a>
               </template>
             </li>
           </ul>
