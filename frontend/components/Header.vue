@@ -19,7 +19,7 @@ const toggleDropdown = () => {
 };
 
 
-const { data: headerData, refresh: refreshHeader } = useAsyncData('headerData', () =>
+const { data: headerData, refresh: refreshHeader } = await useAsyncData(`headerData-${currentLang.value}`, () =>
     $fetch(
         `${config.public.apiBase}/header`, {
           params: {
@@ -27,11 +27,12 @@ const { data: headerData, refresh: refreshHeader } = useAsyncData('headerData', 
             ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           }
         }
-    )
+    ),
+    { watch: [currentLang], server: true }
 );
 
 
-const { data: mainMenuData, refresh: refreshMainMenuData } = useAsyncData('mainMenuData', () =>
+const { data: mainMenuData, refresh: refreshMainMenuData } = await useAsyncData(`mainMenuData-${currentLang.value}`, () =>
     $fetch(
         `${config.public.apiBase}/main-menu`, {
           params: {
@@ -39,9 +40,14 @@ const { data: mainMenuData, refresh: refreshMainMenuData } = useAsyncData('mainM
             ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
           }
         }
-    )
+    ),
+    { watch: [currentLang], server: true }
 );
 
+watch(currentLang, () => {
+  refreshHeader();
+  refreshMainMenuData();
+});
 
 const availableLanguages = [
   { code: "en", label: "English" },
@@ -49,16 +55,6 @@ const availableLanguages = [
   { code: "it", label: "Italiano" },
   { code: "fr", label: "Français" },
 ];
-
-
-watch(currentLang, async () => {
-  if (headerData.value && headerData.value.refresh) {
-    await headerData.refresh();
-  }
-  if (mainMenuData.value && mainMenuData.value.refresh) {
-    await mainMenuData.refresh();
-  }
-});
 
 
 const menuActive = ref(false);
