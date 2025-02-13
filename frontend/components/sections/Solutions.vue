@@ -111,8 +111,6 @@ onUnmounted(() => {
         <div
             class="image"
             ref="imageRef"
-            @mousemove="handleMouseMove"
-            @mouseleave="handleMouseLeave"
         >
           <div class="parts" ref="partsRef">
             <div class="figure case">
