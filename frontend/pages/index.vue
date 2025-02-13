@@ -1,6 +1,9 @@
 <script setup>
+import { watch } from 'vue'
+
 definePageMeta({ middleware: 'lang' })
 import { useLanguage } from "@/composables/useLanguage";
+import SeoHead from "@/components/SeoHead.vue";
 import MainOffer from "@/components/sections/MainOffer.vue";
 import DevicesList from "@/components/sections/DevicesList.vue";
 import Solutions from "@/components/sections/Solutions.vue";
@@ -26,10 +29,14 @@ const { data: HomePageData, refresh, error } = await useAsyncData(
         }),
     { watch: [localeParam], server: true  }
 );
+watch(currentLang, () => {
+  refresh();
+});
 </script>
 
 <template>
   <div v-if="HomePageData">
+    <SeoHead :seo="HomePageData?.data?.SEO" />
     <MainOffer :data="HomePageData?.data?.MainOffer" />
     <DevicesList :data="HomePageData?.data?.DevicesList" />
     <Solutions :data="HomePageData?.data?.Solutions" />

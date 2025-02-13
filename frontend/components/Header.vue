@@ -1,52 +1,59 @@
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: "Header"
-});
-</script>
-
 <script setup>
 import { useLanguage } from '@/composables/useLanguage';
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 const config = useRuntimeConfig();
 const { currentLang, changeLanguage } = useLanguage();
-
 
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-
-const { data: headerData, refresh: refreshHeader } = await useAsyncData(`headerData-${currentLang.value}`, () =>
-    $fetch(
-        `${config.public.apiBase}/header`, {
-          params: {
-            pLevel: 3,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
-          }
-        }
-    ),
+const { data: globalData, refresh: refreshHeadIcon } = await useAsyncData(`globalData-${currentLang.value}`, () =>
+        $fetch(`${config.public.apiBase}/global`, {
+          params: { pLevel: 3 },
+        }),
     { watch: [currentLang], server: true }
 );
 
+const faviconUrl = ref("/favicon.ico");
+const analyticsCode = ref(globalData.value?.data?.analytics_code || '');
+
+watchEffect(() => {
+  const newFaviconUrl = globalData.value?.data?.favicon?.url;
+  if (newFaviconUrl) {
+    faviconUrl.value = `${config.public.publicUrl}${newFaviconUrl}?v=${Date.now()}`;
+  }
+});
+
+useHead({
+  link: [
+    {
+      rel: "icon",
+      type: "image/x-icon",
+      href: faviconUrl.value,
+    },
+  ],
+});
+
+const { data: headerData, refresh: refreshHeader } = await useAsyncData(`headerData-${currentLang.value}`, () =>
+        $fetch(`${config.public.apiBase}/header`, {
+          params: { pLevel: 3, ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}) },
+        }),
+    { watch: [currentLang], server: true }
+);
 
 const { data: mainMenuData, refresh: refreshMainMenuData } = await useAsyncData(`mainMenuData-${currentLang.value}`, () =>
-    $fetch(
-        `${config.public.apiBase}/main-menu`, {
-          params: {
-            pLevel: 4,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
-          }
-        }
-    ),
+        $fetch(`${config.public.apiBase}/main-menu`, {
+          params: { pLevel: 4, ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}) },
+        }),
     { watch: [currentLang], server: true }
 );
 
 watch(currentLang, () => {
   refreshHeader();
   refreshMainMenuData();
+  refreshHeadIcon();
 });
 
 const availableLanguages = [
@@ -56,10 +63,8 @@ const availableLanguages = [
   { code: "fr", label: "Français" },
 ];
 
-
 const menuActive = ref(false);
 const scrollPos = ref(0);
-
 
 const toggleMenu = () => {
   menuActive.value = !menuActive.value;
@@ -72,18 +77,23 @@ const toggleMenu = () => {
   }
 };
 
-
 const handleClickOutside = (event) => {
   if (!event.target.closest('.lang') && !event.target.classList.contains('selected')) {
     dropdownActive.value = false;
   }
 };
 
-
 onMounted(() => {
+  if (analyticsCode.value) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = analyticsCode.value;
+
+    while (tempDiv.firstChild) {
+      document.head.appendChild(tempDiv.firstChild);
+    }
+  }
   document.addEventListener('click', handleClickOutside);
 });
-
 
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
