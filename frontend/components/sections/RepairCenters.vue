@@ -7,12 +7,9 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { useLanguage } from '@/composables/useLanguage'
-
 defineProps({
   data: Object,
 });
-const {currentLang} = useLanguage();
 </script>
 
 <template>
@@ -27,7 +24,7 @@ const {currentLang} = useLanguage();
             <div class="tel"><a :href="'tel:'+repairCenter.Phone">{{repairCenter.Phone}}</a></div>
             <template v-if="repairCenter.RepairCenterLinks.length > 0">
               <div class="links">
-                <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${link.Url}`" v-for="link in repairCenter.RepairCenterLinks">
+                <a :href="link.Url" v-for="link in repairCenter.RepairCenterLinks">
                   <div class="but small" :class="link.ItemCssClass">{{link.Title ?? '' }}</div>
                 </a>
               </div>
