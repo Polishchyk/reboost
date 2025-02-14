@@ -14,7 +14,15 @@ const langAttribute = computed(() => {
 useHead({
   htmlAttrs: {
     lang: langAttribute
-  }
+  },
+  link: [
+    {
+      rel: 'stylesheet',
+      type: 'text/css',
+      href: '/assets/css/style.css',
+      tagPriority: 999
+    }
+  ]
 })
 </script>
 <template>

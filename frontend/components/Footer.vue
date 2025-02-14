@@ -168,7 +168,3 @@ const availableLanguages = [
     </defs>
   </svg>
 </template>
-
-<style scoped>
-/* Можна додати стилі тут */
-</style>

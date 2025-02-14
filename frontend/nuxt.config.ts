@@ -7,14 +7,17 @@ export default defineNuxtConfig({
       host: '0.0.0.0',
       strictPort: true,
     },
+    build: {
+      cssCodeSplit: true,
+    },
     plugins: [],
   },
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
   ssr: true,
   pages: true,
-  css: [
+  /*css: [
     "@/assets/css/style.css"
-  ],
+  ],*/
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },

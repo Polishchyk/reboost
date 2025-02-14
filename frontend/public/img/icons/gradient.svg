@@ -1,0 +1,15 @@
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <defs>
+        <linearGradient
+                id="icon-gradient"
+                x1="1.78565"
+                y1="22.9211"
+                x2="75.368"
+                y2="58.3399"
+                gradientUnits="userSpaceOnUse"
+        >
+            <stop stop-color="#017CFF" />
+            <stop offset="1" stop-color="#3EC1FF" />
+        </linearGradient>
+    </defs>
+</svg>
