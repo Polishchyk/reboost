@@ -15,6 +15,23 @@ defineProps({
 
 const imageRef = ref(null);
 const partsRef = ref(null);
+const isDisassembled = ref(false);
+
+const handlePhoneClick = () => {
+  if (isDisassembled.value) {
+    imageRef.value.classList.remove('animation-start');
+    nextTick(() => {
+      setTimeout(saveScrollTransforms, 100);
+    });
+  } else {
+    imageRef.value.classList.add('animation-start');
+    nextTick(() => {
+      setTimeout(saveScrollTransforms, 100);
+    });
+  }
+
+  isDisassembled.value = !isDisassembled.value;
+};
 
 const handleScroll = () => {
   if (!imageRef.value) return;
@@ -44,39 +61,6 @@ const saveScrollTransforms = () => {
   figures.forEach((figure) => {
     const computedStyle = window.getComputedStyle(figure);
     figure.dataset.scrollTransform = computedStyle.transform !== 'none' ? computedStyle.transform : '';
-  });
-};
-
-const handleMouseMove = (event) => {
-  if (!partsRef.value) return;
-
-  const { clientX, clientY } = event;
-  const { width, height, left, top } = partsRef.value.getBoundingClientRect();
-
-  const x = (clientX - left - width / 2) / (width / 2);
-  const y = (clientY - top - height / 2) / (height / 2);
-
-  const figures = partsRef.value.querySelectorAll('.figure');
-
-  figures.forEach((figure, index) => {
-    const depth = 5.18 + index * 2.59;
-    const rotateX = y * depth * 1.0368;
-    const rotateY = x * depth * 1.0368;
-    const translateZ = depth * 2.0736;
-
-    const baseTransform = figure.dataset.scrollTransform || '';
-
-    figure.style.transform = `${baseTransform} rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
-  });
-};
-
-const handleMouseLeave = () => {
-  if (!partsRef.value) return;
-
-  const figures = partsRef.value.querySelectorAll('.figure');
-
-  figures.forEach((figure) => {
-    figure.style.transform = figure.dataset.scrollTransform || '';
   });
 };
 
@@ -111,42 +95,39 @@ onUnmounted(() => {
         <div
             class="image"
             ref="imageRef"
+            @click="handlePhoneClick"
         >
-          <div class="parts" ref="partsRef">
-            <div class="figure case">
-              <img src="/img/mobile-parts-1_1.png" alt="Mobile case">
-            </div>
-            <div class="figure slot">
-              <img src="/img/mobile-parts-1_2.png" alt="Mobile slot">
-            </div>
-            <div class="figure innards1">
-              <img src="/img/mobile-parts-2.png" alt="Mobile inner part 1">
-            </div>
-            <div class="figure innards2">
-              <img src="/img/mobile-parts-3.png" alt="Mobile inner part 2">
-            </div>
-            <div class="figure screen">
-              <img src="/img/mobile-parts-8.png" alt="Mobile screen">
-            </div>
-            <div class="figure glass">
-              <img src="/img/mobile-parts-4.png" alt="Mobile glass">
-            </div>
-            <div class="figure camera-top">
-              <img src="/img/mobile-parts-5.png" alt="Mobile camera top part">
-            </div>
-            <div class="figure camera-middle">
-              <img src="/img/mobile-parts-6.png" alt="Mobile camera middle part">
-            </div>
-            <div class="figure camera-bottom">
-              <img src="/img/mobile-parts-7.png" alt="Mobile camera bottom part">
-            </div>
+        <div class="parts" ref="partsRef">
+          <div class="figure case">
+            <img src="/img/mobile-parts-1_1.png" alt="Mobile case">
+          </div>
+          <div class="figure slot">
+            <img src="/img/mobile-parts-1_2.png" alt="Mobile slot">
+          </div>
+          <div class="figure innards1">
+            <img src="/img/mobile-parts-2.png" alt="Mobile inner part 1">
+          </div>
+          <div class="figure innards2">
+            <img src="/img/mobile-parts-3.png" alt="Mobile inner part 2">
+          </div>
+          <div class="figure screen">
+            <img src="/img/mobile-parts-8.png" alt="Mobile screen">
+          </div>
+          <div class="figure glass">
+            <img src="/img/mobile-parts-4.png" alt="Mobile glass">
+          </div>
+          <div class="figure camera-top">
+            <img src="/img/mobile-parts-5.png" alt="Mobile camera top part">
+          </div>
+          <div class="figure camera-middle">
+            <img src="/img/mobile-parts-6.png" alt="Mobile camera middle part">
+          </div>
+          <div class="figure camera-bottom">
+            <img src="/img/mobile-parts-7.png" alt="Mobile camera bottom part">
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
 </template>
-
-<style scoped>
-
-</style>

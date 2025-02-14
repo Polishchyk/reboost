@@ -8,25 +8,20 @@ const props = defineProps({
 const route = useRoute();
 const runtimeConfig = useRuntimeConfig();
 
-// Отримуємо поточний домен (працює як на сервері, так і на клієнті)
 const baseUrl = process.server
     ? useRequestURL().origin
     : window.location.origin;
 
-// Всі доступні мови
 const languages = ["de", "en", "fr", "it"];
 
-// Поточний шлях без мовного префіксу, обрізаємо слеш на кінці (якщо він є)
 const currentPath = route.path.replace(/^\/(de|en|fr|it)/, "").replace(/\/$/, "") || "";
 
-// Генерація hreflang посилань
 const alternateLinks = languages.map((lang) => ({
   rel: "alternate",
   href: `${baseUrl}/${lang === "it" ? "" : lang}${currentPath}`,
   hreflang: `${lang}-CH`
 }));
 
-// Генерація canonical URL для поточної сторінки
 const canonicalUrl = `${baseUrl}/${currentLang.value !== "it" ? currentLang.value : ""}${currentPath}`;
 
 if (props.seo) {
