@@ -77,9 +77,27 @@ body {
     line-height: 24px;
     color: #142835;
 }
-input, select, textarea {
+input, select, textarea, .select_btn {
     font-family: inherit;
     color: inherit;
+}
+.select_btn{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    text-overflow: ellipsis;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 313px;
+    max-width: 100%;
+    height: 52px;
+    padding-left: 16px;
+    align-items: center;
 }
 select {
     font-weight: 500;

@@ -11,9 +11,13 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.23",
     "@pinia/nuxt": "^0.9.0",
     "nuxt": "^3.15.4",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.13.1"
   }
 }
