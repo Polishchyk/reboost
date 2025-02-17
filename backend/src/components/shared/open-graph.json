@@ -10,7 +10,7 @@
     "ogTitle": {
       "type": "string",
       "required": true,
-      "maxLength": 70
+      "maxLength": 120
     },
     "ogDescription": {
       "type": "string",
