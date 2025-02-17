@@ -1,0 +1,27 @@
+{
+    "collectionName": "components_home_sections_devices_lists",
+    "info": {
+        "displayName": "DevicesList"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "DevicesListItems": {
+            "displayName": "DevicesListItems",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.devices-list-items",
+            "required": true
+        },
+        "BrandsItems": {
+            "displayName": "BrandsItems",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.brands-items",
+            "required": true
+        }
+    }
+}

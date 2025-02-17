@@ -1,0 +1,13 @@
+{
+    "collectionName": "components_home_sections_principles_item_lists",
+    "info": {
+        "displayName": "PrinciplesItemList"
+    },
+    "options": {},
+    "attributes": {
+        "ItemTitle": {
+            "type": "string",
+            "required": true
+        }
+    }
+}

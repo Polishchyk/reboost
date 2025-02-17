@@ -1,0 +1,47 @@
+{
+    "kind": "singleType",
+    "collectionName": "headers",
+    "info": {
+        "singularName": "header",
+        "pluralName": "headers",
+        "displayName": "Header",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "Logo": {
+            "type": "media",
+            "multiple": false,
+            "required": true,
+            "allowedTypes": [
+                "images",
+                "files"
+            ],
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "Phone": {
+            "type": "string",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "menu_section": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::menu-section.menu-section"
+        }
+    }
+}

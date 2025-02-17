@@ -1,0 +1,28 @@
+{
+    "collectionName": "components_home_sections_principles",
+    "info": {
+        "displayName": "Principle"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "Description": {
+            "type": "text",
+            "required": true
+        },
+        "PrinciplesItems": {
+            "displayName": "PrinciplesItems",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.principles-items",
+            "required": true
+        },
+        "AdditionDescription": {
+            "type": "text",
+            "required": true
+        }
+    }
+}

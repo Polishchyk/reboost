@@ -1,0 +1,46 @@
+{
+    "kind": "collectionType",
+    "collectionName": "menu_sections",
+    "info": {
+        "singularName": "menu-section",
+        "pluralName": "menu-sections",
+        "displayName": "MenuSections",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "SectionName": {
+            "type": "string",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "Title": {
+            "type": "string",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "Items": {
+            "type": "component",
+            "repeatable": true,
+            "component": "menu.link",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        }
+    }
+}

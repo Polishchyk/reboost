@@ -1,0 +1,20 @@
+{
+    "collectionName": "components_home_sections_benefits",
+    "info": {
+        "displayName": "Benefits"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "BenefitsItem": {
+            "displayName": "Benefits Item",
+            "type": "component",
+            "repeatable": true,
+            "component": "home-sections.benefits-item",
+            "required": true
+        }
+    }
+}
