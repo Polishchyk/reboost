@@ -15,9 +15,10 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
   ssr: true,
   pages: true,
-  /*css: [
+  //Commented for prod
+  css: [
     "@/assets/css/style.css"
-  ],*/
+  ],
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
