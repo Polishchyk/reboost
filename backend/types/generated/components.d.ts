@@ -280,6 +280,17 @@ export interface HomeSectionsSolutions extends Struct.ComponentSchema {
   };
 }
 
+export interface ItSupportSupport extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_supports';
+  info: {
+    description: '';
+    displayName: 'Support';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface MenuLink extends Struct.ComponentSchema {
   collectionName: 'components_menu_links';
   info: {
@@ -470,6 +481,7 @@ declare module '@strapi/strapi' {
       'home-sections.repair-centers-items': HomeSectionsRepairCentersItems;
       'home-sections.solution-items': HomeSectionsSolutionItems;
       'home-sections.solutions': HomeSectionsSolutions;
+      'it-support.support': ItSupportSupport;
       'menu.link': MenuLink;
       'menu.menu-sub-items': MenuMenuSubItems;
       'shared.media': SharedMedia;

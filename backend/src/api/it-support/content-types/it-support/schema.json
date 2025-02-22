@@ -1,0 +1,52 @@
+{
+  "kind": "singleType",
+  "collectionName": "it_supports",
+  "info": {
+    "singularName": "it-support",
+    "pluralName": "it-supports",
+    "displayName": "IT Support",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "Support": {
+      "displayName": "Support",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.support",
+      "required": true
+    },
+    "SEO": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo",
+      "required": true
+    }
+  }
+}

@@ -1,11 +1,11 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLanguage } from '@/composables/useLanguage';
-import { useAsyncData } from '#imports';
+import { useAsyncData, useRuntimeConfig } from '#imports';
 
 const props = defineProps({
-  currentPageTitle:{
+  currentPageTitle: {
     type: String,
     default: '',
   },
@@ -20,11 +20,11 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const { currentLang } = useLanguage();
+const { currentLang, defaultLang } = useLanguage();
 const config = useRuntimeConfig();
 
 // Отримуємо список назв сторінок з кастомного API Strapi
-const { data: pageTitles } = await useAsyncData('pageTitles', () =>
+const { data: pageTitles } = await useAsyncData(() =>
     $fetch(`${config.public.apiBase}/page-titles`, {
       params: { locale: currentLang.value }
     })
@@ -42,31 +42,35 @@ const fetchDynamicTitle = async (collection, slug, field) => {
   }
 };
 
-// Розбиваємо URL на частини
-const pathSegments = computed(() => {
-  return route.path.split('/').filter(segment => segment);
-});
+// Видаляємо мовний префікс, якщо він є
+const getPathSegments = () => {
+  const segments = route.path.split('/').filter(segment => segment);
+  if (segments[0] === currentLang.value && currentLang.value !== defaultLang) {
+    return segments.slice(1);
+  }
+  return segments;
+};
 
-// Формуємо хлібні крихти
 const breadcrumbs = ref([]);
 
 const generateBreadcrumbs = async () => {
   let path = '';
   const items = [];
+  const segments = getPathSegments();
 
-  for (const [index, segment] of pathSegments.value.entries()) {
+  for (const [index, segment] of segments.entries()) {
     path += `/${segment}`;
     let title = pageTitles.value?.[segment] || (props.currentPageTitle ?? segment);
 
     // Перевіряємо, чи поточний сегмент належить до динамічної колекції
-    const prevSegment = pathSegments.value[index - 1];
+    const prevSegment = segments[index - 1];
     if (prevSegment && props.dynamicCollections[prevSegment]) {
       title = await fetchDynamicTitle(prevSegment, segment, props.dynamicCollections[prevSegment]);
     }
 
     items.push({
       text: title,
-      to: index < pathSegments.value.length - 1 ? path : null,
+      to: index < segments.length - 1 ? path : null,
     });
   }
 
@@ -82,7 +86,7 @@ watchEffect(() => {
   <div class="breadcrumbs" :class="cssClass ?? ''">
     <div class="wrap">
       <div class="nav">
-        <nuxt-link :to="`/${currentLang}`">Home</nuxt-link>
+        <nuxt-link :to="currentLang !== defaultLang ? `/${currentLang}` : '/'">Home</nuxt-link>
         <template v-for="(crumb, index) in breadcrumbs" :key="index">
           <nuxt-link v-if="crumb.to" :to="crumb.to">{{ crumb.text }}</nuxt-link>
           <span v-else>{{ crumb.text }}</span>

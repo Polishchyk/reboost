@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_it_support_supports",
+  "info": {
+    "displayName": "Support",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

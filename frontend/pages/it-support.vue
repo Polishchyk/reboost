@@ -1,9 +1,10 @@
 <script setup>
 import { watch } from 'vue'
 
-//definePageMeta({ middleware: 'lang' })
+definePageMeta({ middleware: 'lang' })
 import { useLanguage } from "@/composables/useLanguage";
 import Breadcrumbs from "@/components/sections/Breadcrumbs.vue";
+import SeoHead from '~/components/SeoHead.vue'
 
 const config = useRuntimeConfig();
 const { currentLang } = useLanguage();
@@ -12,11 +13,24 @@ const localeParam = computed(() =>
     currentLang.value !== "it" ? { locale: currentLang.value } : {}
 );
 
+const { data: ITSupportPageData, refresh, error } = await useAsyncData(
+    `it-support-${currentLang.value}`,
+    () =>
+        $fetch(`${config.public.apiBase}/it-support`, {
+          params: { pLevel: 4, ...localeParam.value },
+        }),
+    { watch: [localeParam], server: true  }
+);
+watch(currentLang, () => {
+  refresh();
+});
+
 </script>
 
 <template>
-  <div>
-    <Breadcrumbs :currentPageTitle="'Breadcrumbs'" :css-class="'bg2'"/>
+  <div v-if="ITSupportPageData">
+    <SeoHead :seo="ITSupportPageData?.data?.SEO" />
+    <!--<Breadcrumbs :currentPageTitle="'Breadcrumbs'" :css-class="'bg2'"/>-->
 
   <div class="sect-support">
     <div class="wrap">

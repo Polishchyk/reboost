@@ -864,6 +864,59 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiItSupportItSupport extends Struct.SingleTypeSchema {
+  collectionName: 'it_supports';
+  info: {
+    description: '';
+    displayName: 'IT Support';
+    pluralName: 'it-supports';
+    singularName: 'it-support';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::it-support.it-support'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Support: Schema.Attribute.Component<'it-support.support', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMainMenuMainMenu extends Struct.SingleTypeSchema {
   collectionName: 'main_menus';
   info: {
@@ -1502,6 +1555,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::it-support.it-support': ApiItSupportItSupport;
       'api::main-menu.main-menu': ApiMainMenuMainMenu;
       'api::menu-section.menu-section': ApiMenuSectionMenuSection;
       'api::product.product': ApiProductProduct;

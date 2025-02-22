@@ -4,7 +4,7 @@ exports.default = {
     async find(ctx) {
         const { locale } = ctx.query;
         /*const models: ModelType[] = ['about.about', 'home-page.home-page'];*/
-        const models = ['about.about'];
+        const models = ['about.about', 'it-support.it-support'];
         const result = {};
         for (const model of models) {
             const entity = await strapi.entityService.findMany(`api::${model}`, {
