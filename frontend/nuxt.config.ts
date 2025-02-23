@@ -12,7 +12,16 @@ export default defineNuxtConfig({
     },
     plugins: [],
   },
-  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', "@nuxtjs/i18n"],
+  i18n: {
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English' },
+      { code: 'fr', language: 'fr-FR', name: 'Français' },
+      { code: 'it', language: 'it-IT', name: 'Italiano' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch' }
+    ],
+    defaultLocale: 'it',
+  },
   ssr: true,
   pages: true,
   //Commented for prod

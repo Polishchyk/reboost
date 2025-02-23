@@ -1,6 +1,6 @@
 <script setup>
 import { useLanguage } from '@/composables/useLanguage';
-const { currentLang } = useLanguage();
+const { locale } = useI18n();
 const props = defineProps({
   seo: Object
 });
@@ -22,7 +22,7 @@ const alternateLinks = languages.map((lang) => ({
   hreflang: `${lang}-CH`
 }));
 
-const canonicalUrl = `${baseUrl}/${currentLang.value !== "it" ? currentLang.value : ""}${currentPath}`;
+const canonicalUrl = `${baseUrl}/${locale.value !== "it" ? locale.value : ""}${currentPath}`;
 
 if (props.seo) {
   useHead({

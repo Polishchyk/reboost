@@ -7,21 +7,21 @@ import Breadcrumbs from "@/components/sections/Breadcrumbs.vue";
 import SeoHead from '~/components/SeoHead.vue'
 
 const config = useRuntimeConfig();
-const { currentLang } = useLanguage();
+const { locale } = useI18n();
 
 const localeParam = computed(() =>
-    currentLang.value !== "it" ? { locale: currentLang.value } : {}
+    locale.value !== "it" ? { locale: locale.value } : {}
 );
 
 const { data: ITSupportPageData, refresh, error } = await useAsyncData(
-    `it-support-${currentLang.value}`,
+    `it-support-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/it-support`, {
           params: { pLevel: 4, ...localeParam.value },
         }),
     { watch: [localeParam], server: true  }
 );
-watch(currentLang, () => {
+watch(locale, () => {
   refresh();
 });
 

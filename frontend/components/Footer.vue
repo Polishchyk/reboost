@@ -11,7 +11,11 @@ import { useLanguage } from "@/composables/useLanguage";
 import { watch } from "vue";
 
 const config = useRuntimeConfig();
-const { currentLang, changeLanguage } = useLanguage();
+const { locale, locales }= useI18n();
+const switchLocalePath = useSwitchLocalePath();
+const availableLocales = computed(() => {
+  return locales.value.filter(i => i.code !== locale.value)
+})
 
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
@@ -19,31 +23,31 @@ const toggleDropdown = () => {
 };
 
 const { data: footerData, refresh: refreshFooter } = await useAsyncData(
-    `footer-${currentLang.value}`,
+    `footer-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer`, {
           params: {
             pLevel: 3,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
+            ...(locale.value !== "it" ? { locale: locale.value } : {}),
           },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
 const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
-    `footerMenu-${currentLang.value}`,
+    `footerMenu-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer-menu`, {
           params: {
             pLevel: 4,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
+            ...(locale.value !== "it" ? { locale: locale.value } : {}),
           },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
 
-watch(currentLang, () => {
+watch(locale, () => {
   refreshFooter();
   refreshFooterMenu();
 });
@@ -89,7 +93,7 @@ const availableLanguages = [
                     }}</a>
                   <ul v-if="subItem.Items.length > 0">
                     <li v-for="childItem in subItem.Items" :key="childItem.Title">
-                      <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${childItem.Url}`" :target="childItem.Target">{{
+                      <a :href="`${locale !== 'it' ? '/' + locale : ''}${childItem.Url}`" :target="childItem.Target">{{
                           childItem.Title
                         }}</a>
                     </li>
@@ -116,14 +120,14 @@ const availableLanguages = [
         <div class="col">
           <div class="lang">
             <div @click="toggleDropdown" class="selected">
-              {{ currentLang.toUpperCase() }}
+              {{ locale.toUpperCase() }}
             </div>
             <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
                 <li v-for="lang in availableLanguages" :key="lang.code">
                   <a
                       :href="lang.code !== 'it' ?  '/'+lang.code : '/'"
-                      @click.prevent="changeLanguage(lang.code)"
+                      @click.prevent="switchLocalePath(lang.code)"
                       :hreflang="lang.code+'-CH'"
                       rel="alternate"
                   >

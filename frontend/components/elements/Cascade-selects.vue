@@ -19,13 +19,13 @@ defineProps({
 const router = useRouter();
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase;
-const { currentLang } = useLanguage();
+const { locale } = useI18n();
 
-const { data: brandsData } = await useAsyncData(`brands-${currentLang.value}`, () =>
+const { data: brandsData } = await useAsyncData(`brands-${locale.value}`, () =>
     $fetch(`${apiBase}/brands`, {
       params: {
         pLevel: 2,
-        ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
+        ...(locale.value !== "it" ? { locale: locale.value } : {})
       },
     })
 );
@@ -50,7 +50,7 @@ const fetchProducts = async () => {
     params: {
       "filters[brand][id][$eq]": selectedBrand.value,
       pLevel: 2,
-      ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
+      ...(locale.value !== "it" ? { locale: locale.value } : {})
     },
   });
 
@@ -69,7 +69,7 @@ const fetchDevices = async () => {
     params: {
       "filters[product][id][$eq]": selectedProduct.value,
       pLevel: 2,
-      ...(currentLang.value !== "it" ? { locale: currentLang.value } : {})
+      ...(locale.value !== "it" ? { locale: locale.value } : {})
     },
   });
 
