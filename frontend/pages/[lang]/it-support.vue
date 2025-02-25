@@ -1,8 +1,6 @@
 <script setup>
 import { watch } from 'vue'
 
-definePageMeta({ middleware: 'lang' })
-import { useLanguage } from "@/composables/useLanguage";
 import Breadcrumbs from "@/components/sections/Breadcrumbs.vue";
 import SeoHead from '~/components/SeoHead.vue'
 

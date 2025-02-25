@@ -1,15 +1,13 @@
 <script setup>
-import { useLanguageStore } from "@/store/language";
+import { useI18n } from 'vue-i18n';
 import { useHead } from '#app';
 
-const languageStore = useLanguageStore();
-const currentLang = computed(() => languageStore.currentLang)
-
+const { locale, locales } = useI18n();
 
 const langAttribute = computed(() => {
-  return `${currentLang.value}-CH`
-})
-
+  const langConfig = locales.value.find(l => l.code === locale.value);
+  return langConfig?.language || locale.value;
+});
 
 useHead({
   htmlAttrs: {
@@ -23,7 +21,7 @@ useHead({
       tagPriority: 999
     }
   ]
-})
+});
 </script>
 <template>
   <NuxtLayout>

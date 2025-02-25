@@ -7,8 +7,7 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { useLanguage } from "@/composables/useLanguage";
-import { watch } from "vue";
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 
 const config = useRuntimeConfig();
 const { locale, locales }= useI18n();
@@ -46,7 +45,18 @@ const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
     { watch: [locale], server: true }
 );
 
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.lang') && !event.target.classList.contains('selected')) {
+    dropdownActive.value = false;
+  }
+};
 
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 watch(locale, () => {
   refreshFooter();
   refreshFooterMenu();
@@ -124,15 +134,10 @@ const availableLanguages = [
             </div>
             <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
-                <li v-for="lang in availableLanguages" :key="lang.code">
-                  <a
-                      :href="lang.code !== 'it' ?  '/'+lang.code : '/'"
-                      @click.prevent="switchLocalePath(lang.code)"
-                      :hreflang="lang.code+'-CH'"
-                      rel="alternate"
-                  >
-                    {{ lang.label }}
-                  </a>
+                <li v-for="locale in availableLocales" :key="locale.code">
+                  <NuxtLink :to="switchLocalePath(locale.code)">
+                    {{ locale.name }}
+                  </NuxtLink>
                 </li>
               </ul>
             </div>

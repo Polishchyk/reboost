@@ -7,7 +7,6 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { useLanguage } from '@/composables/useLanguage';
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';

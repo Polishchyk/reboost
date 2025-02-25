@@ -1,5 +1,4 @@
 <script setup>
-import { useLanguage } from '@/composables/useLanguage';
 import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 const config = useRuntimeConfig();
 const { locale, locales } = useI18n();

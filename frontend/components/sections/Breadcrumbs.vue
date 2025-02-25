@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { useLanguage } from '@/composables/useLanguage';
 import { useAsyncData, useRuntimeConfig } from '#imports';
 
 const props = defineProps({

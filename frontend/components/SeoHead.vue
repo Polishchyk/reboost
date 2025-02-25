@@ -1,6 +1,7 @@
 <script setup>
-import { useLanguage } from '@/composables/useLanguage';
-const { locale } = useI18n();
+import { useI18n } from 'vue-i18n';
+const { locale, locales, defaultLocale } = useI18n();
+
 const props = defineProps({
   seo: Object
 });
@@ -12,17 +13,19 @@ const baseUrl = process.server
     ? useRequestURL().origin
     : window.location.origin;
 
-const languages = ["de", "en", "fr", "it"];
+const languages = locales.value.map(l => l.code);
+const currentPath = route.path.replace(/^\/(de|en|fr|it)/, '').replace(/\/$/, '') || '';
 
-const currentPath = route.path.replace(/^\/(de|en|fr|it)/, "").replace(/\/$/, "") || "";
+const alternateLinks = languages.map(lang => {
+  const langConfig = locales.value.find(l => l.code === lang);
+  return {
+    rel: 'alternate',
+    href: `${baseUrl}/${lang === defaultLocale ? '' : lang}${currentPath}`,
+    hreflang: langConfig?.language || lang
+  };
+});
 
-const alternateLinks = languages.map((lang) => ({
-  rel: "alternate",
-  href: `${baseUrl}/${lang === "it" ? "" : lang}${currentPath}`,
-  hreflang: `${lang}-CH`
-}));
-
-const canonicalUrl = `${baseUrl}/${locale.value !== "it" ? locale.value : ""}${currentPath}`;
+const canonicalUrl = `${baseUrl}/${locale.value !== defaultLocale ? locale.value : ''}${currentPath}`;
 
 if (props.seo) {
   useHead({

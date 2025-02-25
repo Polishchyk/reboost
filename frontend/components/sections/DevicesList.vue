@@ -6,7 +6,6 @@ export default defineComponent({
 })
 </script>
 <script setup>
-import { useLanguage } from '@/composables/useLanguage'
 
 defineProps({
   data: Object,
