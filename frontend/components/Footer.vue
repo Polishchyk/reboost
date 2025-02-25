@@ -21,7 +21,7 @@ const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-const { data: footerData, refresh: refreshFooter } = await useAsyncData(
+const { data: footerData} = await useAsyncData(
     `footer-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer`, {
@@ -33,7 +33,7 @@ const { data: footerData, refresh: refreshFooter } = await useAsyncData(
     { watch: [locale], server: true }
 );
 
-const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
+const { data: footerMenuData} = await useAsyncData(
     `footerMenu-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer-menu`, {
@@ -57,17 +57,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
 });
-watch(locale, () => {
-  refreshFooter();
-  refreshFooterMenu();
-});
-
-const availableLanguages = [
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-  { code: "it", label: "Italiano" },
-  { code: "fr", label: "Français" },
-];
 </script>
 
 <template>

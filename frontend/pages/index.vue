@@ -19,7 +19,7 @@ const localeParam = computed(() =>
     locale.value !== "it" ? { locale: locale.value } : {}
 );
 
-const { data: HomePageData, refresh, error } = await useAsyncData(
+const { data: HomePageData} = await useAsyncData(
     `index-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/home-page`, {
@@ -27,9 +27,6 @@ const { data: HomePageData, refresh, error } = await useAsyncData(
         }),
     { watch: [localeParam], server: true  }
 );
-watch(locale, () => {
-  refresh();
-});
 </script>
 
 <template>

@@ -12,7 +12,7 @@ const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-const { data: globalData, refresh: refreshHeadIcon } = await useAsyncData(`globalData-${locale.value}`, () =>
+const { data: globalData } = await useAsyncData(`globalData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/global`, {
           params: { pLevel: 3 },
         }),
@@ -39,25 +39,19 @@ useHead({
   ],
 });
 
-const { data: headerData, refresh: refreshHeader } = await useAsyncData(`headerData-${locale.value}`, () =>
+const { data: headerData} = await useAsyncData(`headerData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/header`, {
           params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
 
-const { data: mainMenuData, refresh: refreshMainMenuData } = await useAsyncData(`mainMenuData-${locale.value}`, () =>
+const { data: mainMenuData} = await useAsyncData(`mainMenuData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/main-menu`, {
           params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
-
-watch(locale, () => {
-  refreshHeader();
-  refreshMainMenuData();
-  refreshHeadIcon();
-});
 
 const menuActive = ref(false);
 const scrollPos = ref(0);
