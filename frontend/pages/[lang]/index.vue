@@ -1,5 +1,4 @@
 <script setup>
-import { watch } from 'vue'
 
 import SeoHead from "@/components/SeoHead.vue";
 import MainOffer from "@/components/sections/MainOffer.vue";

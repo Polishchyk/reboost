@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAsyncData, useRuntimeConfig } from '#imports';
 

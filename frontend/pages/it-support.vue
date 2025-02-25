@@ -1,5 +1,4 @@
 <script setup>
-import { watch } from 'vue'
 
 import Breadcrumbs from "@/components/sections/Breadcrumbs.vue";
 import SeoHead from '~/components/SeoHead.vue'
@@ -7,17 +6,13 @@ import SeoHead from '~/components/SeoHead.vue'
 const config = useRuntimeConfig();
 const { locale } = useI18n();
 
-const localeParam = computed(() =>
-    locale.value !== "it" ? { locale: locale.value } : {}
-);
-
 const { data: ITSupportPageData} = await useAsyncData(
     `it-support-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/it-support`, {
-          params: { pLevel: 4, ...localeParam.value },
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
-    { watch: [localeParam], server: true  }
+    { watch: [locale], server: true  }
 );
 
 </script>
@@ -25,7 +20,7 @@ const { data: ITSupportPageData} = await useAsyncData(
 <template>
   <div v-if="ITSupportPageData">
     <SeoHead :seo="ITSupportPageData?.data?.SEO" />
-    <!--<Breadcrumbs :currentPageTitle="'Breadcrumbs'" :css-class="'bg2'"/>-->
+    <Breadcrumbs :currentPageTitle="'Breadcrumbs'" :css-class="'bg2'"/>
 
   <div class="sect-support">
     <div class="wrap">

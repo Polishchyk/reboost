@@ -1,5 +1,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
+import { useRoute } from '#imports'
+
+const route = useRoute();
 const config = useRuntimeConfig();
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
@@ -73,6 +76,20 @@ const handleClickOutside = (event) => {
   }
 };
 
+const localizedUrl = (url) => {
+  return locale.value !== 'it' ? `/${locale.value}${url}` : url
+}
+
+const isInternalLink = (url) => {
+  return url.startsWith('/') && !url.startsWith('http')
+}
+
+const isActive = (url) => {
+  const currentPath = route.path
+  const localizedUrlPath = localizedUrl(url)
+  return currentPath === localizedUrlPath
+}
+
 onMounted(() => {
   if (analyticsCode.value) {
     const tempDiv = document.createElement('div');
@@ -106,19 +123,47 @@ onBeforeUnmount(() => {
                 <a @click.prevent="false">{{ itemMenu.Title }}</a>
                 <div class="submenu" v-if="itemMenu.menu_sections.length > 0">
                   <ul v-for="subItem in itemMenu.menu_sections" :key="subItem.id">
-                    <template v-if="subItem.Title !== null">
+                    <template v-if="subItem.Title">
                       <li class="title">{{ subItem.Title }}</li>
                     </template>
                     <template v-if="subItem.Items.length > 0">
                       <li v-for="childItem in subItem.Items" :key="childItem.id">
-                        <a :href="`${locale !== 'it' ? '/' + locale : ''}${childItem.Url}`" :target="childItem.Target">{{ childItem.Title }}</a>
+                        <nuxt-link
+                            v-if="isInternalLink(childItem.Url)"
+                            :to="localizedUrl(childItem.Url)"
+                            :class="{'active': isActive(childItem.Url)}"
+                        >
+                          {{ childItem.Title }}
+                        </nuxt-link>
+                        <a
+                            v-else
+                            :href="childItem.Url"
+                            :target="childItem.Target"
+                            :class="{'active': isActive(childItem.Url)}"
+                        >
+                          {{ childItem.Title }}
+                        </a>
                       </li>
                     </template>
                   </ul>
                 </div>
               </template>
               <template v-else>
-                <a :href="`${locale !== 'it' ? '/' + locale : ''}${itemMenu.Url}`" :target="itemMenu.Target">{{ itemMenu.Title }}</a>
+                <nuxt-link
+                    v-if="isInternalLink(itemMenu.Url)"
+                    :to="localizedUrl(itemMenu.Url)"
+                    :class="{'active': isActive(itemMenu.Url)}"
+                >
+                  {{ itemMenu.Title }}
+                </nuxt-link>
+                <a
+                    v-else
+                    :href="itemMenu.Url"
+                    :target="itemMenu.Target"
+                    :class="{'active': isActive(itemMenu.Url)}"
+                >
+                  {{ itemMenu.Title }}
+                </a>
               </template>
             </li>
           </ul>

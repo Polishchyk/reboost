@@ -8,6 +8,9 @@ export default defineComponent({
 
 <script setup>
 import { onBeforeUnmount, onMounted, watch } from 'vue'
+import { useRoute } from '#imports'
+
+const route = useRoute();
 
 const config = useRuntimeConfig();
 const { locale, locales }= useI18n();
@@ -51,6 +54,20 @@ const handleClickOutside = (event) => {
   }
 };
 
+const localizedUrl = (url) => {
+  return locale.value !== 'it' ? `/${locale.value}${url}` : url
+}
+
+const isInternalLink = (url) => {
+  return url.startsWith('/') && !url.startsWith('http')
+}
+
+const isActive = (url) => {
+  const currentPath = route.path
+  const localizedUrlPath = localizedUrl(url)
+  return currentPath === localizedUrlPath
+}
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside);
 });
@@ -87,14 +104,24 @@ onBeforeUnmount(() => {
               <div class="cap">{{ itemMenu.Title }}</div>
               <ul v-if="itemMenu.menu_sections.length > 0">
                 <li v-for="subItem in itemMenu.menu_sections" :key="subItem.Title">
-                  <a v-if="subItem.Title" @click.prevent="false">{{
-                      subItem.Title
-                    }}</a>
+                  <a v-if="subItem.Title" @click.prevent="false">{{ subItem.Title }}</a>
                   <ul v-if="subItem.Items.length > 0">
                     <li v-for="childItem in subItem.Items" :key="childItem.Title">
-                      <a :href="`${locale !== 'it' ? '/' + locale : ''}${childItem.Url}`" :target="childItem.Target">{{
-                          childItem.Title
-                        }}</a>
+                      <nuxt-link
+                          v-if="isInternalLink(childItem.Url)"
+                          :to="localizedUrl(childItem.Url)"
+                          :class="{'active': isActive(childItem.Url)}"
+                      >
+                        {{ childItem.Title }}
+                      </nuxt-link>
+                      <a
+                          v-else
+                          :href="childItem.Url"
+                          :target="childItem.Target"
+                          :class="{'active': isActive(childItem.Url)}"
+                      >
+                        {{ childItem.Title }}
+                      </a>
                     </li>
                   </ul>
                 </li>
