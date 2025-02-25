@@ -16,14 +16,13 @@
       "type": "string",
       "required": true
     },
-    "favicon": {
+    "favicon_ico": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
-        "files",
-        "videos"
+        "files"
       ]
     },
     "siteDescription": {
@@ -32,6 +31,24 @@
     },
     "analytics_code": {
       "type": "richtext"
+    },
+    "apple_touch_icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "icon_svg": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }

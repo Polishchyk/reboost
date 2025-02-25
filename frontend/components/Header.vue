@@ -24,11 +24,21 @@ const { data: globalData } = await useAsyncData(`globalData-${locale.value}`, ()
 
 const faviconUrl = ref("/favicon.ico");
 const analyticsCode = ref(globalData.value?.data?.analytics_code || '');
+const apple_touch_icon = ref('');
+const icon_svg = ref('');
 
 watchEffect(() => {
-  const newFaviconUrl = globalData.value?.data?.favicon?.url;
+  const newFaviconUrl = globalData.value?.data?.favicon_ico?.url;
+  const newApple_touch_icon = globalData.value?.data?.apple_touch_icon?.url;
+  const newIcon_svg = globalData.value?.data?.icon_svg?.url;
   if (newFaviconUrl) {
-    faviconUrl.value = `${config.public.publicUrl}${newFaviconUrl}?v=${Date.now()}`;
+    faviconUrl.value = `${config.public.publicUrl}${newFaviconUrl}`;
+  }
+  if (newApple_touch_icon) {
+    apple_touch_icon.value = `${config.public.publicUrl}${newApple_touch_icon}`;
+  }
+  if (newIcon_svg) {
+    icon_svg.value = `${config.public.publicUrl}${newIcon_svg}`;
   }
 });
 
@@ -38,6 +48,16 @@ useHead({
       rel: "icon",
       type: "image/x-icon",
       href: faviconUrl.value,
+    },
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: apple_touch_icon.value,
+    },
+    {
+      rel: "icon",
+      type: "image/svg+xml",
+      href: icon_svg.value,
     },
   ],
 });
