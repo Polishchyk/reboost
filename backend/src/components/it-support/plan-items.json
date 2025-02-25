@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_it_support_plan_items",
+  "info": {
+    "displayName": "Plan items",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "plan_options": {
+      "displayName": "Plan options",
+      "type": "component",
+      "repeatable": true,
+      "component": "it-support.plan-options",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.link",
+      "required": true
+    },
+    "plan_includes": {
+      "displayName": "Plan Includes",
+      "type": "component",
+      "repeatable": true,
+      "component": "it-support.plan-includes",
+      "required": true
+    },
+    "isBest": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

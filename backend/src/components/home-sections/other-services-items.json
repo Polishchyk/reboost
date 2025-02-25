@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_home_sections_other_services_items",
+  "info": {
+    "displayName": "Other services Items"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

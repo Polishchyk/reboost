@@ -135,6 +135,16 @@ export interface HomeSectionsMainOffer extends Struct.ComponentSchema {
   };
 }
 
+export interface HomeSectionsOtherServicesItems extends Struct.ComponentSchema {
+  collectionName: 'components_home_sections_other_services_items';
+  info: {
+    displayName: 'Other services Items';
+  };
+  attributes: {
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface HomeSectionsPrinciple extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_principles';
   info: {
@@ -280,6 +290,165 @@ export interface HomeSectionsSolutions extends Struct.ComponentSchema {
   };
 }
 
+export interface ItSupportIssues extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_issues';
+  info: {
+    displayName: 'Issues';
+  };
+  attributes: {
+    Item: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportItManagementPlans extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_it_management_plans';
+  info: {
+    displayName: 'IT Management Plans';
+  };
+  attributes: {
+    plan_item: Schema.Attribute.Component<'it-support.plan-items', true> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportItServices extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_it_services';
+  info: {
+    displayName: 'IT services';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    service_items: Schema.Attribute.Component<
+      'it-support.service-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportOnlineAccess extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_online_accesses';
+  info: {
+    description: '';
+    displayName: 'Online access';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    online_access_items: Schema.Attribute.Component<
+      'it-support.online-access-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportOnlineAccessItems extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_online_access_items';
+  info: {
+    displayName: 'Online access items';
+  };
+  attributes: {
+    SvgImage: Schema.Attribute.Text & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    Url: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportOtherServices extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_other_services';
+  info: {
+    description: '';
+    displayName: 'Other services';
+  };
+  attributes: {
+    other_services_items: Schema.Attribute.Component<
+      'home-sections.other-services-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportPlanIncludes extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_plan_includes';
+  info: {
+    displayName: 'Plan Includes';
+  };
+  attributes: {
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportPlanItems extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_plan_items';
+  info: {
+    description: '';
+    displayName: 'Plan items';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    isBest: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    plan_includes: Schema.Attribute.Component<
+      'it-support.plan-includes',
+      true
+    > &
+      Schema.Attribute.Required;
+    plan_options: Schema.Attribute.Component<'it-support.plan-options', true> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportPlanOptions extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_plan_options';
+  info: {
+    displayName: 'Plan options';
+  };
+  attributes: {
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportServiceItems extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_service_items';
+  info: {
+    displayName: 'Service items';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ItSupportServiceText extends Struct.ComponentSchema {
+  collectionName: 'components_it_support_service_texts';
+  info: {
+    displayName: 'Service Text';
+  };
+  attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ItSupportSupport extends Struct.ComponentSchema {
   collectionName: 'components_it_support_supports';
   info: {
@@ -287,6 +456,17 @@ export interface ItSupportSupport extends Struct.ComponentSchema {
     displayName: 'Support';
   };
   attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Head: Schema.Attribute.Text & Schema.Attribute.Required;
+    Issues: Schema.Attribute.Component<'it-support.issues', true> &
+      Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -471,6 +651,7 @@ declare module '@strapi/strapi' {
       'home-sections.faq-items': HomeSectionsFaqItems;
       'home-sections.info-text': HomeSectionsInfoText;
       'home-sections.main-offer': HomeSectionsMainOffer;
+      'home-sections.other-services-items': HomeSectionsOtherServicesItems;
       'home-sections.principle': HomeSectionsPrinciple;
       'home-sections.principles-item-list': HomeSectionsPrinciplesItemList;
       'home-sections.principles-items': HomeSectionsPrinciplesItems;
@@ -481,6 +662,17 @@ declare module '@strapi/strapi' {
       'home-sections.repair-centers-items': HomeSectionsRepairCentersItems;
       'home-sections.solution-items': HomeSectionsSolutionItems;
       'home-sections.solutions': HomeSectionsSolutions;
+      'it-support.issues': ItSupportIssues;
+      'it-support.it-management-plans': ItSupportItManagementPlans;
+      'it-support.it-services': ItSupportItServices;
+      'it-support.online-access': ItSupportOnlineAccess;
+      'it-support.online-access-items': ItSupportOnlineAccessItems;
+      'it-support.other-services': ItSupportOtherServices;
+      'it-support.plan-includes': ItSupportPlanIncludes;
+      'it-support.plan-items': ItSupportPlanItems;
+      'it-support.plan-options': ItSupportPlanOptions;
+      'it-support.service-items': ItSupportServiceItems;
+      'it-support.service-text': ItSupportServiceText;
       'it-support.support': ItSupportSupport;
       'menu.link': MenuLink;
       'menu.menu-sub-items': MenuMenuSubItems;

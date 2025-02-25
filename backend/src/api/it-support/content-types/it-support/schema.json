@@ -47,6 +47,75 @@
       },
       "component": "shared.seo",
       "required": true
+    },
+    "it_services": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.it-services"
+    },
+    "other_services": {
+      "displayName": "Other services",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.other-services",
+      "required": true
+    },
+    "service_text": {
+      "displayName": "Service Text",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.service-text",
+      "required": true
+    },
+    "it_management_plans": {
+      "displayName": "IT Management Plans",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.it-management-plans",
+      "required": true
+    },
+    "FAQ": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "home-sections.faq",
+      "required": true
+    },
+    "online_access": {
+      "displayName": "Online access",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "it-support.online-access",
+      "required": true
     }
   }
 }

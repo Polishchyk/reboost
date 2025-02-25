@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_it_support_it_services",
+  "info": {
+    "displayName": "IT services"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "service_items": {
+      "displayName": "Service items",
+      "type": "component",
+      "repeatable": true,
+      "component": "it-support.service-items",
+      "required": true
+    }
+  }
+}

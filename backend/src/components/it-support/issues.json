@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_it_support_issues",
+  "info": {
+    "displayName": "Issues"
+  },
+  "options": {},
+  "attributes": {
+    "Item": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

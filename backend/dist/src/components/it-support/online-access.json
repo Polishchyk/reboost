@@ -1,0 +1,25 @@
+{
+    "collectionName": "components_it_support_online_accesses",
+    "info": {
+        "displayName": "Online access",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "Description": {
+            "type": "text",
+            "required": true
+        },
+        "online_access_items": {
+            "displayName": "Online access items",
+            "type": "component",
+            "repeatable": true,
+            "component": "it-support.online-access-items",
+            "required": true
+        }
+    }
+}

@@ -58,10 +58,10 @@ onBeforeUnmount(() => {
   <div class="sect-faq">
     <div class="wrap">
       <div class="head-wrap">
-        <h2>{{ data.Title }}</h2>
-        <div class="sub">{{ data.Description }}</div>
+        <h2>{{ data?.Title }}</h2>
+        <div class="sub">{{ data?.Description }}</div>
       </div>
-      <template v-if="data.FAQItems.length > 0">
+      <template v-if="data?.FAQItems?.length > 0">
         <div class="questions">
           <div
               class="item"
@@ -69,10 +69,10 @@ onBeforeUnmount(() => {
               :key="index"
               :class="{ active: question.active }"
           >
-            <div class="question" @click="toggleFAQ(index)">{{ question.Question }}<i></i></div>
+            <div class="question" @click="toggleFAQ(index)">{{ question?.Question }}<i></i></div>
             <div class="answer-wrap">
               <div class="answer">
-                <p>{{ question.Answer }}</p>
+                <p>{{ question?.Answer }}</p>
               </div>
             </div>
           </div>
