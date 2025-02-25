@@ -6,12 +6,11 @@ export default defineComponent({
 })
 </script>
 <script setup>
-import { useLanguage } from '@/composables/useLanguage'
 
 defineProps({
   data: Object,
 });
-const {currentLang} = useLanguage();
+const {locale} = useI18n();
 const config = useRuntimeConfig();
 </script>
 
@@ -22,7 +21,7 @@ const config = useRuntimeConfig();
       <template v-if="data.DevicesListItems.length > 0">
         <div class="devices">
           <div class="item" v-for="device in data.DevicesListItems">
-            <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${device.Url}`">
+            <a :href="`${locale !== 'it' ? '/' + locale : ''}${device.Url}`">
               <div class="icon" v-html="device.SvgImage">
               </div>
               <div class="name">{{device.Title}}</div>

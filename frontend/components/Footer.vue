@@ -7,53 +7,56 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { useLanguage } from "@/composables/useLanguage";
-import { watch } from "vue";
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 
 const config = useRuntimeConfig();
-const { currentLang, changeLanguage } = useLanguage();
+const { locale, locales }= useI18n();
+const switchLocalePath = useSwitchLocalePath();
+const availableLocales = computed(() => {
+  return locales.value.filter(i => i.code !== locale.value)
+})
 
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-const { data: footerData, refresh: refreshFooter } = await useAsyncData(
-    `footer-${currentLang.value}`,
+const { data: footerData} = await useAsyncData(
+    `footer-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer`, {
           params: {
             pLevel: 3,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
+            ...(locale.value !== "it" ? { locale: locale.value } : {}),
           },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
-const { data: footerMenuData, refresh: refreshFooterMenu } = await useAsyncData(
-    `footerMenu-${currentLang.value}`,
+const { data: footerMenuData} = await useAsyncData(
+    `footerMenu-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/footer-menu`, {
           params: {
             pLevel: 4,
-            ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}),
+            ...(locale.value !== "it" ? { locale: locale.value } : {}),
           },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.lang') && !event.target.classList.contains('selected')) {
+    dropdownActive.value = false;
+  }
+};
 
-watch(currentLang, () => {
-  refreshFooter();
-  refreshFooterMenu();
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
 });
-
-const availableLanguages = [
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-  { code: "it", label: "Italiano" },
-  { code: "fr", label: "Français" },
-];
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
@@ -89,7 +92,7 @@ const availableLanguages = [
                     }}</a>
                   <ul v-if="subItem.Items.length > 0">
                     <li v-for="childItem in subItem.Items" :key="childItem.Title">
-                      <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${childItem.Url}`" :target="childItem.Target">{{
+                      <a :href="`${locale !== 'it' ? '/' + locale : ''}${childItem.Url}`" :target="childItem.Target">{{
                           childItem.Title
                         }}</a>
                     </li>
@@ -116,19 +119,14 @@ const availableLanguages = [
         <div class="col">
           <div class="lang">
             <div @click="toggleDropdown" class="selected">
-              {{ currentLang.toUpperCase() }}
+              {{ locale.toUpperCase() }}
             </div>
             <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
-                <li v-for="lang in availableLanguages" :key="lang.code">
-                  <a
-                      :href="lang.code !== 'it' ?  '/'+lang.code : '/'"
-                      @click.prevent="changeLanguage(lang.code)"
-                      :hreflang="lang.code+'-CH'"
-                      rel="alternate"
-                  >
-                    {{ lang.label }}
-                  </a>
+                <li v-for="locale in availableLocales" :key="locale.code">
+                  <NuxtLink :to="switchLocalePath(locale.code)">
+                    {{ locale.name }}
+                  </NuxtLink>
                 </li>
               </ul>
             </div>

@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { useLanguage } from '@/composables/useLanguage';
 import { useAsyncData, useRuntimeConfig } from '#imports';
 
 const props = defineProps({
@@ -20,13 +19,13 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const { currentLang, defaultLang } = useLanguage();
+const { locale, defaultLang } = useI18n();
 const config = useRuntimeConfig();
 
 // Отримуємо список назв сторінок з кастомного API Strapi
 const { data: pageTitles } = await useAsyncData(() =>
     $fetch(`${config.public.apiBase}/page-titles`, {
-      params: { locale: currentLang.value }
+      params: { locale: locale.value }
     })
 );
 
@@ -34,7 +33,7 @@ const { data: pageTitles } = await useAsyncData(() =>
 const fetchDynamicTitle = async (collection, slug, field) => {
   try {
     const response = await $fetch(`${config.public.apiBase}/${collection}`, {
-      params: { locale: currentLang.value, filters: { slug } }
+      params: { locale: locale.value, filters: { slug } }
     });
     return response?.data?.[0]?.attributes?.[field] || slug;
   } catch (error) {
@@ -45,7 +44,7 @@ const fetchDynamicTitle = async (collection, slug, field) => {
 // Видаляємо мовний префікс, якщо він є
 const getPathSegments = () => {
   const segments = route.path.split('/').filter(segment => segment);
-  if (segments[0] === currentLang.value && currentLang.value !== defaultLang) {
+  if (segments[0] === locale.value && locale.value !== defaultLang) {
     return segments.slice(1);
   }
   return segments;
@@ -86,7 +85,7 @@ watchEffect(() => {
   <div class="breadcrumbs" :class="cssClass ?? ''">
     <div class="wrap">
       <div class="nav">
-        <nuxt-link :to="currentLang !== defaultLang ? `/${currentLang}` : '/'">Home</nuxt-link>
+        <nuxt-link :to="locale !== defaultLang ? `/${locale}` : '/'">Home</nuxt-link>
         <template v-for="(crumb, index) in breadcrumbs" :key="index">
           <nuxt-link v-if="crumb.to" :to="crumb.to">{{ crumb.text }}</nuxt-link>
           <span v-else>{{ crumb.text }}</span>

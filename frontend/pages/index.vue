@@ -1,8 +1,6 @@
 <script setup>
 import { watch } from 'vue'
 
-definePageMeta({ middleware: 'lang' })
-import { useLanguage } from "@/composables/useLanguage";
 import SeoHead from "@/components/SeoHead.vue";
 import MainOffer from "@/components/sections/MainOffer.vue";
 import DevicesList from "@/components/sections/DevicesList.vue";
@@ -15,23 +13,20 @@ import FAQ from "@/components/sections/FAQ.vue";
 import InfoText from "@/components/sections/InfoText.vue";
 
 const config = useRuntimeConfig();
-const { currentLang } = useLanguage();
+const { locale } = useI18n();
 
 const localeParam = computed(() =>
-    currentLang.value !== "it" ? { locale: currentLang.value } : {}
+    locale.value !== "it" ? { locale: locale.value } : {}
 );
 
-const { data: HomePageData, refresh, error } = await useAsyncData(
-    `index-${currentLang.value}`,
+const { data: HomePageData} = await useAsyncData(
+    `index-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/home-page`, {
           params: { pLevel: 4, ...localeParam.value },
         }),
     { watch: [localeParam], server: true  }
 );
-watch(currentLang, () => {
-  refresh();
-});
 </script>
 
 <template>

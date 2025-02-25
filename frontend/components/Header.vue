@@ -1,19 +1,22 @@
 <script setup>
-import { useLanguage } from '@/composables/useLanguage';
 import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
 const config = useRuntimeConfig();
-const { currentLang, changeLanguage } = useLanguage();
+const { locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
+const availableLocales = computed(() => {
+  return locales.value.filter(i => i.code !== locale.value)
+})
 
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
 
-const { data: globalData, refresh: refreshHeadIcon } = await useAsyncData(`globalData-${currentLang.value}`, () =>
+const { data: globalData } = await useAsyncData(`globalData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/global`, {
           params: { pLevel: 3 },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
 const faviconUrl = ref("/favicon.ico");
@@ -36,32 +39,19 @@ useHead({
   ],
 });
 
-const { data: headerData, refresh: refreshHeader } = await useAsyncData(`headerData-${currentLang.value}`, () =>
+const { data: headerData} = await useAsyncData(`headerData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/header`, {
-          params: { pLevel: 3, ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}) },
+          params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
 
-const { data: mainMenuData, refresh: refreshMainMenuData } = await useAsyncData(`mainMenuData-${currentLang.value}`, () =>
+const { data: mainMenuData} = await useAsyncData(`mainMenuData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/main-menu`, {
-          params: { pLevel: 4, ...(currentLang.value !== "it" ? { locale: currentLang.value } : {}) },
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
-    { watch: [currentLang], server: true }
+    { watch: [locale], server: true }
 );
-
-watch(currentLang, () => {
-  refreshHeader();
-  refreshMainMenuData();
-  refreshHeadIcon();
-});
-
-const availableLanguages = [
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-  { code: "it", label: "Italiano" },
-  { code: "fr", label: "Français" },
-];
 
 const menuActive = ref(false);
 const scrollPos = ref(0);
@@ -121,14 +111,14 @@ onBeforeUnmount(() => {
                     </template>
                     <template v-if="subItem.Items.length > 0">
                       <li v-for="childItem in subItem.Items" :key="childItem.id">
-                        <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${childItem.Url}`" :target="childItem.Target">{{ childItem.Title }}</a>
+                        <a :href="`${locale !== 'it' ? '/' + locale : ''}${childItem.Url}`" :target="childItem.Target">{{ childItem.Title }}</a>
                       </li>
                     </template>
                   </ul>
                 </div>
               </template>
               <template v-else>
-                <a :href="`${currentLang !== 'it' ? '/' + currentLang : ''}${itemMenu.Url}`" :target="itemMenu.Target">{{ itemMenu.Title }}</a>
+                <a :href="`${locale !== 'it' ? '/' + locale : ''}${itemMenu.Url}`" :target="itemMenu.Target">{{ itemMenu.Title }}</a>
               </template>
             </li>
           </ul>
@@ -137,18 +127,13 @@ onBeforeUnmount(() => {
           <a :href="'tel:' + headerData?.data?.Phone">{{ headerData?.data?.Phone }}</a>
         </div>
         <div class="lang">
-          <div @click="toggleDropdown" class="selected">{{ currentLang.toUpperCase() }}</div>
+          <div @click="toggleDropdown" class="selected">{{ locale.toUpperCase() }}</div>
           <div class="dropdown" :class="{ active: dropdownActive }">
             <ul>
-              <li v-for="item in headerData?.data?.menu_section.Items" :key="item.id">
-                <a
-                    :href="item.Url !== 'it' ?  '/'+item.Url : '/'"
-                    @click.prevent="changeLanguage(item.Url)"
-                    :hreflang="item.Url+'-CH'"
-                    rel="alternate"
-                >
-                  {{ item.Title }}
-                </a>
+              <li v-for="locale in availableLocales" :key="locale.code">
+                <NuxtLink :to="switchLocalePath(locale.code)">
+                  {{ locale.name }}
+                </NuxtLink>
               </li>
             </ul>
           </div>

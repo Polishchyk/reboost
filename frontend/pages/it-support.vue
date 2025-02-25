@@ -1,29 +1,24 @@
 <script setup>
 import { watch } from 'vue'
 
-definePageMeta({ middleware: 'lang' })
-import { useLanguage } from "@/composables/useLanguage";
 import Breadcrumbs from "@/components/sections/Breadcrumbs.vue";
 import SeoHead from '~/components/SeoHead.vue'
 
 const config = useRuntimeConfig();
-const { currentLang } = useLanguage();
+const { locale } = useI18n();
 
 const localeParam = computed(() =>
-    currentLang.value !== "it" ? { locale: currentLang.value } : {}
+    locale.value !== "it" ? { locale: locale.value } : {}
 );
 
-const { data: ITSupportPageData, refresh, error } = await useAsyncData(
-    `it-support-${currentLang.value}`,
+const { data: ITSupportPageData} = await useAsyncData(
+    `it-support-${locale.value}`,
     () =>
         $fetch(`${config.public.apiBase}/it-support`, {
           params: { pLevel: 4, ...localeParam.value },
         }),
     { watch: [localeParam], server: true  }
 );
-watch(currentLang, () => {
-  refresh();
-});
 
 </script>
 
@@ -35,7 +30,7 @@ watch(currentLang, () => {
   <div class="sect-support">
     <div class="wrap">
       <div class="content">
-        <h1>Business IT Support Services in Ticino</h1>
+        <h1>{{ITSupportPageData?.data?.Support?.title}}</h1>
         <div class="sub">
           <p>Reboost provides 24/7 remote IT support for businesses across the UK and worldwide, ensuring your hardware and software operate efficiently while minimizing downtime.</p>
           <p>Our IT consultants help you maximize the value of your business-critical software, whether you’re starting out, switching systems, or optimizing tools to boost productivity and enhance customer service.</p>
