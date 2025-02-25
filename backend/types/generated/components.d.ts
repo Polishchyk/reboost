@@ -503,6 +503,98 @@ export interface MenuMenuSubItems extends Struct.ComponentSchema {
   };
 }
 
+export interface PhoneProtectionComparison extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_comparisons';
+  info: {
+    displayName: 'Comparison';
+  };
+  attributes: {
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    labels: Schema.Attribute.Component<'phone-protection.labels', true> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionFilmInstallation
+  extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_film_installations';
+  info: {
+    displayName: 'Film-installation';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionHowDoesItWork extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_how_does_it_work_s';
+  info: {
+    displayName: 'How does it work?';
+  };
+  attributes: {
+    text_cols: Schema.Attribute.Component<'phone-protection.text-cols', true> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionIllustration extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_illustrations';
+  info: {
+    displayName: 'Illustration';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionLabels extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_labels';
+  info: {
+    displayName: 'Labels';
+  };
+  attributes: {
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionPlans extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_plans';
+  info: {
+    displayName: 'Plans';
+  };
+  attributes: {
+    Price: Schema.Attribute.String & Schema.Attribute.Required;
+    Title: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionTextBox extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_text_boxes';
+  info: {
+    displayName: 'Text-box';
+  };
+  attributes: {
+    Subtitle: Schema.Attribute.String & Schema.Attribute.Required;
+    Subtitle2: Schema.Attribute.Text & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneProtectionTextCols extends Struct.ComponentSchema {
+  collectionName: 'components_phone_protection_text_cols';
+  info: {
+    displayName: 'Text-cols';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -675,6 +767,14 @@ declare module '@strapi/strapi' {
       'it-support.support': ItSupportSupport;
       'menu.link': MenuLink;
       'menu.menu-sub-items': MenuMenuSubItems;
+      'phone-protection.comparison': PhoneProtectionComparison;
+      'phone-protection.film-installation': PhoneProtectionFilmInstallation;
+      'phone-protection.how-does-it-work': PhoneProtectionHowDoesItWork;
+      'phone-protection.illustration': PhoneProtectionIllustration;
+      'phone-protection.labels': PhoneProtectionLabels;
+      'phone-protection.plans': PhoneProtectionPlans;
+      'phone-protection.text-box': PhoneProtectionTextBox;
+      'phone-protection.text-cols': PhoneProtectionTextCols;
       'shared.media': SharedMedia;
       'shared.open-graph': SharedOpenGraph;
       'shared.quote': SharedQuote;

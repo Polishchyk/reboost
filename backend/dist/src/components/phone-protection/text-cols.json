@@ -1,0 +1,13 @@
+{
+    "collectionName": "components_phone_protection_text_cols",
+    "info": {
+        "displayName": "Text-cols"
+    },
+    "options": {},
+    "attributes": {
+        "Description": {
+            "type": "text",
+            "required": true
+        }
+    }
+}

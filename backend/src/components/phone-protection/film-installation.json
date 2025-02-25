@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_phone_protection_film_installations",
+  "info": {
+    "displayName": "Film-installation"
+  },
+  "options": {},
+  "attributes": {
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "Title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

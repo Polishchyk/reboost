@@ -1,0 +1,159 @@
+{
+  "kind": "singleType",
+  "collectionName": "phone_protections",
+  "info": {
+    "singularName": "phone-protection",
+    "pluralName": "phone-protections",
+    "displayName": "Phone Protection",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
+    },
+    "Phone_Protection_Plans": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "illustration": {
+      "displayName": "Illustration",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.illustration",
+      "required": true
+    },
+    "plans": {
+      "displayName": "Plans",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.plans",
+      "required": true
+    },
+    "phone_protection_plan_year": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "illustration_other": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.illustration",
+      "required": true
+    },
+    "text_box": {
+      "displayName": "Text-box",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.text-box",
+      "required": true
+    },
+    "Subtitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "Plans2": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.plans",
+      "required": true
+    },
+    "how_does_it_work": {
+      "displayName": "How does it work?",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.how-does-it-work",
+      "required": true
+    },
+    "film_installation": {
+      "displayName": "Film-installation",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.film-installation",
+      "required": true
+    },
+    "comparison": {
+      "displayName": "Comparison",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "phone-protection.comparison",
+      "required": true
+    }
+  }
+}

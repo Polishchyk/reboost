@@ -5,9 +5,9 @@ export default {
     const { locale } = ctx.query;
 
     /*type ModelType = 'about.about' | 'home-page.home-page';*/
-    type ModelType = 'about.about' | 'it-support.it-support';
+    type ModelType = 'phone-protection.phone-protection' | 'it-support.it-support';
     /*const models: ModelType[] = ['about.about', 'home-page.home-page'];*/
-    const models: ModelType[] = ['about.about', 'it-support.it-support'];
+    const models: ModelType[] = ['phone-protection.phone-protection', 'it-support.it-support'];
 
     const result: Record<string, string> = {};
 

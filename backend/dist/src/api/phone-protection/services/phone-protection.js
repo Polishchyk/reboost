@@ -1,7 +1,7 @@
 "use strict";
 /**
- * about router.
+ * phone-protection service
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const strapi_1 = require("@strapi/strapi");
-exports.default = strapi_1.factories.createCoreRouter('api::about.about');
+exports.default = strapi_1.factories.createCoreService('api::phone-protection.phone-protection');

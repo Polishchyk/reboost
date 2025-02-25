@@ -1,0 +1,17 @@
+{
+    "collectionName": "components_phone_protection_plans",
+    "info": {
+        "displayName": "Plans"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "text",
+            "required": true
+        },
+        "Price": {
+            "type": "string",
+            "required": true
+        }
+    }
+}
