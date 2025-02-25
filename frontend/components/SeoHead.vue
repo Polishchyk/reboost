@@ -1,10 +1,12 @@
 <script setup>
 import { useI18n } from 'vue-i18n';
+
 const { locale, locales, defaultLocale } = useI18n();
 
 const props = defineProps({
   seo: Object
 });
+
 
 const route = useRoute();
 const runtimeConfig = useRuntimeConfig();
@@ -14,18 +16,26 @@ const baseUrl = process.server
     : window.location.origin;
 
 const languages = locales.value.map(l => l.code);
-const currentPath = route.path.replace(/^\/(de|en|fr|it)/, '').replace(/\/$/, '') || '';
+
+const pathSegments = route.path.split('/').filter(Boolean); // Видаляємо пусті елементи
+
+if (languages.includes(pathSegments[0])) {
+  pathSegments.shift();
+}
+
+const currentPath = pathSegments.length ? `/${pathSegments.join('/')}` : '';
 
 const alternateLinks = languages.map(lang => {
   const langConfig = locales.value.find(l => l.code === lang);
   return {
     rel: 'alternate',
-    href: `${baseUrl}/${lang === defaultLocale ? '' : lang}${currentPath}`,
+    href: `${baseUrl}${lang === defaultLocale ? '' : '/' + lang}${currentPath}`,
     hreflang: langConfig?.language || lang
   };
 });
 
-const canonicalUrl = `${baseUrl}/${locale.value !== defaultLocale ? locale.value : ''}${currentPath}`;
+const canonicalUrl = `${baseUrl}${locale.value !== defaultLocale ? '/' + locale.value : ''}${currentPath}`;
+alternateLinks.push({ rel: "canonical", href: canonicalUrl });
 
 if (props.seo) {
   useHead({
@@ -38,11 +48,10 @@ if (props.seo) {
       { property: "og:title", content: props.seo?.openGraph?.ogTitle || props.seo?.metaTitle },
       { property: "og:description", content: props.seo?.openGraph?.ogDescription || props.seo?.metaDescription },
       { property: "og:image", content: props.seo?.openGraph?.ogImage?.url ? `${runtimeConfig.public.apiBase}${props.seo.openGraph.ogImage.url}` : "" },
-      { property: "og:url", content: props.seo?.canonicalURL || "" },
-      { property: "og:type", content: props.seo?.openGraph?.ogType || "website" },
-      { rel: "canonical", href: canonicalUrl }
+      { property: "og:url", content: canonicalUrl || "" },
+      { property: "og:type", content: props.seo?.openGraph?.ogType || "website" }
     ],
-    link: alternateLinks
+    link: alternateLinks,
   });
 }
 </script>
