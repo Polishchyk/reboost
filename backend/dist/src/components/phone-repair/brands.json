@@ -1,0 +1,25 @@
+{
+    "collectionName": "components_phone_repair_brands",
+    "info": {
+        "displayName": "Brands",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "Url": {
+            "type": "component",
+            "repeatable": false,
+            "component": "menu.link",
+            "required": true
+        },
+        "Logo": {
+            "type": "media",
+            "multiple": false,
+            "required": true,
+            "allowedTypes": [
+                "images",
+                "files"
+            ]
+        }
+    }
+}

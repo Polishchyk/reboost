@@ -97,6 +97,9 @@ const handleClickOutside = (event) => {
 };
 
 const localizedUrl = (url) => {
+  if(url == '/'){
+    return locale.value !== 'it' ? `/${locale.value}` : url
+  }
   return locale.value !== 'it' ? `/${locale.value}${url}` : url
 }
 
@@ -132,15 +135,26 @@ onBeforeUnmount(() => {
     <div class="wrap">
       <div class="box">
         <div class="logo">
-          <a href="/">
+          <nuxt-link :to="localizedUrl('/')">
             <img :src="config.public.publicUrl + headerData?.data?.Logo?.url" alt="reboost - logo" />
-          </a>
+          </nuxt-link>
         </div>
         <div class="menu">
           <ul>
             <li v-for="itemMenu in mainMenuData?.data?.Items" :key="itemMenu.id">
               <template v-if="itemMenu.__component === 'menu.menu-sub-items'">
-                <a @click.prevent="false">{{ itemMenu.Title }}</a>
+                <template v-if="!itemMenu.IsLink">
+                  <a @click.prevent="false">{{ itemMenu.Title }}</a>
+                </template>
+                <template v-if="itemMenu.IsLink && itemMenu.Url">
+                  <nuxt-link
+                      v-if="isInternalLink(itemMenu?.Url)"
+                      :to="localizedUrl(itemMenu?.Url)"
+                      :class="{'active': isActive(itemMenu?.Url)}"
+                  >
+                    {{ itemMenu.Title }}
+                  </nuxt-link>
+                </template>
                 <div class="submenu" v-if="itemMenu.menu_sections.length > 0">
                   <ul v-for="subItem in itemMenu.menu_sections" :key="subItem.id">
                     <template v-if="subItem.Title">

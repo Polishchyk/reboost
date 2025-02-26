@@ -495,11 +495,13 @@ export interface MenuMenuSubItems extends Struct.ComponentSchema {
     icon: 'check';
   };
   attributes: {
+    IsLink: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     menu_sections: Schema.Attribute.Relation<
       'oneToMany',
       'api::menu-section.menu-section'
     >;
     Title: Schema.Attribute.String;
+    Url: Schema.Attribute.String;
   };
 }
 
@@ -592,6 +594,104 @@ export interface PhoneProtectionTextCols extends Struct.ComponentSchema {
   };
   attributes: {
     Description: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface PhoneRepairBrands extends Struct.ComponentSchema {
+  collectionName: 'components_phone_repair_brands';
+  info: {
+    description: '';
+    displayName: 'Brands';
+  };
+  attributes: {
+    Logo: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Url: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ProductCols extends Struct.ComponentSchema {
+  collectionName: 'components_product_cols';
+  info: {
+    displayName: 'Cols';
+  };
+  attributes: {
+    Description: Schema.Attribute.String & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ProductCommonRepairs extends Struct.ComponentSchema {
+  collectionName: 'components_product_common_repairs';
+  info: {
+    displayName: 'common-repairs';
+  };
+  attributes: {
+    cols: Schema.Attribute.Component<'product.cols', true> &
+      Schema.Attribute.Required;
+    ColsImage: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ProductDeviceItems extends Struct.ComponentSchema {
+  collectionName: 'components_product_device_items';
+  info: {
+    displayName: 'DeviceItems';
+  };
+  attributes: {
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    Url: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ProductIdentification extends Struct.ComponentSchema {
+  collectionName: 'components_product_identifications';
+  info: {
+    displayName: 'Identification';
+  };
+  attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ProductReasonItems extends Struct.ComponentSchema {
+  collectionName: 'components_product_reason_items';
+  info: {
+    displayName: 'ReasonItems';
+  };
+  attributes: {
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ProductReasons extends Struct.ComponentSchema {
+  collectionName: 'components_product_reasons';
+  info: {
+    displayName: 'Reasons';
+  };
+  attributes: {
+    reason_items: Schema.Attribute.Component<'product.reason-items', true> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -775,6 +875,13 @@ declare module '@strapi/strapi' {
       'phone-protection.plans': PhoneProtectionPlans;
       'phone-protection.text-box': PhoneProtectionTextBox;
       'phone-protection.text-cols': PhoneProtectionTextCols;
+      'phone-repair.brands': PhoneRepairBrands;
+      'product.cols': ProductCols;
+      'product.common-repairs': ProductCommonRepairs;
+      'product.device-items': ProductDeviceItems;
+      'product.identification': ProductIdentification;
+      'product.reason-items': ProductReasonItems;
+      'product.reasons': ProductReasons;
       'shared.media': SharedMedia;
       'shared.open-graph': SharedOpenGraph;
       'shared.quote': SharedQuote;

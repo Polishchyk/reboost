@@ -619,6 +619,17 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     text-align: center;
     flex: 1;
 }
+
+.sect-devices-list .brands.brands-phone-repair{
+    flex-wrap: wrap;
+    gap: 50px 20px;
+    margin-top: 100px;
+}
+
+.sect-devices-list .brands.brands-phone-repair .item{
+    flex: 1 1 calc(33.333% - 20px);
+}
+
 .sect-devices-list .brands .item img {
     margin: auto;
 }
@@ -1468,6 +1479,9 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     max-width: 624px;
     margin-left: auto;
     margin-right: auto;
+}
+.content-phone-repair{
+    margin-top: 100px;
 }
 .sect-support .content .sub {
     padding: 0 23px;

@@ -14,6 +14,13 @@
         },
         "Title": {
             "type": "string"
+        },
+        "Url": {
+            "type": "string"
+        },
+        "IsLink": {
+            "type": "boolean",
+            "default": false
         }
     }
 }
