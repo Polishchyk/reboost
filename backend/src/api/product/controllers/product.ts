@@ -20,7 +20,12 @@ export default factories.createCoreController('api::product.product', ({ strapi 
     const depth = pLevel || defaultDepth; // Визначаємо глибину
 
     // Отримуємо повну структуру populate за допомогою плагіна
-    const populateObject = getFullPopulateObject('api::product.product', depth, []);
+    const populateObject = getFullPopulateObject('api::product.product', depth, ['users']);
+
+    if (populateObject && populateObject.populate && typeof populateObject.populate === 'object') {
+      delete populateObject.populate.createdBy;
+      delete populateObject.populate.updatedBy;
+    }
 
     // Виконуємо запит з популяцією та глибиною
     const entity = await strapi.db.query('api::product.product').findOne({

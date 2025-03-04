@@ -150,6 +150,7 @@ a.underlined:hover, a.underlined:hover:after {
 
 img {
     display: block;
+    max-width: initial;
 }
 
 h1 {

@@ -1,15 +1,10 @@
-<script>
-import {defineComponent} from 'vue'
-
-export default defineComponent({
-  name: "InfoText"
-})
-</script>
-
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 
-const props = defineProps({
+const config = useRuntimeConfig();
+const { locale, defaultLocale } = useI18n();
+
+defineProps({
   data: Object,
 });
 
@@ -49,9 +44,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="sect-info-text">
-    <div class="wrap">
-      <h2>{{ data.Title }}</h2>
+  <div class="sect-info-text" v-if="data">
+    <div class="wrap" >
+      <h2>{{data?.Title}}</h2>
       <div
           ref="textRef"
           class="text"
@@ -60,13 +55,9 @@ onBeforeUnmount(() => {
         <div class="text-wrap" v-html="data?.Description"></div>
       </div>
       <div class="more">
-        <a @click="toggleText" v-if="!isOpened">See more benefits</a>
+        <a @click="toggleText" v-if="!isOpened">See more</a>
         <a @click="toggleText" v-else>Hide</a>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
