@@ -1,11 +1,11 @@
 /**
- * device controller
+ * service controller
  */
 
 import { factories } from '@strapi/strapi';
 import { getFullPopulateObject } from 'strapi-v5-plugin-populate-deep/server/helpers';
 
-export default factories.createCoreController('api::device.device', ({ strapi }) => ({
+export default factories.createCoreController('api::service.service', ({ strapi }) => ({
   // Зберігаємо всі стандартні методи
   async find(ctx) {
     return await super.find(ctx);
@@ -20,35 +20,21 @@ export default factories.createCoreController('api::device.device', ({ strapi })
     const depth = pLevel || defaultDepth; // Визначаємо глибину
 
     // Отримуємо повну структуру populate за допомогою плагіна
-    const populateObject = getFullPopulateObject('api::device.device', depth, ['users']);
+    const populateObject = getFullPopulateObject('api::service.service', depth, ['users']);
 
     if (populateObject && populateObject.populate && typeof populateObject.populate === 'object') {
       delete populateObject.populate.createdBy;
       delete populateObject.populate.updatedBy;
-      delete populateObject.populate.product.populate.brand;
-      delete populateObject.populate.product.populate.DeviceItems;
-      delete populateObject.populate.product.populate.common_repairs;
-      delete populateObject.populate.product.populate.InfoText;
-      delete populateObject.populate.product.populate.identification;
-      delete populateObject.populate.product.populate.FAQ;
-      delete populateObject.populate.product.populate.reasons;
-      delete populateObject.populate.product.populate.SEO;
-      delete populateObject.populate.product.populate.createdBy;
-      delete populateObject.populate.product.populate.updatedBy;
-      delete populateObject.populate.hardware.populate.services.populate.createdBy;
-      delete populateObject.populate.hardware.populate.services.populate.updatedBy;
-      delete populateObject.populate.Software.populate.services.populate.createdBy;
-      delete populateObject.populate.Software.populate.services.populate.updatedBy;
     }
 
     // Виконуємо запит з популяцією та глибиною
-    const entity = await strapi.db.query('api::device.device').findOne({
+    const entity = await strapi.db.query('api::service.service').findOne({
       where: { slug },
       populate: populateObject.populate,  // Використовуємо результат функції плагіна
     });
 
     if (!entity) {
-      return ctx.notFound('Device not found');
+      return ctx.notFound('Service not found');
     }
 
     return this.transformResponse(entity);

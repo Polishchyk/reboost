@@ -13,7 +13,8 @@
     "pluginOptions": {},
     "attributes": {
         "Title": {
-            "type": "string"
+            "type": "string",
+            "required": true
         },
         "product": {
             "type": "relation",
@@ -22,7 +23,54 @@
         },
         "slug": {
             "type": "uid",
-            "targetField": "Title",
+            "targetField": "PageTitle",
+            "required": true
+        },
+        "Description": {
+            "type": "text",
+            "required": true
+        },
+        "FAQ": {
+            "type": "component",
+            "repeatable": false,
+            "component": "home-sections.faq",
+            "required": true
+        },
+        "InfoText": {
+            "type": "component",
+            "repeatable": false,
+            "component": "home-sections.info-text",
+            "required": true
+        },
+        "Icon": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files"
+            ]
+        },
+        "hardware": {
+            "displayName": "Hardware",
+            "type": "component",
+            "repeatable": false,
+            "component": "device.hardware",
+            "required": true
+        },
+        "Software": {
+            "type": "component",
+            "repeatable": false,
+            "component": "device.hardware"
+        },
+        "PageTitle": {
+            "type": "string",
+            "required": true
+        },
+        "SEO": {
+            "type": "component",
+            "repeatable": false,
+            "component": "shared.seo",
             "required": true
         }
     }

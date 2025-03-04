@@ -1,46 +1,46 @@
 "use strict";
 /**
- * device router
+ * service router
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     routes: [
         {
             method: 'GET',
-            path: '/devices',
-            handler: 'device.find',
+            path: '/services',
+            handler: 'service.find',
             config: {
                 policies: [], // Можеш додати свої політики доступу
             },
         },
         {
             method: 'GET',
-            path: '/devices/:slug',
-            handler: 'device.findOne',
+            path: '/services/:slug',
+            handler: 'service.findOne',
             config: {
                 policies: [],
             },
         },
         {
             method: 'POST',
-            path: '/devices',
-            handler: 'device.create',
+            path: '/services',
+            handler: 'service.create',
             config: {
                 policies: [],
             },
         },
         {
             method: 'PUT',
-            path: '/devices/:id',
-            handler: 'device.update',
+            path: '/services/:id',
+            handler: 'service.update',
             config: {
                 policies: [],
             },
         },
         {
             method: 'DELETE',
-            path: '/devices/:id',
-            handler: 'device.delete',
+            path: '/services/:id',
+            handler: 'service.delete',
             config: {
                 policies: [],
             },

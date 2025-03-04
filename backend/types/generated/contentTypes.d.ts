@@ -513,16 +513,28 @@ export interface ApiDeviceDevice extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    FAQ: Schema.Attribute.Component<'home-sections.faq', false> &
+      Schema.Attribute.Required;
+    hardware: Schema.Attribute.Component<'device.hardware', false> &
+      Schema.Attribute.Required;
+    Icon: Schema.Attribute.Media<'images' | 'files'>;
+    InfoText: Schema.Attribute.Component<'home-sections.info-text', false> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::device.device'
     > &
       Schema.Attribute.Private;
+    PageTitle: Schema.Attribute.String & Schema.Attribute.Required;
     product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'Title'> & Schema.Attribute.Required;
-    Title: Schema.Attribute.String;
+    SEO: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'PageTitle'> & Schema.Attribute.Required;
+    Software: Schema.Attribute.Component<'device.hardware', false>;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1407,6 +1419,65 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiServiceService extends Struct.CollectionTypeSchema {
+  collectionName: 'services';
+  info: {
+    displayName: 'Service';
+    pluralName: 'services';
+    singularName: 'service';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service.service'
+    >;
+    Price: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'Title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1932,6 +2003,7 @@ declare module '@strapi/strapi' {
       'api::phone-protection.phone-protection': ApiPhoneProtectionPhoneProtection;
       'api::phone-repair.phone-repair': ApiPhoneRepairPhoneRepair;
       'api::product.product': ApiProductProduct;
+      'api::service.service': ApiServiceService;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

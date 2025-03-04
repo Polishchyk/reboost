@@ -1,5 +1,17 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface DeviceHardware extends Struct.ComponentSchema {
+  collectionName: 'components_device_hardware';
+  info: {
+    description: '';
+    displayName: 'Hardware';
+  };
+  attributes: {
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
+    Title: Schema.Attribute.String;
+  };
+}
+
 export interface HomeSectionsBenefits extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_benefits';
   info: {
@@ -833,6 +845,7 @@ export interface ShopsShops extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'device.hardware': DeviceHardware;
       'home-sections.benefits': HomeSectionsBenefits;
       'home-sections.benefits-item': HomeSectionsBenefitsItem;
       'home-sections.brands-items': HomeSectionsBrandsItems;
