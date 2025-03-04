@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const { locale, defaultLang } = useI18n();
+const { locale, defaultLocale } = useI18n();
 const config = useRuntimeConfig();
 
 // Отримуємо список назв сторінок з кастомного API Strapi
@@ -44,7 +44,7 @@ const fetchDynamicTitle = async (collection, slug, field) => {
 // Видаляємо мовний префікс, якщо він є
 const getPathSegments = () => {
   const segments = route.path.split('/').filter(segment => segment);
-  if (segments[0] === locale.value && locale.value !== defaultLang) {
+  if (segments[0] === locale.value && locale.value !== defaultLocale) {
     return segments.slice(1);
   }
   return segments;
@@ -67,9 +67,12 @@ const generateBreadcrumbs = async () => {
       title = await fetchDynamicTitle(prevSegment, segment, props.dynamicCollections[prevSegment]);
     }
 
+    // Формуємо шлях з урахуванням поточної мови
+    const breadcrumbPath = (locale.value !== defaultLocale) ? `/${locale.value}${path}` : path;
+
     items.push({
       text: title,
-      to: index < segments.length - 1 ? path : null,
+      to: index < segments.length - 1 ? breadcrumbPath : null,
     });
   }
 
@@ -85,7 +88,7 @@ watchEffect(() => {
   <div class="breadcrumbs" :class="cssClass ?? ''">
     <div class="wrap">
       <div class="nav">
-        <nuxt-link :to="locale !== defaultLang ? `/${locale}` : '/'">Home</nuxt-link>
+        <nuxt-link :to="locale !== defaultLocale ? `/${locale}` : '/'">Home</nuxt-link>
         <template v-for="(crumb, index) in breadcrumbs" :key="index">
           <nuxt-link v-if="crumb.to" :to="crumb.to">{{ crumb.text }}</nuxt-link>
           <span v-else>{{ crumb.text }}</span>
