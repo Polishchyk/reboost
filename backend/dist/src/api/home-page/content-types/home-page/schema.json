@@ -75,18 +75,6 @@
                 }
             }
         },
-        "RepairCenters": {
-            "displayName": "RepairCenters",
-            "type": "component",
-            "repeatable": false,
-            "component": "home-sections.repair-centers",
-            "required": true,
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            }
-        },
         "Proposals": {
             "displayName": "Proposals",
             "type": "component",

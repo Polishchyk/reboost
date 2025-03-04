@@ -26,6 +26,13 @@ const { data: HomePageData} = await useAsyncData(
         }),
     { watch: [localeParam], server: true  }
 );
+
+const { data: globalDataHomePage } = await useAsyncData(`globalData-${locale.value}-home-page`, () =>
+        $fetch(`${config.public.apiBase}/global`, {
+          params: { pLevel: 4, ...localeParam.value },
+        }),
+    { watch: [localeParam], server: true }
+);
 </script>
 
 <template>
@@ -36,11 +43,9 @@ const { data: HomePageData} = await useAsyncData(
     <Solutions :data="HomePageData?.data?.Solutions" />
     <Principle :data="HomePageData?.data?.Principle" />
     <Benefits :data="HomePageData?.data?.Benefits" />
-    <RepairCenters :data="HomePageData?.data?.RepairCenters" />
+    <RepairCenters :data="globalDataHomePage?.data?.our_repair_centers" />
     <Proposals :data="HomePageData?.data?.Proposals" />
     <FAQ :data="HomePageData?.data?.FAQ" />
     <InfoText :data="HomePageData?.data?.InfoText" />
   </div>
 </template>
-
-<style scoped></style>

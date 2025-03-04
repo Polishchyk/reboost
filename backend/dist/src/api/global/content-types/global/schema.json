@@ -10,11 +10,20 @@
     "options": {
         "draftAndPublish": false
     },
-    "pluginOptions": {},
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
     "attributes": {
         "siteName": {
             "type": "string",
-            "required": true
+            "required": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         },
         "favicon_ico": {
             "type": "media",
@@ -23,14 +32,29 @@
             "allowedTypes": [
                 "images",
                 "files"
-            ]
+            ],
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         },
         "siteDescription": {
             "type": "text",
-            "required": true
+            "required": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         },
         "analytics_code": {
-            "type": "richtext"
+            "type": "richtext",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         },
         "apple_touch_icon": {
             "type": "media",
@@ -39,7 +63,12 @@
             "allowedTypes": [
                 "images",
                 "files"
-            ]
+            ],
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         },
         "icon_svg": {
             "type": "media",
@@ -48,7 +77,34 @@
             "allowedTypes": [
                 "images",
                 "files"
-            ]
+            ],
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "reasons": {
+            "type": "component",
+            "repeatable": false,
+            "component": "product.reasons",
+            "required": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "our_repair_centers": {
+            "type": "component",
+            "repeatable": false,
+            "component": "home-sections.repair-centers",
+            "required": true,
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
         }
     }
 }

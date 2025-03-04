@@ -17,7 +17,7 @@ const toggleDropdown = () => {
 
 const { data: globalData } = await useAsyncData(`globalData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/global`, {
-          params: { pLevel: 3 },
+          params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
