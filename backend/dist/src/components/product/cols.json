@@ -1,0 +1,17 @@
+{
+    "collectionName": "components_product_cols",
+    "info": {
+        "displayName": "Cols"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "Description": {
+            "type": "string",
+            "required": true
+        }
+    }
+}

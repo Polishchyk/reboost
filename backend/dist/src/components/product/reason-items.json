@@ -1,0 +1,22 @@
+{
+    "collectionName": "components_product_reason_items",
+    "info": {
+        "displayName": "ReasonItems"
+    },
+    "options": {},
+    "attributes": {
+        "Icon": {
+            "allowedTypes": [
+                "images",
+                "files"
+            ],
+            "type": "media",
+            "multiple": false,
+            "required": true
+        },
+        "Title": {
+            "type": "string",
+            "required": true
+        }
+    }
+}

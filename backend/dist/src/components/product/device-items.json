@@ -1,0 +1,28 @@
+{
+    "collectionName": "components_product_device_items",
+    "info": {
+        "displayName": "DeviceItems"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string",
+            "required": true
+        },
+        "Image": {
+            "allowedTypes": [
+                "images",
+                "files"
+            ],
+            "type": "media",
+            "multiple": false,
+            "required": true
+        },
+        "Url": {
+            "type": "component",
+            "repeatable": false,
+            "component": "menu.link",
+            "required": true
+        }
+    }
+}
