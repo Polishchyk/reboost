@@ -1,0 +1,23 @@
+{
+    "collectionName": "components_contact_us_contact_form_fields",
+    "info": {
+        "displayName": "ContactFormFields"
+    },
+    "options": {},
+    "attributes": {
+        "Title": {
+            "type": "string"
+        },
+        "Type": {
+            "type": "enumeration",
+            "enum": [
+                "text",
+                "number",
+                "email",
+                "textarea"
+            ],
+            "required": true,
+            "default": "text"
+        }
+    }
+}

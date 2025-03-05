@@ -1,10 +1,10 @@
 {
-  "kind": "collectionType",
-  "collectionName": "articles",
+  "kind": "singleType",
+  "collectionName": "privacy_policies",
   "info": {
-    "singularName": "article",
-    "pluralName": "articles",
-    "displayName": "Article",
+    "singularName": "privacy-policy",
+    "pluralName": "privacy-policies",
+    "displayName": "Privacy Policy",
     "description": ""
   },
   "options": {
@@ -25,25 +25,6 @@
       "type": "string",
       "required": true
     },
-    "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "uid",
-      "targetField": "Title",
-      "required": true
-    },
-    "Short_Description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text",
-      "required": true
-    },
     "Description": {
       "pluginOptions": {
         "i18n": {
@@ -56,20 +37,6 @@
       },
       "required": true,
       "customField": "plugin::ckeditor5.CKEditor"
-    },
-    "Image": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "files"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
     },
     "SEO": {
       "type": "component",

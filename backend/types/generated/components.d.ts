@@ -1,5 +1,20 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContactUsContactFormFields extends Struct.ComponentSchema {
+  collectionName: 'components_contact_us_contact_form_fields';
+  info: {
+    displayName: 'ContactFormFields';
+  };
+  attributes: {
+    Title: Schema.Attribute.String;
+    Type: Schema.Attribute.Enumeration<
+      ['text', 'number', 'email', 'textarea']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'text'>;
+  };
+}
+
 export interface DeviceHardware extends Struct.ComponentSchema {
   collectionName: 'components_device_hardware';
   info: {
@@ -869,6 +884,7 @@ export interface ShopsShops extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'contact-us.contact-form-fields': ContactUsContactFormFields;
       'device.hardware': DeviceHardware;
       'home-sections.benefits': HomeSectionsBenefits;
       'home-sections.benefits-item': HomeSectionsBenefitsItem;

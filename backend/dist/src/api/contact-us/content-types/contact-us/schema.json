@@ -1,10 +1,10 @@
 {
-    "kind": "collectionType",
-    "collectionName": "articles",
+    "kind": "singleType",
+    "collectionName": "contact_uses",
     "info": {
-        "singularName": "article",
-        "pluralName": "articles",
-        "displayName": "Article",
+        "singularName": "contact-us",
+        "pluralName": "contact-uses",
+        "displayName": "Contact Us",
         "description": ""
     },
     "options": {
@@ -25,17 +25,7 @@
             "type": "string",
             "required": true
         },
-        "slug": {
-            "pluginOptions": {
-                "i18n": {
-                    "localized": true
-                }
-            },
-            "type": "uid",
-            "targetField": "Title",
-            "required": true
-        },
-        "Short_Description": {
+        "Description": {
             "pluginOptions": {
                 "i18n": {
                     "localized": true
@@ -44,32 +34,28 @@
             "type": "text",
             "required": true
         },
-        "Description": {
+        "contact_form_fields": {
+            "displayName": "ContactFormFields",
+            "type": "component",
+            "repeatable": true,
             "pluginOptions": {
                 "i18n": {
                     "localized": true
                 }
             },
-            "type": "customField",
-            "options": {
-                "preset": "defaultHtml"
-            },
-            "required": true,
-            "customField": "plugin::ckeditor5.CKEditor"
+            "component": "contact-us.contact-form-fields",
+            "required": true
         },
-        "Image": {
-            "type": "media",
-            "multiple": false,
-            "required": true,
-            "allowedTypes": [
-                "images",
-                "files"
-            ],
+        "InfoText": {
+            "type": "component",
+            "repeatable": false,
             "pluginOptions": {
                 "i18n": {
-                    "localized": false
+                    "localized": true
                 }
-            }
+            },
+            "component": "home-sections.info-text",
+            "required": true
         },
         "SEO": {
             "type": "component",
