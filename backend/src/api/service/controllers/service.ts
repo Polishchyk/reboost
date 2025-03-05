@@ -25,6 +25,13 @@ export default factories.createCoreController('api::service.service', ({ strapi 
     if (populateObject && populateObject.populate && typeof populateObject.populate === 'object') {
       delete populateObject.populate.createdBy;
       delete populateObject.populate.updatedBy;
+      delete populateObject.populate.other_services.populate.services.populate.createdBy;
+      delete populateObject.populate.other_services.populate.services.populate.updatedBy;
+      delete populateObject.populate.other_services.populate.services.populate.other_services;
+      delete populateObject.populate.other_services.populate.services.populate.booking;
+      delete populateObject.populate.other_services.populate.services.populate.FAQ;
+      delete populateObject.populate.other_services.populate.services.populate.SEO;
+      delete populateObject.populate.other_services.populate.services.populate.localizations;
     }
 
     // Виконуємо запит з популяцією та глибиною

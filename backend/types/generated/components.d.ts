@@ -707,6 +707,30 @@ export interface ProductReasons extends Struct.ComponentSchema {
   };
 }
 
+export interface ServiceBooking extends Struct.ComponentSchema {
+  collectionName: 'components_service_bookings';
+  info: {
+    displayName: 'Booking';
+  };
+  attributes: {
+    Action: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    info: Schema.Attribute.Component<'service.info', true> &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceInfo extends Struct.ComponentSchema {
+  collectionName: 'components_service_infos';
+  info: {
+    displayName: 'Info';
+  };
+  attributes: {
+    Label: Schema.Attribute.String & Schema.Attribute.Required;
+    Value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -895,6 +919,8 @@ declare module '@strapi/strapi' {
       'product.identification': ProductIdentification;
       'product.reason-items': ProductReasonItems;
       'product.reasons': ProductReasons;
+      'service.booking': ServiceBooking;
+      'service.info': ServiceInfo;
       'shared.media': SharedMedia;
       'shared.open-graph': SharedOpenGraph;
       'shared.quote': SharedQuote;
