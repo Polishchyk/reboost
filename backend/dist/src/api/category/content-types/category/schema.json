@@ -16,16 +16,15 @@
             "type": "string"
         },
         "slug": {
-            "type": "uid"
+            "type": "uid",
+            "targetField": "name",
+            "required": true
         },
-        "articles": {
+        "devices": {
             "type": "relation",
             "relation": "oneToMany",
-            "target": "api::article.article",
+            "target": "api::device.device",
             "mappedBy": "category"
-        },
-        "description": {
-            "type": "text"
         }
     }
 }

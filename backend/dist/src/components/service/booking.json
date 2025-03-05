@@ -1,0 +1,22 @@
+{
+    "collectionName": "components_service_bookings",
+    "info": {
+        "displayName": "Booking"
+    },
+    "options": {},
+    "attributes": {
+        "info": {
+            "displayName": "Info",
+            "type": "component",
+            "repeatable": true,
+            "component": "service.info",
+            "required": true
+        },
+        "Action": {
+            "type": "component",
+            "repeatable": false,
+            "component": "menu.link",
+            "required": true
+        }
+    }
+}

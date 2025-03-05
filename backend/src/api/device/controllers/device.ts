@@ -35,6 +35,9 @@ export default factories.createCoreController('api::device.device', ({ strapi })
       delete populateObject.populate.product.populate.SEO;
       delete populateObject.populate.product.populate.createdBy;
       delete populateObject.populate.product.populate.updatedBy;
+      delete populateObject.populate.category.populate.updatedBy;
+      delete populateObject.populate.category.populate.createdBy;
+      delete populateObject.populate.category.populate.localizations;
       delete populateObject.populate.hardware.populate.services.populate.createdBy;
       delete populateObject.populate.hardware.populate.services.populate.updatedBy;
       delete populateObject.populate.Software.populate.services.populate.createdBy;

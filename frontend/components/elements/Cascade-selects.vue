@@ -18,7 +18,7 @@ defineProps({
 const router = useRouter();
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase;
-const { locale } = useI18n();
+const { locale, defaultLocale } = useI18n();
 
 const { data: brandsData } = await useAsyncData(`brands-${locale.value}`, () =>
     $fetch(`${apiBase}/brands`, {
@@ -42,24 +42,28 @@ const devices = ref([]);
 const selectedBrand = ref(null);
 const selectedProduct = ref(null);
 const selectedDevice = ref(null);
+const selectedCategorySlug = ref(null);
+const selectedProductSlug = ref(null);
 
 const fetchProducts = async () => {
   if (!selectedBrand.value) return;
   const response = await $fetch(`${apiBase}/products`, {
     params: {
       "filters[brand][id][$eq]": selectedBrand.value,
-      pLevel: 2,
+      fields: ["id", "Title", "slug"],
       ...(locale.value !== "it" ? { locale: locale.value } : {})
     },
   });
 
   products.value = response.data.map(p => ({
     id: p.id,
-    name: p.Title
+    name: p.Title,
+    slug: p.slug, // Додаємо slug продукту
   }));
 
   selectedProduct.value = null;
   devices.value = [];
+  selectedProductSlug.value = null;
 };
 
 const fetchDevices = async () => {
@@ -67,15 +71,23 @@ const fetchDevices = async () => {
   const response = await $fetch(`${apiBase}/devices`, {
     params: {
       "filters[product][id][$eq]": selectedProduct.value,
-      pLevel: 2,
+      fields: ["id", "Title", "slug"],
+      "populate[category][fields][0]": "slug",
       ...(locale.value !== "it" ? { locale: locale.value } : {})
     },
   });
 
+  // Отримуємо slug категорії з першого пристрою (припускаємо, що всі в одній категорії)
+  if (response.data.length > 0) {
+    selectedCategorySlug.value = response.data[0].category?.slug || "default-category";
+  }
+
+  selectedProductSlug.value = products.value.find(p => p.id === selectedProduct.value)?.slug || "default-product";
+
   devices.value = response.data.map(d => ({
     id: d.id,
     name: d.Title,
-    slug: d.slug
+    slug: d.slug,
   }));
 
   selectedDevice.value = null;
@@ -86,9 +98,10 @@ watch(selectedProduct, fetchDevices);
 
 watch(selectedDevice, (device) => {
   if (device) {
-    const selectedSlug = devices.value.find((d) => d.id === device)?.slug;
-    if (selectedSlug) {
-      router.push(`/device/${selectedSlug}`);
+    const selectedDeviceSlug = devices.value.find(d => d.id === device)?.slug;
+    if (selectedCategorySlug.value && selectedProductSlug.value && selectedDeviceSlug) {
+      const url = `${locale.value !== defaultLocale ? `/${locale.value}/` : `/`}${selectedCategorySlug.value}/${selectedProductSlug.value}/${selectedDeviceSlug}`;
+      router.push(url);
     }
   }
 });

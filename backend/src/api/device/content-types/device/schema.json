@@ -8,13 +8,22 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "Title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "product": {
       "type": "relation",
@@ -28,19 +37,34 @@
     },
     "Description": {
       "type": "text",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "FAQ": {
       "type": "component",
       "repeatable": false,
       "component": "home-sections.faq",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "InfoText": {
       "type": "component",
       "repeatable": false,
       "component": "home-sections.info-text",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Icon": {
       "type": "media",
@@ -49,29 +73,60 @@
       "allowedTypes": [
         "images",
         "files"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "hardware": {
       "displayName": "Hardware",
       "type": "component",
       "repeatable": false,
       "component": "device.hardware",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "Software": {
       "type": "component",
       "repeatable": false,
-      "component": "device.hardware"
+      "component": "device.hardware",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "PageTitle": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "SEO": {
       "type": "component",
       "repeatable": false,
       "component": "shared.seo",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "devices"
     }
   }
 }

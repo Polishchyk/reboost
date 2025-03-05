@@ -1,7 +1,6 @@
 <script setup>
 import SeoHead from '~/components/SeoHead.vue';
 import FAQ from '~/components/sections/FAQ.vue';
-import InfoText from '~/components/sections/product/InfoText.vue';
 import Reasons from '~/components/sections/product/Reasons.vue';
 import RepairCenters from '~/components/sections/RepairCenters.vue'
 import { useAsyncData } from '#imports'
