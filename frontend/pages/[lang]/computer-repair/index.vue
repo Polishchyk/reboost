@@ -6,10 +6,10 @@ import SeoHead from '~/components/SeoHead.vue'
 const config = useRuntimeConfig();
 const { locale } = useI18n();
 
-const { data: PhoneRepairPageData} = await useAsyncData(
-    `it-support-${locale.value}`,
+const { data: ComputerRepairPageData} = await useAsyncData(
+    `computer-repair-${locale.value}`,
     () =>
-        $fetch(`${config.public.apiBase}/phone-repair`, {
+        $fetch(`${config.public.apiBase}/computer-repair`, {
           params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true  }
@@ -17,18 +17,18 @@ const { data: PhoneRepairPageData} = await useAsyncData(
 
 </script>
 <template>
-  <div v-if="PhoneRepairPageData?.data">
-    <SeoHead :seo="PhoneRepairPageData?.data?.SEO" />
-    <Breadcrumbs :currentPageTitle="PhoneRepairPageData?.data?.title" :css-class="'bg2'"/>
+  <div v-if="ComputerRepairPageData?.data">
+    <SeoHead :seo="ComputerRepairPageData?.data?.SEO" />
+    <Breadcrumbs :currentPageTitle="ComputerRepairPageData?.data?.title" :css-class="'bg2'"/>
 
     <div class="sect-devices-list sect-support">
       <div class="wrap">
         <div class="content">
-          <h1>{{PhoneRepairPageData?.data?.title}}</h1>
-          <div class="sub" v-html="PhoneRepairPageData?.data?.Description"></div>
+          <h1>{{ComputerRepairPageData?.data?.title}}</h1>
+          <div class="sub" v-html="ComputerRepairPageData?.data?.Description"></div>
         </div>
-        <div class="brands brands-phone-repair" v-if="PhoneRepairPageData?.data?.BrandsItems && PhoneRepairPageData?.data?.BrandsItems.length > 0">
-          <a v-for="brandItem in PhoneRepairPageData?.data?.BrandsItems"
+        <div class="brands brands-phone-repair" v-if="ComputerRepairPageData?.data?.BrandsItems && ComputerRepairPageData?.data?.BrandsItems.length > 0">
+          <a v-for="brandItem in ComputerRepairPageData?.data?.BrandsItems"
              class="item"
              :href="brandItem?.Url?.Url"
           >
@@ -36,8 +36,8 @@ const { data: PhoneRepairPageData} = await useAsyncData(
           </a>
         </div>
         <div class="content content-phone-repair">
-          <h2>{{PhoneRepairPageData?.data?.Subtitle}}</h2>
-          <div class="sub" v-html="PhoneRepairPageData?.data?.SubDescription"></div>
+          <h2>{{ComputerRepairPageData?.data?.Subtitle}}</h2>
+          <div class="sub" v-html="ComputerRepairPageData?.data?.SubDescription"></div>
         </div>
       </div>
     </div>

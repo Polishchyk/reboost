@@ -43,3 +43,29 @@ const { data: PhoneRepairPageData} = await useAsyncData(
     </div>
   </div>
 </template>
+
+<style scoped>
+.sect-devices-list .brands {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px 20px;
+  margin-top: 100px;
+  padding: 0 150px;
+  justify-items: center;
+}
+.sect-devices-list .brands .item {
+  text-align: center;
+  width: 100%;
+}
+.sect-devices-list .brands .item img {
+  margin: auto;
+  max-height: 100px;
+}
+@media (max-width: 768px) {
+  .sect-devices-list .brands {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+}
+</style>

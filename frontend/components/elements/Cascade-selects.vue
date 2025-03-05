@@ -177,8 +177,3 @@ watch(selectedDevice, (device) => {
     </div>
   </form>
 </template>
-
-
-<style scoped>
-
-</style>

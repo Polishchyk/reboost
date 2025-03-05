@@ -4,10 +4,8 @@ export default {
   async find(ctx: Context) {
     const { locale } = ctx.query;
 
-    /*type ModelType = 'about.about' | 'home-page.home-page';*/
-    type ModelType = 'phone-protection.phone-protection' | 'it-support.it-support' | 'phone-repair.phone-repair';
-    /*const models: ModelType[] = ['about.about', 'home-page.home-page'];*/
-    const models: ModelType[] = ['phone-protection.phone-protection', 'it-support.it-support', 'phone-repair.phone-repair'];
+    type ModelType = 'phone-protection.phone-protection' | 'it-support.it-support' | 'phone-repair.phone-repair' | 'computer-repair.computer-repair';
+    const models: ModelType[] = ['phone-protection.phone-protection', 'it-support.it-support', 'phone-repair.phone-repair', 'computer-repair.computer-repair'];
 
     const result: Record<string, string> = {};
 
