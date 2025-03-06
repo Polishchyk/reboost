@@ -52,7 +52,7 @@ const { data: pageTitles } = await useAsyncData(() =>
         <div class="blog-content">
           <div class="item">
             <div v-if="articlePageData?.data?.Image">
-              <img :src="config.public.publicUrl+articlePageData?.data?.Image?.formats?.small?.url"
+              <img :src="config.public.publicUrl+articlePageData?.data?.Image?.url"
                    :alt="articlePageData?.data?.Image?.alternativeText"
               >
             </div>
