@@ -1,5 +1,5 @@
-export default () => ({
+export default ({ env }) => ({
   seo: {
     enabled: true,
-  },
+  }
 });
