@@ -8,12 +8,18 @@ export default {
       'it-support.it-support' |
       'phone-repair.phone-repair' |
       'computer-repair.computer-repair' |
+      'blog-page.blog-page' |
+      'privacy-policy.privacy-policy' |
+    'terms-and-condition.terms-and-condition' |
       'contact-us.contact-us';
     const models: ModelType[] = [
       'phone-protection.phone-protection',
       'it-support.it-support',
       'phone-repair.phone-repair',
       'computer-repair.computer-repair',
+      'blog-page.blog-page',
+      'privacy-policy.privacy-policy',
+      'terms-and-condition.terms-and-condition',
       'contact-us.contact-us'
     ];
 
