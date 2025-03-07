@@ -1,6 +1,5 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2025-03-07',
   devtools: { enabled: true },
   vite: {
     server: {
@@ -24,7 +23,6 @@ export default defineNuxtConfig({
   },
   ssr: true,
   pages: true,
-  //Commented for prod
   css: [
     "@/assets/css/style.css"
   ],
@@ -39,7 +37,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || "http://localhost:1337/api",
-      publicUrl: process.env.NUXT_PUBLIC_URL || "http://localhost:1337",
+      publicUrl: process.env.NUXT_PUBLIC_URL || "http://localhost:3000",
     },
   },
-})
+});

@@ -529,12 +529,13 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
 export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
   collectionName: 'brands';
   info: {
+    description: '';
     displayName: 'Brand';
     pluralName: 'brands';
     singularName: 'brand';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -1692,7 +1693,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     singularName: 'product';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1701,6 +1702,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   attributes: {
     brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     common_repairs: Schema.Attribute.Component<
       'product.common-repairs',
       false

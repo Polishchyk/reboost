@@ -25,6 +25,9 @@ export default factories.createCoreController('api::product.product', ({ strapi 
     if (populateObject && populateObject.populate && typeof populateObject.populate === 'object') {
       delete populateObject.populate.createdBy;
       delete populateObject.populate.updatedBy;
+      delete populateObject.populate.category.populate.createdBy;
+      delete populateObject.populate.category.populate.updatedBy;
+      delete populateObject.populate.category.populate.devices;
     }
 
     // Виконуємо запит з популяцією та глибиною
