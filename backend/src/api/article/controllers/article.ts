@@ -15,6 +15,8 @@ export default factories.createCoreController('api::article.article', ({ strapi 
     const { slug } = ctx.params;
     const { pLevel } = ctx.query;  // Отримуємо параметр pLevel із запиту
 
+    let locale = ctx.query.locale || 'it';
+
     const defaultDepth = 5; // Можна налаштувати глибину за замовчуванням
 
     const depth = pLevel || defaultDepth; // Визначаємо глибину
@@ -29,7 +31,7 @@ export default factories.createCoreController('api::article.article', ({ strapi 
 
     // Виконуємо запит з популяцією та глибиною
     const entity = await strapi.db.query('api::article.article').findOne({
-      where: { slug },
+      where: { slug, locale },
       populate: populateObject.populate,  // Використовуємо результат функції плагіна
     });
 

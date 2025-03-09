@@ -13,6 +13,7 @@ exports.default = strapi_1.factories.createCoreController('api::service.service'
     async findOne(ctx) {
         const { slug } = ctx.params;
         const { pLevel } = ctx.query; // Отримуємо параметр pLevel із запиту
+        let locale = ctx.query.locale || 'it';
         const defaultDepth = 5; // Можна налаштувати глибину за замовчуванням
         const depth = pLevel || defaultDepth; // Визначаємо глибину
         // Отримуємо повну структуру populate за допомогою плагіна
@@ -30,7 +31,7 @@ exports.default = strapi_1.factories.createCoreController('api::service.service'
         }
         // Виконуємо запит з популяцією та глибиною
         const entity = await strapi.db.query('api::service.service').findOne({
-            where: { slug },
+            where: { slug, locale },
             populate: populateObject.populate, // Використовуємо результат функції плагіна
         });
         if (!entity) {

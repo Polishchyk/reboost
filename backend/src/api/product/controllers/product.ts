@@ -13,7 +13,9 @@ export default factories.createCoreController('api::product.product', ({ strapi 
 
   async findOne(ctx) {
     const { slug } = ctx.params;
-    const { pLevel } = ctx.query;  // Отримуємо параметр pLevel із запиту
+    const { pLevel} = ctx.query;  // Отримуємо параметр pLevel із запиту
+
+    let locale = ctx.query.locale || 'it';
 
     const defaultDepth = 5; // Можна налаштувати глибину за замовчуванням
 
@@ -27,12 +29,14 @@ export default factories.createCoreController('api::product.product', ({ strapi 
       delete populateObject.populate.updatedBy;
       delete populateObject.populate.category.populate.createdBy;
       delete populateObject.populate.category.populate.updatedBy;
+      delete populateObject.populate.brand.populate.createdBy;
+      delete populateObject.populate.brand.populate.updatedBy;
       delete populateObject.populate.category.populate.devices;
     }
 
     // Виконуємо запит з популяцією та глибиною
     const entity = await strapi.db.query('api::product.product').findOne({
-      where: { slug },
+      where: { slug, locale },
       populate: populateObject.populate,  // Використовуємо результат функції плагіна
     });
 
