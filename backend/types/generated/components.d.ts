@@ -722,6 +722,19 @@ export interface ProductReasons extends Struct.ComponentSchema {
   };
 }
 
+export interface SellPayments extends Struct.ComponentSchema {
+  collectionName: 'components_sell_payments';
+  info: {
+    displayName: 'Payments';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ServiceBooking extends Struct.ComponentSchema {
   collectionName: 'components_service_bookings';
   info: {
@@ -935,6 +948,7 @@ declare module '@strapi/strapi' {
       'product.identification': ProductIdentification;
       'product.reason-items': ProductReasonItems;
       'product.reasons': ProductReasons;
+      'sell.payments': SellPayments;
       'service.booking': ServiceBooking;
       'service.info': ServiceInfo;
       'shared.media': SharedMedia;

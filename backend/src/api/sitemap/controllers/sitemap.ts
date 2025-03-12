@@ -15,6 +15,12 @@ export default {
       localizations?: Localization[];
     }
 
+    interface Sell {
+      slug: string;
+      locale: string;
+      localizations?: Localization[];
+    }
+
     interface Category {
       slug: string;
     }
@@ -52,6 +58,15 @@ export default {
         },
       },
     })) as Article[];
+
+    const sells = (await strapi.entityService.findMany('api::sell.sell', {
+      fields: ['slug', 'locale'],
+      populate: {
+        localizations: {
+          fields: ['slug', 'locale'],
+        },
+      },
+    })) as Sell[];
 
     const products: Product[] = await strapi.entityService.findMany('api::product.product', {
       fields: ['slug', 'locale'],
@@ -130,6 +145,15 @@ export default {
           slug = getLocalizedSlug(article.localizations, lang) || slug;
         }
         const urlPath = lang === 'it' ? `/blog/${slug}` : `/${lang}/blog/${slug}`;
+        urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
+      });
+
+      sells.forEach((sell) => {
+        let slug = sell.slug;
+        if (sell.localizations) {
+          slug = getLocalizedSlug(sell.localizations, lang) || slug;
+        }
+        const urlPath = lang === 'it' ? `/sell/${slug}` : `/${lang}/sell/${slug}`;
         urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
       });
 
