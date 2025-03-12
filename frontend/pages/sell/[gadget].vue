@@ -136,34 +136,34 @@ const onSubmit = handleSubmit(async (values) => {
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="sect-support">
-    <div class="wrap">
-      <div class="content">
-        <form @submit.prevent="onSubmit" class="mt-6 space-y-4">
-          <div v-for="field in contactFields" :key="field.id">
-            <label class="label">{{ field.Title }}</label>
-            <input v-if="field.Type !== 'textarea'"
-                   :type="field.Type"
-                   v-model="fields[normalizeFieldName(field.Title)][0].value"
-                   class="w-full p-2 border rounded-md" />
-            <textarea v-else
-                      v-model="fields[normalizeFieldName(field.Title)][0].value"
-                      class="w-full p-2 border rounded-md"></textarea>
-            <p class="text-red-500 text-sm">{{ errors[normalizeFieldName(field.Title)] || backendErrors[normalizeFieldName(field.Title)] }}</p>
-          </div>
+    <div class="sect-support">
+      <div class="wrap">
+        <div class="content">
+          <form @submit.prevent="onSubmit" class="mt-6 space-y-4">
+            <div v-for="field in contactFields" :key="field.id">
+              <label class="label">{{ field.Title }}</label>
+              <input v-if="field.Type !== 'textarea'"
+                     :type="field.Type"
+                     v-model="fields[normalizeFieldName(field.Title)][0].value"
+                     class="w-full p-2 border rounded-md" />
+              <textarea v-else
+                        v-model="fields[normalizeFieldName(field.Title)][0].value"
+                        class="w-full p-2 border rounded-md"></textarea>
+              <p class="text-red-500 text-sm">{{ errors[normalizeFieldName(field.Title)] || backendErrors[normalizeFieldName(field.Title)] }}</p>
+            </div>
 
-          <button type="submit" class="w-full but colored" :disabled="isSubmitting">
-            Submit
-          </button>
-          <p v-if="successMessage" class="text-green-500 text-sm mt-2">{{ successMessage }}</p>
-        </form>
+            <button type="submit" class="w-full but colored" :disabled="isSubmitting">
+              Submit
+            </button>
+            <p v-if="successMessage" class="text-green-500 text-sm mt-2">{{ successMessage }}</p>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <FAQ :data="SellPageData?.data?.FAQ" />
+    <FAQ :data="SellPageData?.data?.FAQ" />
+  </div>
 
 </template>
 
