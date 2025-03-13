@@ -85,7 +85,7 @@ const { data: pageTitles } = await useAsyncData(() =>
 
     <div class="sect-repair-selection" v-if="servicePageData?.data?.other_services">
       <div class="wrap">
-        <h1>{{servicePageData?.data?.other_services?.Title}}</h1>
+        <h2>{{servicePageData?.data?.other_services?.Title}}</h2>
         <div class="selection" v-if="servicePageData?.data?.other_services?.services">
           <template  v-if="servicePageData?.data?.other_services?.services?.length > 0">
             <div class="item" v-for="service in servicePageData?.data?.other_services?.services">
