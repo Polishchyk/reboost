@@ -164,10 +164,12 @@ export default {
         }
         const { category } = product;
         if (slug && category) {
-          const productUrl = lang === 'it'
-            ? `/${category.slug}/${slug}`
-            : `/${lang}/${category.slug}/${slug}`;
-          urls.push({ loc: `${baseUrl}${productUrl}`, priority: 0.8 });
+          if(category.slug === 'phone-repair') {
+            const productUrl = lang === 'it'
+              ? `/${category.slug}/${slug}`
+              : `/${lang}/${category.slug}/${slug}`;
+            urls.push({loc: `${baseUrl}${productUrl}`, priority: 0.8});
+          }
         }
       });
 

@@ -10,13 +10,12 @@ import RepairCenters from "@/components/sections/RepairCenters.vue";
 import Proposals from "@/components/sections/Proposals.vue";
 import FAQ from "@/components/sections/FAQ.vue";
 import InfoText from "@/components/sections/InfoText.vue";
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const config = useRuntimeConfig();
 const { locale, availableLocales } = useI18n();
 
 const route = useRoute();
-const router = useRouter();
 
 const lang = route.params.lang;
 const isValidLang = availableLocales.includes(lang);
