@@ -1471,8 +1471,10 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     margin-top: 16px;
 }
 
+.sect-devices-list.sect-support{
+    padding-top: 0px!important;
+}
 .sect-support {
-    padding-top: 0px;
     text-align: center;
     margin-top: 50px;
     margin-bottom: 100px;
