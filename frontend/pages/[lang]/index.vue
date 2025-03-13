@@ -10,9 +10,20 @@ import RepairCenters from "@/components/sections/RepairCenters.vue";
 import Proposals from "@/components/sections/Proposals.vue";
 import FAQ from "@/components/sections/FAQ.vue";
 import InfoText from "@/components/sections/InfoText.vue";
+import { useRoute, useRouter } from 'vue-router';
 
 const config = useRuntimeConfig();
-const { locale } = useI18n();
+const { locale, availableLocales } = useI18n();
+
+const route = useRoute();
+const router = useRouter();
+
+const lang = route.params.lang;
+const isValidLang = availableLocales.includes(lang);
+
+if (!isValidLang) {
+  throw createError({ statusCode: 404, message: 'Page Not Found' });
+}
 
 const localeParam = computed(() =>
     locale.value !== "it" ? { locale: locale.value } : {}
