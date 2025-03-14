@@ -8,7 +8,7 @@ export default defineComponent({
 
 <script setup>
 import { onBeforeUnmount, onMounted, watch } from 'vue'
-import { useRoute } from '#imports'
+import { useAsyncData, useRoute } from '#imports'
 
 const route = useRoute();
 
@@ -23,6 +23,13 @@ const dropdownActive = ref(false);
 const toggleDropdown = () => {
   dropdownActive.value = !dropdownActive.value;
 };
+
+const { data: globalDataFooter } = await useAsyncData(`globalData-${locale.value}-footer`, () =>
+        $fetch(`${config.public.apiBase}/global`, {
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+        }),
+    { watch: [locale], server: true }
+);
 
 const { data: footerData} = await useAsyncData(
     `footer-${locale.value}`,
@@ -132,12 +139,19 @@ onBeforeUnmount(() => {
           <!-- Блок магазинів -->
           <div class="shops">
             <div class="cap">{{ footerData?.data?.Shops?.TitleComponent }}</div>
-            <div class="shop" v-for="shop in footerData?.data?.Shops?.Shop" :key="shop.Title">
+            <div class="shop" v-for="(shop, index) in footerData?.data?.Shops?.Shop" :key="index">
               <div class="title">{{ shop.Title }}</div>
               <div class="address">{{ shop.Address }}</div>
               <div class="tel">
                 <a :href="'tel:' + shop.Phone">{{ shop.Phone }}</a>
               </div>
+              <template v-if="globalDataFooter?.data?.our_repair_centers?.RepairCentersItems[index]?.RepairCenterLinks?.length > 0">
+                <div class="links">
+                  <a :href="link.Url" v-for="link in globalDataFooter?.data?.our_repair_centers?.RepairCentersItems[index]?.RepairCenterLinks">
+                    <div class="but small" :class="link.ItemCssClass">{{link.Title ?? '' }}</div>
+                  </a>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -193,3 +207,27 @@ onBeforeUnmount(() => {
     </defs>
   </svg>
 </template>
+
+<style scoped>
+footer .shop .links{
+  margin-top: 16px;
+  display: flex;
+  gap: 5px;
+}
+footer .shop .links .but {
+  color: #142835;
+  background: linear-gradient(to right, var(--gradientColor1-20), var(--gradientColor2-20));
+  transition: --gradientColor1-20 0.5s, --gradientColor2-20 0.5s;
+}
+footer .shop .links .but:hover{
+  --gradientColor1-20: var(--gradientColor1-30);
+  --gradientColor2-20: var(--gradientColor2-30);
+}
+footer .shop .links .but.whatsapp {
+  background: #25d366 url(/img/icons/whatsapp.svg) no-repeat center;
+  width: 40px;
+}
+footer .shop .links .but.whatsapp:hover {
+  background-color: #25D36699;
+}
+</style>
