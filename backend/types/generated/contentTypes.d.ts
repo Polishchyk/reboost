@@ -1807,7 +1807,7 @@ export interface ApiSellSell extends Struct.CollectionTypeSchema {
   collectionName: 'sells';
   info: {
     description: '';
-    displayName: 'sell';
+    displayName: 'Sell';
     pluralName: 'sells';
     singularName: 'sell';
   };
