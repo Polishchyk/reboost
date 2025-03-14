@@ -2,6 +2,8 @@
 
 import Breadcrumbs from "~/components/sections/Breadcrumbs.vue";
 import SeoHead from '~/components/SeoHead.vue'
+import { useAsyncData } from '#imports'
+import RepairCenters from '~/components/sections/RepairCenters.vue'
 
 const config = useRuntimeConfig();
 const { locale } = useI18n();
@@ -13,6 +15,13 @@ const { data: PhoneRepairPageData} = await useAsyncData(
           params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true  }
+);
+
+const { data: globalDataDevicePage } = await useAsyncData(`globalData-${locale.value}-phone-repair-page`, () =>
+        $fetch(`${config.public.apiBase}/global`, {
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+        }),
+    { watch: [locale], server: true }
 );
 
 </script>
@@ -40,6 +49,9 @@ const { data: PhoneRepairPageData} = await useAsyncData(
           <div class="sub" v-html="PhoneRepairPageData?.data?.SubDescription"></div>
         </div>
       </div>
+
+      <RepairCenters :data="globalDataDevicePage?.data?.our_repair_centers" />
+
     </div>
   </div>
 </template>
@@ -60,6 +72,9 @@ const { data: PhoneRepairPageData} = await useAsyncData(
 .sect-devices-list .brands .item img {
   margin: auto;
   max-height: 100px;
+}
+.sect-support .sect-repair-centers{
+  margin-bottom: 0!important;
 }
 @media (max-width: 768px) {
   .sect-devices-list .brands {
