@@ -1330,6 +1330,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 }
 .sect-repair-selection .selection {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: 74px;
 }
@@ -1338,7 +1339,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 }
 .sect-repair-selection .selection .item {
     width: 200px;
-    margin: 0 8px;
+    margin: 8px;
 }
 .sect-repair-selection .selection .item a {
     border: 1px solid #D0D4D7;
