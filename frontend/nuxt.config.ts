@@ -14,11 +14,13 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', "@nuxtjs/i18n"],
   i18n: {
     locales: [
-      { code: 'en', language: 'en-US', name: 'English' },
-      { code: 'fr', language: 'fr-FR', name: 'Français' },
-      { code: 'it', language: 'it-IT', name: 'Italiano' },
-      { code: 'de', language: 'de-DE', name: 'Deutsch' }
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
+      { code: 'it', language: 'it-IT', name: 'Italiano', file: 'it.json' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' }
     ],
+    langDir: 'locales/',
+    lazy: true,
     defaultLocale: 'it',
   },
   ssr: true,

@@ -8,7 +8,7 @@ import { useAsyncData } from '#imports'
 import InfoText from '~/components/sections/InfoText.vue'
 
 const config = useRuntimeConfig();
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 const { data: ContactUsPageData } = await useAsyncData(
     `it-support-${locale.value}`,
@@ -36,10 +36,10 @@ const validationSchema = computed(() => {
           contactFields.value.map(field => [
             normalizeFieldName(field.Title),
             field.Type === 'email'
-                ? yup.string().email('Invalid email').required('This field is required')
+                ? yup.string().email(t('validation.email')).required(t('validation.required'))
                 : field.Type === 'number'
-                    ? yup.number().typeError('Must be a number').required('This field is required')
-                    : yup.string().required('This field is required')
+                    ? yup.number().typeError(t('validation.number')).required(t('validation.required'))
+                    : yup.string().required(t('validation.required'))
           ])
       )
   );
@@ -78,11 +78,10 @@ const onSubmit = handleSubmit(async (values) => {
     successMessage.value = 'Form submitted successfully!';
   } catch (error) {
     console.error('Submission error:', error);
-
     if (error?.data?.error?.details?.errors) {
       error.data.error.details.errors.forEach((err) => {
         const fieldName = err.path[0];
-        backendErrors.value[fieldName] = err.message;
+        backendErrors.value[fieldName] = t(`validation.${fieldName}`) || err.message;
       });
     }
   }
