@@ -54,12 +54,15 @@ const { data: pageTitles } = await useAsyncData(() =>
 
     <div class="sect-repair-selection">
       <div class="wrap">
+        <div class="icon" v-if="devicePageData?.data?.Icon">
+          <img :src="config.public.publicUrl + devicePageData?.data?.Icon?.url" :alt="devicePageData?.data?.Icon?.alternativeText">
+        </div>
         <h1>{{devicePageData?.data?.PageTitle}}</h1>
         <div class="sub" v-html="devicePageData?.data?.Description"></div>
         <div class="selection" v-if="devicePageData?.data?.hardware">
           <template  v-if="devicePageData?.data?.hardware?.services && devicePageData?.data?.hardware?.services?.length > 0">
             <div class="item" v-for="service in devicePageData?.data?.hardware?.services">
-              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}phone-repair/${devicePageData?.data?.product?.slug}/${devicePageData?.data?.slug}/${service?.slug}`">
+              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}service/${service?.slug}`">
                 <div class="icon" v-if="service?.Icon">
                   <img :src="config.public.publicUrl + service?.Icon?.url" :alt="service?.Icon?.alternativeText">
                 </div>

@@ -39,30 +39,30 @@ exports.default = {
                 localizations: {
                     fields: ['slug', 'locale'],
                 },
-                Software: {
-                    populate: {
-                        services: {
-                            fields: ['slug', 'locale'],
-                            populate: {
-                                localizations: {
-                                    fields: ['slug', 'locale']
-                                }
-                            }
+                /*Software: {
+                  populate: {
+                    services: {
+                      fields: ['slug', 'locale'],
+                      populate: {
+                        localizations: {
+                          fields: ['slug', 'locale']
                         }
+                      }
                     }
+                  }
                 },
                 hardware: {
-                    populate: {
-                        services: {
-                            fields: ['slug', 'locale'],
-                            populate: {
-                                localizations: {
-                                    fields: ['slug', 'locale']
-                                }
-                            }
+                  populate: {
+                    services: {
+                      fields: ['slug', 'locale'],
+                      populate: {
+                        localizations: {
+                          fields: ['slug', 'locale']
                         }
+                      }
                     }
-                },
+                  }
+                },*/
             },
         }));
         // Тип assertion для services
@@ -104,6 +104,14 @@ exports.default = {
                 const urlPath = lang === 'it' ? `/sell/${slug}` : `/${lang}/sell/${slug}`;
                 urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
             });
+            services.forEach((sell) => {
+                let slug = sell.slug;
+                if (sell.localizations) {
+                    slug = getLocalizedSlug(sell.localizations, lang) || slug;
+                }
+                const urlPath = lang === 'it' ? `/service/${slug}` : `/${lang}/service/${slug}`;
+                urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
+            });
             products.forEach((product) => {
                 let slug = product.slug;
                 if (product.localizations) {
@@ -131,27 +139,27 @@ exports.default = {
                         : `${baseUrl}/${lang}/${category.slug}/${product.slug}/${slug}`;
                     urls.push({ loc: deviceUrl, priority: 0.7 });
                     // Додаємо посилання на software services
-                    if (Software && Software.services && Software.services.length > 0) {
-                        Software.services.forEach((service) => {
-                            let serviceSlug = service.slug;
-                            if (service.localizations) {
-                                serviceSlug = getLocalizedSlug(service.localizations, lang) || serviceSlug;
-                            }
-                            const serviceUrl = `${deviceUrl}/${serviceSlug}`;
-                            urls.push({ loc: serviceUrl, priority: 0.6 });
-                        });
-                    }
+                    /*if (Software && Software.services && Software.services.length > 0) {
+                      Software.services.forEach((service) => {
+                        let serviceSlug = service.slug;
+                        if (service.localizations) {
+                          serviceSlug = getLocalizedSlug(service.localizations, lang) || serviceSlug;
+                        }
+                        const serviceUrl = `${deviceUrl}/${serviceSlug}`;
+                        urls.push({ loc: serviceUrl, priority: 0.6 });
+                      });
+                    }*/
                     // Додаємо посилання на hardware services
-                    if (hardware && hardware.services && hardware.services.length > 0) {
-                        hardware.services.forEach((service) => {
-                            let serviceSlug = service.slug;
-                            if (service.localizations) {
-                                serviceSlug = getLocalizedSlug(service.localizations, lang) || serviceSlug;
-                            }
-                            const serviceUrl = `${deviceUrl}/${serviceSlug}`;
-                            urls.push({ loc: serviceUrl, priority: 0.6 });
-                        });
-                    }
+                    /*if (hardware && hardware.services && hardware.services.length > 0) {
+                      hardware.services.forEach((service) => {
+                        let serviceSlug = service.slug;
+                        if (service.localizations) {
+                          serviceSlug = getLocalizedSlug(service.localizations, lang) || serviceSlug;
+                        }
+                        const serviceUrl = `${deviceUrl}/${serviceSlug}`;
+                        urls.push({ loc: serviceUrl, priority: 0.6 });
+                      });
+                    }*/
                 }
             });
             if (lang !== 'it') {

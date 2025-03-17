@@ -60,7 +60,7 @@ const { data: pageTitles } = await useAsyncData(() =>
         <div class="selection" v-if="devicePageData?.data?.hardware">
           <template  v-if="devicePageData?.data?.hardware?.services && devicePageData?.data?.hardware?.services?.length > 0">
             <div class="item" v-for="service in devicePageData?.data?.hardware?.services">
-              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}computer-repair/${devicePageData?.data?.product?.slug}/${devicePageData?.data?.slug}/${service?.slug}`">
+              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}service/${service?.slug}`">
                 <div class="icon" v-if="service?.Icon">
                   <img :src="config.public.publicUrl + service?.Icon?.url" :alt="service?.Icon?.alternativeText">
                 </div>
@@ -74,7 +74,7 @@ const { data: pageTitles } = await useAsyncData(() =>
         <div class="selection" v-if="devicePageData?.data?.Software">
           <template  v-if="devicePageData?.data?.Software?.services && devicePageData?.data?.Software?.services?.length > 0">
             <div class="item" v-for="service in devicePageData?.data?.Software?.services">
-              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}computer-repair/${devicePageData?.data?.product?.slug}/${devicePageData?.data?.slug}/${service?.slug}`">
+              <nuxt-link :to="`${locale !== defaultLocale ? `/${locale}/` : `/`}service/${service?.slug}`">
                 <div class="icon" v-if="service?.Icon">
                   <img :src="config.public.publicUrl + service?.Icon?.url" :alt="service?.Icon?.alternativeText">
                 </div>

@@ -94,8 +94,12 @@
                     "localized": true
                 }
             },
-            "type": "text",
-            "required": true
+            "type": "customField",
+            "options": {
+                "preset": "defaultHtml"
+            },
+            "required": true,
+            "customField": "plugin::ckeditor5.CKEditor"
         },
         "FAQ": {
             "type": "component",

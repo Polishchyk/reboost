@@ -86,7 +86,7 @@ export default {
         localizations: {
           fields: ['slug', 'locale'],
         },
-        Software: {
+        /*Software: {
           populate: {
             services: {
               fields: ['slug', 'locale'],
@@ -109,7 +109,7 @@ export default {
               }
             }
           }
-        },
+        },*/
       },
     })) as Device[];
 
@@ -157,6 +157,15 @@ export default {
         urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
       });
 
+      services.forEach((sell) => {
+        let slug = sell.slug;
+        if (sell.localizations) {
+          slug = getLocalizedSlug(sell.localizations, lang) || slug;
+        }
+        const urlPath = lang === 'it' ? `/service/${slug}` : `/${lang}/service/${slug}`;
+        urls.push({ loc: `${baseUrl}${urlPath}`, priority: 0.9 });
+      });
+
       products.forEach((product: Product) => {
         let slug = product.slug;
         if (product.localizations) {
@@ -186,7 +195,7 @@ export default {
           urls.push({ loc: deviceUrl, priority: 0.7 });
 
           // Додаємо посилання на software services
-          if (Software && Software.services && Software.services.length > 0) {
+          /*if (Software && Software.services && Software.services.length > 0) {
             Software.services.forEach((service) => {
               let serviceSlug = service.slug;
               if (service.localizations) {
@@ -195,10 +204,10 @@ export default {
               const serviceUrl = `${deviceUrl}/${serviceSlug}`;
               urls.push({ loc: serviceUrl, priority: 0.6 });
             });
-          }
+          }*/
 
           // Додаємо посилання на hardware services
-          if (hardware && hardware.services && hardware.services.length > 0) {
+          /*if (hardware && hardware.services && hardware.services.length > 0) {
             hardware.services.forEach((service) => {
               let serviceSlug = service.slug;
               if (service.localizations) {
@@ -207,7 +216,7 @@ export default {
               const serviceUrl = `${deviceUrl}/${serviceSlug}`;
               urls.push({ loc: serviceUrl, priority: 0.6 });
             });
-          }
+          }*/
         }
       });
 
