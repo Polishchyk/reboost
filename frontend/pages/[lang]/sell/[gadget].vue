@@ -182,15 +182,12 @@ const onSubmit = handleSubmit(async (values) => {
 }
 .sell li{
   position: relative;
-  padding-left: 60px;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   min-height: 50px;
   display: flex;
   align-items: center;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 30px;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -199,7 +196,6 @@ const onSubmit = handleSubmit(async (values) => {
   content: counter(li) ".";
   counter-increment: li;
   font-weight: 500;
-  font-size: 20px;
   line-height: 1;
   position: absolute;
   left: 0;

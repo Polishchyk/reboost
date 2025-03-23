@@ -77,6 +77,9 @@ body {
     line-height: 24px;
     color: #142835;
 }
+a:not([href]) {
+    cursor: default;
+}
 input, select, textarea, .select_btn {
     font-family: inherit;
     color: inherit;
@@ -451,9 +454,9 @@ header .lang .dropdown li, footer .lang .dropdown li {
     display: block;
 }
 header .lang .dropdown li a, footer .lang .dropdown li a {
-    font-size: 14px;
+    font-size: 100%;
     line-height: 22px;
-    padding: 2.5px 8px 3.5px 8px;
+    padding: 3.5px 20px 4.5px 20px;
     display: block;
 }
 header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
@@ -1058,6 +1061,34 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     overflow: hidden;
     transition: max-height 0.3s;
 }
+.sect-info-text .text ol{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    counter-reset: li;
+}
+.sect-info-text .text li{
+    position: relative;
+    padding-left: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.sect-info-text .text ol li:before{
+    content: counter(li) ".";
+    counter-increment: li;
+    font-weight: 500;
+    line-height: 1;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: font-size 0.5s;
+}
 .sect-info-text .text:not(.opened) {
     max-height: 297px !important;
 }
@@ -1402,8 +1433,9 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     margin-top: 38px;
 }
 .sect-book-repair .sub {
-    font-weight: 500;
-    font-size: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
     line-height: 28px;
     margin-top: 20px;
 }

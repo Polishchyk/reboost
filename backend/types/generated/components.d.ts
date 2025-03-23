@@ -101,10 +101,11 @@ export interface HomeSectionsDevicesListItems extends Struct.ComponentSchema {
 export interface HomeSectionsFaq extends Struct.ComponentSchema {
   collectionName: 'components_home_sections_faqs';
   info: {
+    description: '';
     displayName: 'FAQ';
   };
   attributes: {
-    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Description: Schema.Attribute.Text;
     FAQItems: Schema.Attribute.Component<'home-sections.faq-items', true> &
       Schema.Attribute.Required;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
