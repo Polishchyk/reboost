@@ -352,7 +352,9 @@ header .submenu {
     visibility: hidden;
     transform: translateY(-20px);
     transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
-    pointer-events: none;
+
+    /* Додаємо затримку для зникнення */
+    /*transition-delay: 0.7s;*/
 }
 header .submenu:before {
     content: '';
@@ -364,11 +366,21 @@ header .submenu:before {
     left: -9999px;
     right: -9999px;
 }
+header .submenu:after {
+    content: '';
+    position: absolute;
+    left: -9999px;
+    right: -9999px;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+}
 header .menu > ul > li:hover .submenu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    /*transition-delay: 0s;*/
 }
 header .submenu ul {
     margin-right: 100px;
@@ -1073,7 +1085,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     overflow: hidden;
     transition: max-height 0.3s;
 }
-.sect-info-text .text ol{
+.sect-info-text .text ol, .sect-info-text .text ul{
     margin-top: 32px;
     margin-bottom: 32px;
     counter-reset: li;
@@ -1187,6 +1199,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     display: flex;
     justify-content: center;
     margin-top: 32px;
+    flex-wrap: wrap;
 }
 .sect-phone-selection .selection .item {
     width: 216px;

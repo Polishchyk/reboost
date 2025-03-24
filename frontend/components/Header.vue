@@ -1,14 +1,14 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watchEffect } from 'vue';
-import { useRoute } from '#imports'
+import { ref, onMounted, onBeforeUnmount, watchEffect, computed } from 'vue';
+import { useRoute } from '#imports';
 
 const route = useRoute();
 const config = useRuntimeConfig();
 const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const availableLocales = computed(() => {
-  return locales.value.filter(i => i.code !== locale.value)
-})
+  return locales.value.filter((i) => i.code !== locale.value);
+});
 
 const dropdownActive = ref(false);
 const toggleDropdown = () => {
@@ -17,12 +17,12 @@ const toggleDropdown = () => {
 
 const { data: globalData } = await useAsyncData(`globalData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/global`, {
-          params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+          params: { pLevel: 3, ...(locale.value !== 'it' ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
 
-const faviconUrl = ref("/favicon.ico");
+const faviconUrl = ref('/favicon.ico');
 const analyticsCode = ref(globalData.value?.data?.analytics_code || '');
 const apple_touch_icon = ref('');
 const icon_svg = ref('');
@@ -64,14 +64,14 @@ useHead({
 
 const { data: headerData} = await useAsyncData(`headerData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/header`, {
-          params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+          params: { pLevel: 3, ...(locale.value !== 'it' ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
 
 const { data: mainMenuData} = await useAsyncData(`mainMenuData-${locale.value}`, () =>
         $fetch(`${config.public.apiBase}/main-menu`, {
-          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+          params: { pLevel: 4, ...(locale.value !== 'it' ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
@@ -97,21 +97,21 @@ const handleClickOutside = (event) => {
 };
 
 const localizedUrl = (url) => {
-  if(url == '/'){
-    return locale.value !== 'it' ? `/${locale.value}` : url
+  if (url === '/') {
+    return locale.value !== 'it' ? `/${locale.value}` : url;
   }
-  return locale.value !== 'it' ? `/${locale.value}${url}` : url
-}
+  return locale.value !== 'it' ? `/${locale.value}${url}` : url;
+};
 
 const isInternalLink = (url) => {
-  return url.startsWith('/') && !url.startsWith('http')
-}
+  return url.startsWith('/') && !url.startsWith('http');
+};
 
 const isActive = (url) => {
-  const currentPath = route.path
-  const localizedUrlPath = localizedUrl(url)
-  return currentPath === localizedUrlPath
-}
+  const currentPath = route.path;
+  const localizedUrlPath = localizedUrl(url);
+  return currentPath === localizedUrlPath;
+};
 
 onMounted(() => {
   if (analyticsCode.value) {
@@ -150,35 +150,34 @@ onBeforeUnmount(() => {
                   <nuxt-link
                       v-if="isInternalLink(itemMenu?.Url)"
                       :to="localizedUrl(itemMenu?.Url)"
-                      :class="{'active': isActive(itemMenu?.Url)}"
+                      :class="{ active: isActive(itemMenu?.Url) }"
+                      @click="toggleMenu"
                   >
                     {{ itemMenu.Title }}
                   </nuxt-link>
                 </template>
                 <div class="submenu" v-if="itemMenu.menu_sections.length > 0">
                   <ul v-for="subItem in itemMenu.menu_sections" :key="subItem.id">
-                    <template v-if="subItem.Title">
-                      <li class="title">{{ subItem.Title }}</li>
-                    </template>
-                    <template v-if="subItem.Items.length > 0">
-                      <li v-for="childItem in subItem.Items" :key="childItem.id">
-                        <nuxt-link
-                            v-if="isInternalLink(childItem.Url)"
-                            :to="localizedUrl(childItem.Url)"
-                            :class="{'active': isActive(childItem.Url)}"
-                        >
-                          {{ childItem.Title }}
-                        </nuxt-link>
-                        <a
-                            v-else
-                            :href="childItem.Url"
-                            :target="childItem.Target"
-                            :class="{'active': isActive(childItem.Url)}"
-                        >
-                          {{ childItem.Title }}
-                        </a>
-                      </li>
-                    </template>
+                    <li v-if="subItem.Title" class="title">{{ subItem.Title }}</li>
+                    <li v-for="childItem in subItem.Items" :key="childItem.id">
+                      <nuxt-link
+                          v-if="isInternalLink(childItem.Url)"
+                          :to="localizedUrl(childItem.Url)"
+                          :class="{ active: isActive(childItem.Url) }"
+                          @click="toggleMenu"
+                      >
+                        {{ childItem.Title }}
+                      </nuxt-link>
+                      <a
+                          v-else
+                          :href="childItem.Url"
+                          :target="childItem.Target"
+                          :class="{ active: isActive(childItem.Url) }"
+                          @click="toggleMenu"
+                      >
+                        {{ childItem.Title }}
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </template>
@@ -186,7 +185,8 @@ onBeforeUnmount(() => {
                 <nuxt-link
                     v-if="isInternalLink(itemMenu.Url)"
                     :to="localizedUrl(itemMenu.Url)"
-                    :class="{'active': isActive(itemMenu.Url)}"
+                    :class="{ active: isActive(itemMenu.Url) }"
+                    @click="toggleMenu"
                 >
                   {{ itemMenu.Title }}
                 </nuxt-link>
@@ -222,7 +222,3 @@ onBeforeUnmount(() => {
     </div>
   </header>
 </template>
-
-<style scoped>
-
-</style>
