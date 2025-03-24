@@ -1090,7 +1090,8 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     -moz-user-select: none;
     user-select: none;
 }
-.sect-info-text .text ol li:before{
+.sect-info-text .text ol li:before,
+.sect-info-text .text ul li:before{
     content: counter(li) ".";
     counter-increment: li;
     font-weight: 500;
