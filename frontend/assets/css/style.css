@@ -2389,6 +2389,9 @@ footer .social a:hover svg path:not([fill="white"]) {
     }
 }
 @media screen and (max-width: 768px) {
+    header .submenu:after {
+        content: none;
+    }
     .mmenu {
         width: 26px;
         height: 26px;
