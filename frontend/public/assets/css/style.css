@@ -3163,3 +3163,21 @@ footer .social a:hover svg path:not([fill="white"]) {
         white-space: nowrap;
     }
 }
+@supports (-webkit-touch-callout: none) {
+    .sect-devices-list .devices a:hover #iphone-icon rect:first-child {
+        stroke: #017cff!important;
+    }
+    .sect-devices-list .devices a:hover .icon svg circle {
+        fill: #017cff!important;
+    }
+    .sect-devices-list .devices a:hover #iphone-icon rect:nth-child(2) {
+        fill: #017cff!important;
+    }
+    .sect-devices-list .devices a:hover #macbook-icon path:nth-child(2) {
+        fill: #017cff!important;
+        stroke: none;
+    }
+    footer .social a:hover svg path:not([fill="white"]) {
+        fill: #017cff!important;
+    }
+}
