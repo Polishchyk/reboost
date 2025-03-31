@@ -603,7 +603,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     line-height: 28px;
     margin-top: 20px;
 }
-.sect-devices-list .devices a:hover .icon svg path {
+/*.sect-devices-list .devices a:hover .icon svg path {
     stroke: url('/img/icons/gradient.svg#icon-gradient')!important;
 }
 .sect-devices-list .devices a:hover .icon svg circle {
@@ -618,7 +618,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 .sect-devices-list .devices a:hover #macbook-icon path:nth-child(2) {
     fill: url('/img/icons/gradient.svg#icon-gradient')!important;
     stroke: none;
-}
+}*/
 .sect-devices-list .devices a:hover .name {
     background: -webkit-linear-gradient(left, var(--gradientColor1), var(--gradientColor2));
     background-clip: border-box;
