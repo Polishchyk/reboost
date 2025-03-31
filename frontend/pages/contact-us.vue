@@ -132,4 +132,8 @@ const onSubmit = handleSubmit(async (values) => {
 input{
   height: 52px;
 }
+label.label {
+  display: flex;
+  padding-left: 8px;
+}
 </style>

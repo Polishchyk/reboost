@@ -9,6 +9,8 @@ export default defineComponent({
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 
+const { t } = useI18n();
+
 const props = defineProps({
   data: Object,
 });
@@ -60,8 +62,8 @@ onBeforeUnmount(() => {
         <div class="text-wrap" v-html="data?.Description"></div>
       </div>
       <div class="more">
-        <a @click="toggleText" v-if="!isOpened">See more benefits</a>
-        <a @click="toggleText" v-else>Hide</a>
+        <a @click="toggleText" v-if="!isOpened">{{t(`see_more_benefits`)}}</a>
+        <a @click="toggleText" v-else>{{t(`hide`)}}</a>
       </div>
     </div>
   </div>

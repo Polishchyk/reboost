@@ -3,5 +3,8 @@
     "required": "Dieses Feld ist erforderlich",
     "email": "Geben Sie eine gültige E-Mail-Adresse ein",
     "number": "Muss eine Zahl sein"
-  }
+  },
+  "see_more" : "Mehr sehen",
+  "see_more_benefits" : "Weitere Vorteile ansehen",
+  "hide" : "Verstecken"
 }

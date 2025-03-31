@@ -111,7 +111,7 @@ watch(selectedDevice, (device) => {
   <form class="space-y-4 max-w-md mx-auto" style="margin-top: 8px">
     <!-- Вибір бренду -->
     <div class="select-1">
-      <Listbox v-model="selectedBrand" as="div" class="relative">
+      <Listbox v-model="selectedBrand" as="div" class="relative" >
         <ListboxButton class="select_btn w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none inline-flex">
           {{ selectedBrand ? brands.find(b => b.id === selectedBrand)?.name : data.SelectBrandPlaceholder }}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="-mr-1 ml-auto h-5 w-5">
@@ -138,7 +138,7 @@ watch(selectedDevice, (device) => {
 
     <!-- Вибір продукту -->
     <div class="select-2" v-if="products.length">
-      <Listbox v-model="selectedProduct" as="div" class="relative">
+      <Listbox v-model="selectedProduct" as="div" class="relative" >
         <ListboxButton class="select_btn w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none inline-flex">
           {{ selectedProduct ? products.find(p => p.id === selectedProduct)?.name : data.SelectProductPlaceholder }}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="-mr-1 ml-auto h-5 w-5">
@@ -177,3 +177,12 @@ watch(selectedDevice, (device) => {
     </div>
   </form>
 </template>
+
+<style>
+.select-1 .relative,
+.select-2 .relative,
+.select-3 .relative{
+  display: flex;
+  justify-content: center;
+}
+</style>

@@ -236,3 +236,9 @@ const onSubmit = handleSubmit(async (values) => {
     }
 }
 </style>
+<style scoped>
+label.label {
+  display: flex;
+  padding-left: 8px;
+}
+</style>

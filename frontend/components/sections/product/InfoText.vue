@@ -2,7 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 
 const config = useRuntimeConfig();
-const { locale, defaultLocale } = useI18n();
+const { locale, defaultLocale, t } = useI18n();
 
 defineProps({
   data: Object,
@@ -55,8 +55,8 @@ onBeforeUnmount(() => {
         <div class="text-wrap" v-html="data?.Description"></div>
       </div>
       <div class="more">
-        <a @click="toggleText" v-if="!isOpened">See more</a>
-        <a @click="toggleText" v-else>Hide</a>
+        <a @click="toggleText" v-if="!isOpened">{{t(`see_more`)}}</a>
+        <a @click="toggleText" v-else>{{t(`hide`)}}</a>
       </div>
     </div>
   </div>
