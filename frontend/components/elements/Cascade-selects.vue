@@ -182,7 +182,8 @@ watch(selectedDevice, (device) => {
 .select-1 .relative,
 .select-2 .relative,
 .select-3 .relative{
-  display: flex;
-  justify-content: center;
+  display: block;
+  margin: 0 auto;
+  width: max-content;
 }
 </style>
