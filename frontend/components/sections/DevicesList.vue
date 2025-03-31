@@ -34,10 +34,39 @@ onMounted(() => {
       const circles = svg.querySelectorAll('circle');
       const rects = svg.querySelectorAll('rect');
 
-      const applyGradient = () => 'url(\"/img/icons/gradient.svg#icon-gradient\")';
+      const createGradient = () => {
+        const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        gradient.setAttribute('id', 'hover-gradient');
+        gradient.setAttribute('x1', '1.78565');
+        gradient.setAttribute('y1', '22.9211');
+        gradient.setAttribute('x2', '75.368');
+        gradient.setAttribute('y2', '58.3399');
+        gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+
+        const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop1.setAttribute('offset', '0%');
+        stop1.setAttribute('stop-color', '#017CFF');
+
+        const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop2.setAttribute('offset', '100%');
+        stop2.setAttribute('stop-color', '#3EC1FF');
+
+        gradient.appendChild(stop1);
+        gradient.appendChild(stop2);
+
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        defs.appendChild(gradient);
+
+        return defs;
+      };
+
+      const applyGradient = () => 'url(#hover-gradient)';
       const applyDefault = () => '#142835';
 
       item.addEventListener('mouseover', () => {
+        const defs = createGradient();
+        svg.appendChild(defs);
+
         if (svg.id === 'iphone-icon') {
           if (rects[0]) rects[0].style.stroke = applyGradient();
           if (rects[1]) rects[1].style.fill = applyGradient();
@@ -59,6 +88,11 @@ onMounted(() => {
       });
 
       item.addEventListener('mouseout', () => {
+        const defs = svg.querySelector('defs');
+        if (defs) {
+          defs.remove();
+        }
+
         if (svg.id === 'iphone-icon') {
           if (rects[0]) rects[0].style.stroke = applyDefault();
           if (rects[1]) rects[1].style.fill = applyDefault();
