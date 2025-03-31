@@ -34,7 +34,7 @@ onMounted(() => {
       const circles = svg.querySelectorAll('circle');
       const rects = svg.querySelectorAll('rect');
 
-      const applyGradient = () => 'url("/img/icons/gradient.svg#icon-gradient")';
+      const applyGradient = () => 'url(\"/img/icons/gradient.svg#icon-gradient\")';
       const applyDefault = () => '#142835';
 
       item.addEventListener('mouseover', () => {
