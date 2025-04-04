@@ -73,7 +73,8 @@ const fetchDevices = async () => {
       "filters[product][id][$eq]": selectedProduct.value,
       fields: ["id", "Title", "slug"],
       "populate[category][fields][0]": "slug",
-      ...(locale.value !== "it" ? { locale: locale.value } : {})
+      "sort": "Title:desc",
+      ...(locale.value !== "it" ? { locale: locale.value } : {}),
     },
   });
 
