@@ -47,7 +47,7 @@ if (props.seo) {
       { name: "viewport", content: props.seo?.metaViewport || "width=device-width, initial-scale=1.0" },
       { property: "og:title", content: props.seo?.openGraph?.ogTitle || props.seo?.metaTitle },
       { property: "og:description", content: props.seo?.openGraph?.ogDescription || props.seo?.metaDescription },
-      { property: "og:image", content: props.seo?.openGraph?.ogImage?.url ? `${runtimeConfig.public.apiBase}${props.seo.openGraph.ogImage.url}` : "" },
+      { property: "og:image", content: props.seo?.openGraph?.ogImage?.url ? `${runtimeConfig.public.publicUrl}${props.seo.openGraph.ogImage.url}` : "" },
       { property: "og:url", content: canonicalUrl || "" },
       { property: "og:type", content: props.seo?.openGraph?.ogType || "website" }
     ],
