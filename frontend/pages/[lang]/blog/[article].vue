@@ -12,7 +12,7 @@ const { data: articlePageData} = await useAsyncData(
     `article-${locale.value}-${slug}`,
     () =>
         $fetch(`${config.public.apiBase}/articles/${slug}`, {
-          params: { pLevel: 2, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true  }
 );
