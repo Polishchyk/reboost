@@ -27,7 +27,7 @@ const { data: SellPageData } = await useAsyncData(
     `sell-${locale.value}-${slug}`,
     () =>
         $fetch(`${config.public.apiBase}/sells/${slug}`, {
-          params: { pLevel: 3, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
+          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
         }),
     { watch: [locale], server: true }
 );
