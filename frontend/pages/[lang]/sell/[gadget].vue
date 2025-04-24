@@ -14,6 +14,15 @@ const route = useRoute();
 
 const slug = route.params.gadget;
 
+const { data: contactFieldsEn } = await useAsyncData(
+    `sell-en-${slug}-contact-fields`,
+    () =>
+        $fetch(`${config.public.apiBase}/sells/${slug}`, {
+          params: { pLevel: 3, locale: 'en' },
+        }),
+    { server: true }
+);
+
 const { data: SellPageData } = await useAsyncData(
     `sell-${locale.value}-${slug}`,
     () =>
@@ -30,7 +39,18 @@ const { data: globalDataSellPage } = await useAsyncData(`globalData-${locale.val
     { watch: [locale], server: true }
 );
 
-const contactFields = computed(() => SellPageData.value?.data?.contact_form_fields || []);
+const contactFields = computed(() => {
+  const localFields = SellPageData.value?.data?.contact_form_fields || [];
+  const enFields = contactFieldsEn.value?.data?.contact_form_fields || [];
+
+  return enFields.map((enField, index) => {
+    const localField = localFields[index];
+    return {
+      ...enField,
+      TitleLocalized: localField?.Title || enField.Title,
+    };
+  });
+});
 
 const normalizeFieldName = (title) => title.replace(/\s+/g, '_').toLowerCase();
 
@@ -38,7 +58,7 @@ const validationSchema = computed(() => {
   return yup.object(
       Object.fromEntries(
           contactFields.value.map(field => [
-            normalizeFieldName(field.Title),
+            normalizeFieldName(field.Title), // ключ з EN
             field.Type === 'email'
                 ? yup.string().email(t('validation.email')).required(t('validation.required'))
                 : field.Type === 'number'
@@ -142,7 +162,7 @@ const onSubmit = handleSubmit(async (values) => {
         <div class="content">
           <form @submit.prevent="onSubmit" class="mt-6 space-y-4">
             <div v-for="field in contactFields" :key="field.id">
-              <label class="label">{{ field.Title }}</label>
+              <label class="label">{{ field.TitleLocalized }}</label>
               <input v-if="field.Type !== 'textarea'"
                      :type="field.Type"
                      v-model="fields[normalizeFieldName(field.Title)][0].value"
@@ -228,12 +248,12 @@ const onSubmit = handleSubmit(async (values) => {
   justify-content: center;
 }
 .sell-grid-item img{
-    max-width: 100px;
+  max-width: 100px;
 }
 @media (max-width: 600px) {
-    .sell-grid-item {
-      width: 100%;
-    }
+  .sell-grid-item {
+    width: 100%;
+  }
 }
 </style>
 <style scoped>
