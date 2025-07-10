@@ -2048,6 +2048,13 @@ footer .social {
 footer .social a:hover svg path:not([fill="white"]) {
     fill: url('/img/icons/gradient.svg#icon-gradient')!important;
 }
+.sect-blog-content .blog-content a {color: #4d4de6;}
+.sect-blog-content .blog-content ul {padding: 15px;}
+.sect-blog-content .blog-content ul li {list-style: disc;}
+.sect-blog-content .blog-content ol {padding: 15px;}
+.sect-blog-content .blog-content ol li {list-style: decimal;}
+.sect-blog-content .blog-content .but a {color: #fff;}
+.sect-blog-content .blog-content table, th, td {border: #ccc 1px solid;margin:0; padding:5px;border-collapse: collapse;}
 
 @media screen and (max-width: 1400px) {
     .sect-solutions .solutions {

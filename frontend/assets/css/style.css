@@ -1782,6 +1782,13 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
 .sect-blog-content .blog-content .item p {
 	margin-bottom: 16px;
 }
+.sect-blog-content .blog-content a {color: #4d4de6;}
+.sect-blog-content .blog-content ul {padding: 15px;}
+.sect-blog-content .blog-content ul li {list-style: disc;}
+.sect-blog-content .blog-content ol {padding: 15px;}
+.sect-blog-content .blog-content ol li {list-style: decimal;}
+.sect-blog-content .blog-content .but a {color: #fff;}
+.sect-blog-content .blog-content table, th, td {border: #ccc 1px solid;margin:0; padding:5px;border-collapse: collapse;}
 
 .sect-it-plans {
     margin-top: 100px;
