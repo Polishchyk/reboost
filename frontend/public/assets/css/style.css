@@ -2072,6 +2072,7 @@ footer .social a:hover svg path:not([fill="white"]) {
     position: relative;
     height: 17px;
     width: 16px;
+    min-width: 16px;
     background: url(/img/icons/tick-colored.svg) no-repeat center;
     margin-right: 16px;
 }

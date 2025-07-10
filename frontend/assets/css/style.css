@@ -1806,6 +1806,7 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     position: relative;
     height: 17px;
     width: 16px;
+    min-width: 16px;
     background: url(/img/icons/tick-colored.svg) no-repeat center;
     margin-right: 16px;
 }
