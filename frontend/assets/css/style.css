@@ -1819,8 +1819,10 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     margin: 1.5em 0;
     font-size: 1rem;
     line-height: 1.5;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
-
 .sect-blog-content .blog-content th,
 .sect-blog-content .blog-content td {
     border: 1px solid #ddd;
