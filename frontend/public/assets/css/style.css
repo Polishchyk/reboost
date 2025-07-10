@@ -2054,7 +2054,41 @@ footer .social a:hover svg path:not([fill="white"]) {
 .sect-blog-content .blog-content ol {padding: 15px;}
 .sect-blog-content .blog-content ol li {list-style: decimal;}
 .sect-blog-content .blog-content .but a {color: #fff;}
-.sect-blog-content .blog-content table, th, td {border: #ccc 1px solid;margin:0; padding:5px;border-collapse: collapse;}
+.sect-blog-content .blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.sect-blog-content .blog-content th,
+.sect-blog-content .blog-content td {
+    border: 1px solid #ddd;
+    padding: 0.75em 1em;
+    text-align: left;
+    vertical-align: top;
+}
+
+.sect-blog-content .blog-content th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+.sect-blog-content .blog-content tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.sect-blog-content .blog-content tr:hover {
+    background-color: #f0f0f0;
+}
+
+.sect-blog-content .blog-content caption {
+    caption-side: bottom;
+    font-size: 0.9rem;
+    color: #666;
+    padding-top: 0.5em;
+}
 
 @media screen and (max-width: 1400px) {
     .sect-solutions .solutions {
