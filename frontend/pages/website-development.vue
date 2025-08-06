@@ -31,10 +31,10 @@ const {data: englishContactUsPageData} = await useAsyncData(
     {watch: [locale], server: true}
 )
 
-const {data: SeoPageData} = await useAsyncData(
-    `seo-page-data-${locale.value}`,
+const {data: WebsiteDevelopment} = await useAsyncData(
+    `website-development-page-data-${locale.value}`,
     () =>
-        $fetch(`${config.public.apiBase}/seo`, {
+        $fetch(`${config.public.apiBase}/website-development`, {
           params: {pLevel: 3, ...(locale.value !== 'it' ? {locale: locale.value} : {})},
         }),
     {watch: [locale], server: true}
@@ -115,77 +115,91 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div v-if="SeoPageData?.data">
-    <SeoHead :seo="SeoPageData?.data?.SEO"/>
-    <Breadcrumbs :currentPageTitle="SeoPageData?.data?.title" class="bg2"/>
+  <div v-if="WebsiteDevelopment?.data">
+    <SeoHead :seo="WebsiteDevelopment?.data?.SEO"/>
+    <Breadcrumbs :currentPageTitle="WebsiteDevelopment?.data?.title" class="bg2"/>
 
     <div id="sect-promo" class="sect-support">
       <div class="wrap">
         <div class="content">
-          <h1>{{ SeoPageData?.data?.title }}</h1>
-          <div class="sub">
-            <p v-html="SeoPageData?.data?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
+          <h1>{{ WebsiteDevelopment?.data?.title }}</h1>
+          <div class="sub sub-full">
+            <p v-html="WebsiteDevelopment?.data?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
           </div>
         </div>
       </div>
     </div>
 
-    <section id="seo__services">
+    <section id="from">
+      <div class="wrap">
+        <div class="inn">
+          <div class="data flex">
+            <div class="text">
+              <h2>{{ WebsiteDevelopment?.data?.From?.title }}</h2>
+              <h3>{{ WebsiteDevelopment?.data?.From?.Subtitle }}</h3>
+              <div v-html="WebsiteDevelopment?.data?.From?.Description"></div>
+            </div>
+            <div class="image">
+              <img :src="config.public.publicUrl + WebsiteDevelopment?.data?.From?.Image?.url" :alt="WebsiteDevelopment?.data?.From?.Image?.alternativeText"/>
+            </div>
+          </div>
+          <div class="what">
+            <h3>{{ WebsiteDevelopment?.data?.From?.WhatTitle }}</h3>
+            <div class="flex" v-html="WebsiteDevelopment?.data?.From?.WhatDescription"></div>
+          </div>
+          <div class="technologies" v-if="WebsiteDevelopment?.data?.From?.Technologies && WebsiteDevelopment?.data?.From?.Technologies.length > 0">
+            <h3>{{ WebsiteDevelopment?.data?.From?.TechnologiesTitle }}</h3>
+            <div class="flex">
+              <span v-for="technology in WebsiteDevelopment?.data?.From?.Technologies">{{ technology.title }}</span>
+            </div>
+          </div>
+
+          <nuxt-link :to="WebsiteDevelopment?.data?.From?.button?.Url" class="but colored">{{ WebsiteDevelopment?.data?.From?.button?.Title }}</nuxt-link>
+        </div>
+      </div>
+    </section>
+
+    <section id="manage">
+      <div class="wrap">
+        <h2>{{ WebsiteDevelopment?.data?.Manage?.title }}</h2>
+        <div class="flex" v-if="WebsiteDevelopment?.data?.Manage?.Images && WebsiteDevelopment?.data?.Manage?.Images.length > 0">
+          <template v-for="image in WebsiteDevelopment?.data?.Manage?.Images">
+            <img :src="config.public.publicUrl + image.url" :alt="image.alternativeText"/>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section id="intergrations">
+      <div class="wrap">
+        <div class="inn">
+          <h2>{{ WebsiteDevelopment?.data?.Intergrations?.title }}</h2>
+          <div class="flex" v-html="WebsiteDevelopment?.data?.Intergrations?.Description"></div>
+
+          <div class="items grid" v-if="WebsiteDevelopment?.data?.IntergrationsItems && WebsiteDevelopment?.data?.IntergrationsItems.length > 0">
+            <div class="item" v-for="(intergrationsItem, index) in WebsiteDevelopment?.data?.IntergrationsItems" :key="intergrationsItem.id">
+              <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
+              <div class="title">{{ intergrationsItem.title }}</div>
+              <p>{{ intergrationsItem.Description }}</p>
+            </div>
+          </div>
+
+          <div class="technologies flex" v-if="WebsiteDevelopment?.data?.Intergrations?.Images && WebsiteDevelopment?.data?.Intergrations?.Images.length > 0">
+            <template v-for="technology_image in WebsiteDevelopment?.data?.Intergrations?.Images">
+              <img :src="config.public.publicUrl + technology_image.url" :alt="technology_image.alternativeText"/>
+            </template>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oneweb">
       <div class="wrap">
         <div class="inn flex">
+          <img :src="config.public.publicUrl + WebsiteDevelopment?.data?.Oneweb?.Image.url" :alt="WebsiteDevelopment?.data?.Oneweb?.Image.alternativeText"/>
           <div class="text">
-            <h2>{{ SeoPageData?.data?.SEOServices?.title }}</h2>
-            <p v-html="SeoPageData?.data?.SEOServices?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
-            <nuxt-link :to="SeoPageData?.data?.SEOServices?.button?.Url" class="but colored">{{ SeoPageData?.data?.SEOServices?.button?.Title }}</nuxt-link>
-          </div>
-          <div class="image">
-            <img :src="config.public.publicUrl + SeoPageData?.data?.SEOServices?.Image?.url" :alt="SeoPageData?.data?.SEOServices?.Image?.alternativeText"/>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services">
-      <div class="wrap">
-        <div class="items" v-if="SeoPageData?.data?.Services && SeoPageData?.data?.Services.length > 0">
-          <div class="item flex" v-for="service_item in SeoPageData?.data?.Services">
-            <div class="image">
-              <img :src="config.public.publicUrl + service_item.Image?.url" :alt="service_item.Image?.alternativeText">
-            </div>
-            <div class="text">
-              <h2>{{service_item.title}}</h2>
-              <p v-html="service_item.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="generative">
-      <div class="wrap">
-        <div class="content">
-          <h2>{{ SeoPageData?.data?.Generative?.title }}</h2>
-          <div class="text">
-            <p v-html="SeoPageData?.data?.Generative?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
-          </div>
-          <nuxt-link :to="SeoPageData?.data?.Generative?.button?.Url" class="but colored">{{ SeoPageData?.data?.Generative?.button?.Title }}</nuxt-link>
-        </div>
-      </div>
-    </section>
-
-    <section id="reporting">
-      <div class="wrap">
-        <div class="top flex">
-          <div class="text">
-            <h2>{{ SeoPageData?.data?.Reporting?.title }}</h2>
-            <p v-html="SeoPageData?.data?.Reporting?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
-          </div>
-          <img :src="config.public.publicUrl + SeoPageData?.data?.Reporting?.Image?.url" :alt="SeoPageData?.data?.Reporting?.Image?.alternativeText">
-        </div>
-        <div class="items grid" v-if="SeoPageData?.data?.Reporting?.Items && SeoPageData?.data?.Reporting?.Items.length > 0">
-          <div class="item" v-for="reporting_item in SeoPageData?.data?.Reporting?.Items">
-            <div class="title">{{reporting_item.title}}</div>
-            <p v-html="reporting_item?.Description?.replaceAll('\n\n', '<br><br>').replaceAll('\n', '<br>') ?? ''"></p>
+            <h2>{{ WebsiteDevelopment?.data?.Oneweb?.title }}</h2>
+            <div v-html="WebsiteDevelopment?.data?.Oneweb?.Description"></div>
           </div>
         </div>
       </div>
@@ -194,7 +208,7 @@ const onSubmit = handleSubmit(async (values) => {
     <div class="sect-support">
       <div class="wrap">
         <div class="content">
-          <h1>{{ SeoPageData?.data?.SoWhat?.title }}</h1>
+          <h2>{{ WebsiteDevelopment?.data?.SoWhatTitle }}</h2>
 
           <form @submit.prevent="onSubmit" class="mt-6 space-y-4">
             <div v-for="field in contactFields" :key="field.key">
@@ -218,7 +232,7 @@ const onSubmit = handleSubmit(async (values) => {
       </div>
     </div>
 
-    <InfoText :data="SeoPageData?.data?.InfoText"/>
+    <InfoText :data="WebsiteDevelopment?.data?.InfoText"/>
   </div>
 </template>
 

@@ -3281,7 +3281,7 @@ footer .social a:hover svg path:not([fill="white"]) {
 #reporting h2{margin-bottom: 32px}
 #reporting p{color: var(--textColor);}
 #reporting .top{margin-bottom: 52px;}
-#reporting .title{padding: 2px 0 2px 32px; background: url("../img/ls.svg") 0 50% no-repeat; font-size: 20px; font-weight: 700; line-height: 28px; margin-bottom: 12px;}
+#reporting .title{padding: 2px 0 2px 32px; background: url("../../img/ls.svg") 0 50% no-repeat; font-size: 20px; font-weight: 700; line-height: 28px; margin-bottom: 12px;}
 #reporting .wrap{max-width: 1148px}
 
 #so__what{margin: 80px 0;}
@@ -3303,7 +3303,7 @@ footer .social a:hover svg path:not([fill="white"]) {
 #from .technologies{padding-bottom: 20px}
 #from .technologies .flex{justify-content: flex-start; gap: 8px}
 #from .technologies span{line-height: 32px; border-radius: 100px; background: linear-gradient(119.45deg, rgba(1, 124, 255, 0.1) 8.17%, rgba(62, 193, 255, 0.1) 82.3%); padding: 0 10px 0 32px; font-weight: 700; font-size: 16px; position: relative;}
-#from .technologies span:after{background: url("../img/ls.svg") 50% 50% no-repeat; background-size: 100%; width: 16px; height: 16px; position: absolute; top: calc(50% - 8px); left: 10px; content: '';}
+#from .technologies span:after{background: url("../../img/ls.svg") 50% 50% no-repeat; background-size: 100%; width: 16px; height: 16px; position: absolute; top: calc(50% - 8px); left: 10px; content: '';}
 
 #manage{padding: 80px 0; text-align: center;}
 #manage h2{margin: 0 auto 40px; max-width: 740px}
@@ -3361,7 +3361,7 @@ footer .social a:hover svg path:not([fill="white"]) {
 #choose h2{max-width: 790px; margin: 0 auto 40px;}
 #choose .items{margin: 0 auto 40px; max-width: 940px}
 #choose .item{width: calc(50% - 30px); font-size: 20px; line-height: 28px; text-align: left;}
-#choose .item li{list-style: none; margin-bottom: 32px; box-sizing: border-box; padding: 0 0 0 34px; background: url("../img/ls.svg") 0 4px no-repeat; background-size: 20px;}
+#choose .item li{list-style: none; margin-bottom: 32px; box-sizing: border-box; padding: 0 0 0 34px; background: url("../../img/ls.svg") 0 4px no-repeat; background-size: 20px;}
 #choose .item li:last-child{margin-bottom: 0}
 
 #sect-faq{background: linear-gradient(180deg, #E8F9FF 0%, #FFFFFF 100%); padding: 80px 0 0; margin: 0}

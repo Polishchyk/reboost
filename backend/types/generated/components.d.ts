@@ -973,6 +973,120 @@ export interface ShopsShops extends Struct.ComponentSchema {
   };
 }
 
+export interface WebsiteDevelopmentFrom extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_froms';
+  info: {
+    displayName: 'From';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    Subtitle: Schema.Attribute.String & Schema.Attribute.Required;
+    Technologies: Schema.Attribute.Component<
+      'website-development.technologies',
+      true
+    > &
+      Schema.Attribute.Required;
+    TechnologiesTitle: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    WhatDescription: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    WhatTitle: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface WebsiteDevelopmentIntegrationItems
+  extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_integration_items';
+  info: {
+    displayName: 'IntegrationItems';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface WebsiteDevelopmentIntergrations
+  extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_intergrations';
+  info: {
+    description: '';
+    displayName: 'Intergrations';
+  };
+  attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface WebsiteDevelopmentManage extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_manages';
+  info: {
+    displayName: 'Manage';
+  };
+  attributes: {
+    Images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface WebsiteDevelopmentOneweb extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_onewebs';
+  info: {
+    displayName: 'Oneweb';
+  };
+  attributes: {
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface WebsiteDevelopmentTechnologies extends Struct.ComponentSchema {
+  collectionName: 'components_website_development_technologies';
+  info: {
+    displayName: 'Technologies';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -1045,6 +1159,12 @@ declare module '@strapi/strapi' {
       'shared.social-media-buttons': SharedSocialMediaButtons;
       'shop.shop': ShopShop;
       'shops.shops': ShopsShops;
+      'website-development.from': WebsiteDevelopmentFrom;
+      'website-development.integration-items': WebsiteDevelopmentIntegrationItems;
+      'website-development.intergrations': WebsiteDevelopmentIntergrations;
+      'website-development.manage': WebsiteDevelopmentManage;
+      'website-development.oneweb': WebsiteDevelopmentOneweb;
+      'website-development.technologies': WebsiteDevelopmentTechnologies;
     }
   }
 }

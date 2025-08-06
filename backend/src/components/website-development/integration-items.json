@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_website_development_integration_items",
+  "info": {
+    "displayName": "IntegrationItems"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

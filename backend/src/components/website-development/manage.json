@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_website_development_manages",
+  "info": {
+    "displayName": "Manage"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Images": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

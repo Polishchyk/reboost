@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_website_development_technologies",
+  "info": {
+    "displayName": "Technologies"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
