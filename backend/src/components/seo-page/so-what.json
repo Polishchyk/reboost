@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_seo_page_so_whats",
+  "info": {
+    "displayName": "so__what"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

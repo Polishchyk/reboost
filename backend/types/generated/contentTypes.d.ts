@@ -1890,6 +1890,97 @@ export interface ApiSellSell extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSeoSeo extends Struct.SingleTypeSchema {
+  collectionName: 'seos';
+  info: {
+    description: '';
+    displayName: 'Seo';
+    pluralName: 'seos';
+    singularName: 'seo';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Generative: Schema.Attribute.Component<'seo-page.generative', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    InfoText: Schema.Attribute.Component<'home-sections.info-text', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::seo.seo'>;
+    publishedAt: Schema.Attribute.DateTime;
+    Reporting: Schema.Attribute.Component<'seo-page.reporting', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SEO: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SEOServices: Schema.Attribute.Component<'seo-page.seo-services', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Services: Schema.Attribute.Component<'seo-page.services', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SoWhat: Schema.Attribute.Component<'seo-page.so-what', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiServiceService extends Struct.CollectionTypeSchema {
   collectionName: 'services';
   info: {
@@ -2596,6 +2687,7 @@ declare module '@strapi/strapi' {
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::product.product': ApiProductProduct;
       'api::sell.sell': ApiSellSell;
+      'api::seo.seo': ApiSeoSeo;
       'api::service.service': ApiServiceService;
       'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
       'plugin::content-releases.release': PluginContentReleasesRelease;

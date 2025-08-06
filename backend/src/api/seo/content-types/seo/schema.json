@@ -1,0 +1,119 @@
+{
+  "kind": "singleType",
+  "collectionName": "seos",
+  "info": {
+    "singularName": "seo",
+    "pluralName": "seos",
+    "displayName": "Seo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
+    },
+    "SEOServices": {
+      "displayName": "seo__services",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo-page.seo-services",
+      "required": true
+    },
+    "Services": {
+      "displayName": "Services",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo-page.services",
+      "required": true
+    },
+    "Generative": {
+      "displayName": "Generative",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo-page.generative",
+      "required": true
+    },
+    "Reporting": {
+      "displayName": "Reporting",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo-page.reporting",
+      "required": true
+    },
+    "SoWhat": {
+      "displayName": "so__what",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo-page.so-what",
+      "required": true
+    },
+    "InfoText": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "home-sections.info-text",
+      "required": true
+    },
+    "SEO": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo"
+    }
+  }
+}

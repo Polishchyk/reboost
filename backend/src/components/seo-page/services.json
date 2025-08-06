@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_seo_page_services",
+  "info": {
+    "displayName": "Services"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "Image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

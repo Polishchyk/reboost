@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_seo_page_generatives",
+  "info": {
+    "displayName": "Generative"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.link",
+      "required": true
+    }
+  }
+}

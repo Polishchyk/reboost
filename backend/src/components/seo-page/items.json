@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_seo_page_items",
+  "info": {
+    "displayName": "Items"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

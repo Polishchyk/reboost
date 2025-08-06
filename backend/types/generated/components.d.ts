@@ -736,6 +736,84 @@ export interface SellPayments extends Struct.ComponentSchema {
   };
 }
 
+export interface SeoPageGenerative extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_generatives';
+  info: {
+    displayName: 'Generative';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SeoPageItems extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_items';
+  info: {
+    displayName: 'Items';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SeoPageReporting extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_reportings';
+  info: {
+    displayName: 'Reporting';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text;
+    Image: Schema.Attribute.Media<'files' | 'images'> &
+      Schema.Attribute.Required;
+    Items: Schema.Attribute.Component<'seo-page.items', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SeoPageSeoServices extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_seo_services';
+  info: {
+    description: '';
+    displayName: 'seo__services';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SeoPageServices extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_services';
+  info: {
+    displayName: 'Services';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SeoPageSoWhat extends Struct.ComponentSchema {
+  collectionName: 'components_seo_page_so_whats';
+  info: {
+    displayName: 'so__what';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ServiceBooking extends Struct.ComponentSchema {
   collectionName: 'components_service_bookings';
   info: {
@@ -950,6 +1028,12 @@ declare module '@strapi/strapi' {
       'product.reason-items': ProductReasonItems;
       'product.reasons': ProductReasons;
       'sell.payments': SellPayments;
+      'seo-page.generative': SeoPageGenerative;
+      'seo-page.items': SeoPageItems;
+      'seo-page.reporting': SeoPageReporting;
+      'seo-page.seo-services': SeoPageSeoServices;
+      'seo-page.services': SeoPageServices;
+      'seo-page.so-what': SeoPageSoWhat;
       'service.booking': ServiceBooking;
       'service.info': ServiceInfo;
       'shared.media': SharedMedia;

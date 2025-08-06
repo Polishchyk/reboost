@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_seo_page_reportings",
+  "info": {
+    "displayName": "Reporting"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Image": {
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "Items": {
+      "displayName": "Items",
+      "type": "component",
+      "repeatable": true,
+      "component": "seo-page.items",
+      "required": true
+    }
+  }
+}
