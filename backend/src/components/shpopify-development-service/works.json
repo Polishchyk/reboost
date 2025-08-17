@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shpopify_development_service_works",
+  "info": {
+    "displayName": "works",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

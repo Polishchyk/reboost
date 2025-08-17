@@ -973,6 +973,140 @@ export interface ShopsShops extends Struct.ComponentSchema {
   };
 }
 
+export interface ShpopifyDevelopmentServiceChoose
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_chooses';
+  info: {
+    displayName: 'choose';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    choose_items: Schema.Attribute.Component<
+      'shpopify-development-service.choose-items',
+      true
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceChooseItems
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_choose_items';
+  info: {
+    displayName: 'choose_items';
+  };
+  attributes: {
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceInsist
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_insists';
+  info: {
+    displayName: 'insist';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<
+      'shpopify-development-service.items',
+      true
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceItems
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_items';
+  info: {
+    displayName: 'items';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceOurWide
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_our_wides';
+  info: {
+    displayName: 'OurWide';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    Items: Schema.Attribute.Component<
+      'shpopify-development-service.items',
+      true
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceSounts
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_sounts';
+  info: {
+    displayName: '\u0421ounts';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceSteps
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_steps';
+  info: {
+    displayName: 'Steps';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    step: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceWeWork
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_we_works';
+  info: {
+    description: '';
+    displayName: 'we_work';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
+    Steps: Schema.Attribute.Component<
+      'shpopify-development-service.steps',
+      true
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ShpopifyDevelopmentServiceWorks
+  extends Struct.ComponentSchema {
+  collectionName: 'components_shpopify_development_service_works';
+  info: {
+    description: '';
+    displayName: 'works';
+  };
+  attributes: {
+    Images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface WebsiteDevelopmentFrom extends Struct.ComponentSchema {
   collectionName: 'components_website_development_froms';
   info: {
@@ -1060,9 +1194,12 @@ export interface WebsiteDevelopmentManage extends Struct.ComponentSchema {
 export interface WebsiteDevelopmentOneweb extends Struct.ComponentSchema {
   collectionName: 'components_website_development_onewebs';
   info: {
+    description: '';
     displayName: 'Oneweb';
   };
   attributes: {
+    button: Schema.Attribute.Component<'menu.link', false> &
+      Schema.Attribute.Required;
     Description: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.CustomField<
@@ -1159,6 +1296,15 @@ declare module '@strapi/strapi' {
       'shared.social-media-buttons': SharedSocialMediaButtons;
       'shop.shop': ShopShop;
       'shops.shops': ShopsShops;
+      'shpopify-development-service.choose': ShpopifyDevelopmentServiceChoose;
+      'shpopify-development-service.choose-items': ShpopifyDevelopmentServiceChooseItems;
+      'shpopify-development-service.insist': ShpopifyDevelopmentServiceInsist;
+      'shpopify-development-service.items': ShpopifyDevelopmentServiceItems;
+      'shpopify-development-service.our-wide': ShpopifyDevelopmentServiceOurWide;
+      'shpopify-development-service.sounts': ShpopifyDevelopmentServiceSounts;
+      'shpopify-development-service.steps': ShpopifyDevelopmentServiceSteps;
+      'shpopify-development-service.we-work': ShpopifyDevelopmentServiceWeWork;
+      'shpopify-development-service.works': ShpopifyDevelopmentServiceWorks;
       'website-development.from': WebsiteDevelopmentFrom;
       'website-development.integration-items': WebsiteDevelopmentIntegrationItems;
       'website-development.intergrations': WebsiteDevelopmentIntergrations;

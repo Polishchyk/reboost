@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shpopify_development_service_chooses",
+  "info": {
+    "displayName": "choose"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "choose_items": {
+      "displayName": "choose_items",
+      "type": "component",
+      "repeatable": true,
+      "component": "shpopify-development-service.choose-items",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.link",
+      "required": true
+    }
+  }
+}

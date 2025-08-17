@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shpopify_development_service_we_works",
+  "info": {
+    "displayName": "we_work",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Steps": {
+      "displayName": "Steps",
+      "type": "component",
+      "repeatable": true,
+      "component": "shpopify-development-service.steps",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.link",
+      "required": true
+    }
+  }
+}

@@ -1,7 +1,8 @@
 {
   "collectionName": "components_website_development_onewebs",
   "info": {
-    "displayName": "Oneweb"
+    "displayName": "Oneweb",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -18,12 +19,18 @@
       "customField": "plugin::ckeditor5.CKEditor"
     },
     "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": false,
+      ]
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.link",
       "required": true
     }
   }

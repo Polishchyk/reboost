@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shpopify_development_service_choose_items",
+  "info": {
+    "displayName": "choose_items"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

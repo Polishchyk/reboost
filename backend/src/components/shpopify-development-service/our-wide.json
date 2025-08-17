@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shpopify_development_service_our_wides",
+  "info": {
+    "displayName": "OurWide"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "Items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shpopify-development-service.items",
+      "required": true
+    }
+  }
+}

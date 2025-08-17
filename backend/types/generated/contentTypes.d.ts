@@ -2096,6 +2096,155 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiShopifyDevelopmentServiceShopifyDevelopmentService
+  extends Struct.SingleTypeSchema {
+  collectionName: 'shopify_development_services';
+  info: {
+    description: '';
+    displayName: 'Shopify Development Service';
+    pluralName: 'shopify-development-services';
+    singularName: 'shopify-development-service';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    choose: Schema.Attribute.Component<
+      'shpopify-development-service.choose',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    counts: Schema.Attribute.Component<
+      'shpopify-development-service.sounts',
+      true
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    FAQ: Schema.Attribute.Component<'home-sections.faq', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    InfoText: Schema.Attribute.Component<'home-sections.info-text', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    insist: Schema.Attribute.Component<
+      'shpopify-development-service.insist',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::shopify-development-service.shopify-development-service'
+    >;
+    oneweb: Schema.Attribute.Component<'website-development.oneweb', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    OurWide: Schema.Attribute.Component<
+      'shpopify-development-service.our-wide',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SoWhat: Schema.Attribute.Component<'seo-page.so-what', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    we_work: Schema.Attribute.Component<
+      'shpopify-development-service.we-work',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    works: Schema.Attribute.Component<
+      'shpopify-development-service.works',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+  };
+}
+
 export interface ApiTermsAndConditionTermsAndCondition
   extends Struct.SingleTypeSchema {
   collectionName: 'terms_and_conditions';
@@ -2798,6 +2947,7 @@ declare module '@strapi/strapi' {
       'api::sell.sell': ApiSellSell;
       'api::seo.seo': ApiSeoSeo;
       'api::service.service': ApiServiceService;
+      'api::shopify-development-service.shopify-development-service': ApiShopifyDevelopmentServiceShopifyDevelopmentService;
       'api::terms-and-condition.terms-and-condition': ApiTermsAndConditionTermsAndCondition;
       'api::website-development.website-development': ApiWebsiteDevelopmentWebsiteDevelopment;
       'plugin::content-releases.release': PluginContentReleasesRelease;

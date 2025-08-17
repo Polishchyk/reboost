@@ -211,7 +211,7 @@ const onSubmit = handleSubmit(async (values) => {
       </div>
     </section>
 
-    <div class="sect-support">
+    <div class="sect-support" id="sect-support">
       <div class="wrap">
         <div class="content">
           <h2>{{ WebsiteDevelopment?.data?.SoWhatTitle }}</h2>

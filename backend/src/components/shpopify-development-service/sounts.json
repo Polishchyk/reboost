@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shpopify_development_service_sounts",
+  "info": {
+    "displayName": "Сounts"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
