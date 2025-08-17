@@ -1198,8 +1198,7 @@ export interface WebsiteDevelopmentOneweb extends Struct.ComponentSchema {
     displayName: 'Oneweb';
   };
   attributes: {
-    button: Schema.Attribute.Component<'menu.link', false> &
-      Schema.Attribute.Required;
+    button: Schema.Attribute.Component<'menu.link', false>;
     Description: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.CustomField<
