@@ -57,16 +57,22 @@ const validationSchema = computed(() => {
   return yup.object(
     Object.fromEntries(
       contactFields.value.map(field => [
-        field.key, // Використовуємо нормалізований ключ
+        field.key,
         field.type === 'email'
-          ? yup.string().email(t('validation.email')).required(t('validation.required'))
+          ? yup.string()
+              .email(t('validation.email'))
+              .required(t('validation.required'))
           : field.type === 'number'
-            ? yup.number().typeError(t('validation.number')).required(t('validation.required'))
-            : yup.string().required(t('validation.required'))
+            ? yup.number()
+                .typeError(t('validation.number'))
+                .nullable()       // дозволяє null
+                .notRequired()    // робить поле необов'язковим
+            : yup.string()
+                .required(t('validation.required'))
       ])
     )
-  );
-});
+  )
+})
 
 const { handleSubmit, errors, defineField } = useForm({ validationSchema });
 

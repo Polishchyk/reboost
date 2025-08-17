@@ -25,7 +25,7 @@
     "phone_number": {
       "pluginOptions": {},
       "type": "string",
-      "required": true
+      "required": false
     },
     "message": {
       "pluginOptions": {},

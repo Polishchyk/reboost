@@ -56,18 +56,24 @@ const normalizeFieldName = (title) => title.replace(/\s+/g, '_').toLowerCase();
 
 const validationSchema = computed(() => {
   return yup.object(
-      Object.fromEntries(
-          contactFields.value.map(field => [
-            normalizeFieldName(field.Title), // ключ з EN
-            field.Type === 'email'
-                ? yup.string().email(t('validation.email')).required(t('validation.required'))
-                : field.Type === 'number'
-                    ? yup.number().typeError(t('validation.number')).required(t('validation.required'))
-                    : yup.string().required(t('validation.required'))
-          ])
-      )
-  );
-});
+    Object.fromEntries(
+      contactFields.value.map(field => [
+        field.key,
+        field.type === 'email'
+          ? yup.string()
+              .email(t('validation.email'))
+              .required(t('validation.required'))
+          : field.type === 'number'
+            ? yup.number()
+                .typeError(t('validation.number'))
+                .nullable()       // дозволяє null
+                .notRequired()    // робить поле необов'язковим
+            : yup.string()
+                .required(t('validation.required'))
+      ])
+    )
+  )
+})
 
 const { handleSubmit, errors, defineField } = useForm({ validationSchema });
 
