@@ -14,85 +14,87 @@ const route = useRoute();
 
 const slug = route.params.gadget;
 
-const { data: contactFieldsEn } = await useAsyncData(
+const normalizeFieldName = (title) => title.replace(/\s+/g, '_').toLowerCase()
+
+// EN поля (джерело “істинних” ключів)
+const {data: contactFieldsEn} = await useAsyncData(
     `sell-en-${slug}-contact-fields`,
-    () =>
-        $fetch(`${config.public.apiBase}/sells/${slug}`, {
-          params: { pLevel: 3, locale: 'en' },
-        }),
-    { server: true }
-);
+    () => $fetch(`${config.public.apiBase}/sells/${slug}`, {
+      params: {pLevel: 3, locale: 'en'},
+    }),
+    {server: true}
+)
 
-const { data: SellPageData } = await useAsyncData(
+// Локалізовані дані сторінки
+const {data: SellPageData} = await useAsyncData(
     `sell-${locale.value}-${slug}`,
-    () =>
-        $fetch(`${config.public.apiBase}/sells/${slug}`, {
-          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
-        }),
-    { watch: [locale], server: true }
-);
+    () => $fetch(`${config.public.apiBase}/sells/${slug}`, {
+      params: {pLevel: 4, ...(locale.value !== 'it' ? {locale: locale.value} : {})},
+    }),
+    {watch: [locale], server: true}
+)
 
-const { data: globalDataSellPage } = await useAsyncData(`globalData-${locale.value}-sell-page`, () =>
-        $fetch(`${config.public.apiBase}/global`, {
-          params: { pLevel: 4, ...(locale.value !== "it" ? { locale: locale.value } : {}) },
-        }),
-    { watch: [locale], server: true }
-);
+const {data: globalDataSellPage} = await useAsyncData(
+    `globalData-${locale.value}-sell-page`,
+    () => $fetch(`${config.public.apiBase}/global`, {
+      params: {pLevel: 4, ...(locale.value !== 'it' ? {locale: locale.value} : {})},
+    }),
+    {watch: [locale], server: true}
+)
 
+// Нормалізуємо contactFields так само, як у робочій сторінці
 const contactFields = computed(() => {
-  const localFields = SellPageData.value?.data?.contact_form_fields || [];
-  const enFields = contactFieldsEn.value?.data?.contact_form_fields || [];
+  const localFields = SellPageData.value?.data?.contact_form_fields || []
+  const enFields = contactFieldsEn.value?.data?.contact_form_fields || []
 
   return enFields.map((enField, index) => {
-    const localField = localFields[index];
+    const localField = localFields[index]
+    const key = normalizeFieldName(enField.Title)         // стабільний ключ
+    const type = String(enField.Type || '').toLowerCase() // єдине написання type
+
     return {
-      ...enField,
-      TitleLocalized: localField?.Title || enField.Title,
-    };
-  });
-});
+      key,                       // <— ВАЖЛИВО
+      label: localField?.Title || enField.Title,
+      type,                      // 'email' | 'textarea' | 'number' | 'text' ...
+    }
+  })
+})
 
-const normalizeFieldName = (title) => title.replace(/\s+/g, '_').toLowerCase();
-
+// Схема на тих самих ключах
 const validationSchema = computed(() => {
   return yup.object(
-    Object.fromEntries(
-      contactFields.value.map(field => [
-        field.key,
-        field.type === 'email'
-          ? yup.string()
-              .email(t('validation.email'))
-              .required(t('validation.required'))
-          : field.type === 'number'
-            ? yup.number()
-                .typeError(t('validation.number'))
-                .nullable()       // дозволяє null
-                .notRequired()    // робить поле необов'язковим
-            : yup.string()
-                .required(t('validation.required'))
-      ])
-    )
+      Object.fromEntries(
+          contactFields.value.map(field => [
+            field.key,
+            field.type === 'email'
+                ? yup.string().email(t('validation.email')).required(t('validation.required'))
+                : field.type === 'number'
+                    ? yup.number().typeError(t('validation.number')).nullable().notRequired()
+                    : yup.string().required(t('validation.required'))
+          ])
+      )
   )
 })
 
-const { handleSubmit, errors, defineField } = useForm({ validationSchema });
+// Поля форми — теж по `key`
+const {handleSubmit, errors, defineField} = useForm({validationSchema})
 
 const fields = computed(() => {
   return Object.fromEntries(
       contactFields.value.map(field => [
-        normalizeFieldName(field.Title),
-        defineField(normalizeFieldName(field.Title))
+        field.key,
+        defineField(field.key)
       ])
-  );
-});
+  )
+})
 
-const successMessage = ref('');
-const isSubmitting = ref(false);
-const backendErrors = ref({});
+const successMessage = ref('')
+const isSubmitting = ref(false)
+const backendErrors = ref({})
 
 const onSubmit = handleSubmit(async (values) => {
-  isSubmitting.value = true;
-  backendErrors.value = {};
+  isSubmitting.value = true
+  backendErrors.value = {}
 
   try {
     await $fetch(`${config.public.apiBase}/contacts`, {
@@ -100,36 +102,36 @@ const onSubmit = handleSubmit(async (values) => {
       body: {
         data: {
           ...values,
-          phone_number: String(values.phone_number),
+          phone_number: String(values.phone_number ?? '')
         }
       }
-    });
-
-    successMessage.value = 'Form submitted successfully!';
+    })
+    successMessage.value = 'Form submitted successfully!'
   } catch (error) {
-    console.error('Submission error:', error);
-
+    console.error('Submission error:', error)
     if (error?.data?.error?.details?.errors) {
       error.data.error.details.errors.forEach((err) => {
-        const fieldName = err.path[0];
-        backendErrors.value[fieldName] = t(`validation.${fieldName}`) || err.message;
-      });
+        const fieldName = err.path?.[0]
+        if (fieldName) {
+          backendErrors.value[fieldName] = t(`validation.${fieldName}`) || err.message
+        }
+      })
     }
   }
 
-  isSubmitting.value = false;
-});
+  isSubmitting.value = false
+})
 </script>
 
 <template>
   <div v-if="SellPageData?.data">
-    <SeoHead :seo="SellPageData?.data?.SEO" />
+    <SeoHead :seo="SellPageData?.data?.SEO"/>
 
     <div class="breadcrumbs bg2">
       <div class="wrap">
         <div class="nav">
           <nuxt-link :to="locale !== defaultLocale ? `/${locale}` : '/'">Home</nuxt-link>
-          <span>{{SellPageData?.data?.Title}}</span>
+          <span>{{ SellPageData?.data?.Title }}</span>
         </div>
       </div>
     </div>
@@ -137,7 +139,7 @@ const onSubmit = handleSubmit(async (values) => {
     <div class="sect-blog">
       <div class="wrap">
         <div class="content">
-          <h1>{{SellPageData?.data?.Title}}</h1>
+          <h1>{{ SellPageData?.data?.Title }}</h1>
         </div>
       </div>
     </div>
@@ -154,8 +156,8 @@ const onSubmit = handleSubmit(async (values) => {
                        :alt="peyment?.Icon?.alternativeText"
                   >
                 </div>
-                <div class="title">{{peyment?.Title}}</div>
-                <div class="description">{{peyment?.Description}}</div>
+                <div class="title">{{ peyment?.Title }}</div>
+                <div class="description">{{ peyment?.Description }}</div>
               </div>
             </div>
           </div>
@@ -167,46 +169,60 @@ const onSubmit = handleSubmit(async (values) => {
       <div class="wrap">
         <div class="content">
           <form @submit.prevent="onSubmit" class="mt-6 space-y-4">
-            <div v-for="field in contactFields" :key="field.id">
-              <label class="label">{{ field.TitleLocalized }}</label>
-              <input v-if="field.Type !== 'textarea'"
-                     :type="field.Type"
-                     v-model="fields[normalizeFieldName(field.Title)][0].value"
-                     class="w-full p-2 border rounded-md" />
-              <textarea v-else
-                        v-model="fields[normalizeFieldName(field.Title)][0].value"
-                        class="w-full p-2 border rounded-md"></textarea>
-              <p class="text-red-500 text-sm">{{ errors[normalizeFieldName(field.Title)] || backendErrors[normalizeFieldName(field.Title)] }}</p>
+            <div v-for="field in contactFields" :key="field.key">
+              <label class="label">{{ field.label }}</label>
+
+              <input
+                  v-if="field.type !== 'textarea'"
+                  :type="field.type || 'text'"
+                  v-model="fields[field.key][0].value"
+                  class="w-full p-2 border rounded-md"
+              />
+
+              <textarea
+                  v-else
+                  v-model="fields[field.key][0].value"
+                  class="w-full p-2 border rounded-md"
+              />
+
+              <p class="text-red-500 text-sm">
+                {{ errors[field.key] || backendErrors[field.key] }}
+              </p>
             </div>
 
             <button type="submit" class="w-full but colored" :disabled="isSubmitting">
               Submit
             </button>
-            <p v-if="successMessage" class="text-green-500 text-sm mt-2">{{ successMessage }}</p>
+
+            <p v-if="successMessage" class="text-green-500 text-sm mt-2">
+              {{ successMessage }}
+            </p>
           </form>
         </div>
       </div>
     </div>
 
-    <FAQ :data="SellPageData?.data?.FAQ" />
+    <FAQ :data="SellPageData?.data?.FAQ"/>
   </div>
 
 </template>
 
 <style>
-.sell .item-description figure img{
-  width: auto!important;
+.sell .item-description figure img {
+  width: auto !important;
   max-width: 100%;
   margin: 0 auto;
   margin-bottom: 30px;
 
 }
-.sell ol{
+
+.sell ol {
   margin-top: 32px;
   margin-bottom: 32px;
   counter-reset: li;
 }
-.sell li{
+
+.sell li {
   position: relative;
   padding-left: 24px;
   padding-top: 12px;
@@ -218,7 +234,8 @@ const onSubmit = handleSubmit(async (values) => {
   -moz-user-select: none;
   user-select: none;
 }
-.sell ol li:before{
+
+.sell ol li:before {
   content: counter(li) ".";
   counter-increment: li;
   font-weight: 500;
@@ -229,6 +246,7 @@ const onSubmit = handleSubmit(async (values) => {
   transform: translateY(-50%);
   transition: font-size 0.5s;
 }
+
 .sell-grid {
   display: flex;
   flex-wrap: wrap;
@@ -240,22 +258,27 @@ const onSubmit = handleSubmit(async (values) => {
   padding: 20px;
   text-align: center;
 }
+
 .sell-grid-item .title {
   font-weight: 500;
   font-size: 24px;
   line-height: 30px;
   margin-top: 20px;
 }
-.sell-grid-item .description{
+
+.sell-grid-item .description {
   margin-top: 20px;
 }
-.sell-grid-item .icon{
+
+.sell-grid-item .icon {
   display: flex;
   justify-content: center;
 }
-.sell-grid-item img{
+
+.sell-grid-item img {
   max-width: 100px;
 }
+
 @media (max-width: 600px) {
   .sell-grid-item {
     width: 100%;
