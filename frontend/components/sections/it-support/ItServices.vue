@@ -29,10 +29,6 @@ const config = useRuntimeConfig();
           </li>
         </ul>
       </div>
-      <div class="text" v-if="service_text">
-        <h2>{{service_text?.Title}}</h2>
-        <div v-html="service_text?.Description"></div>
-      </div>
     </div>
   </div>
 </template>

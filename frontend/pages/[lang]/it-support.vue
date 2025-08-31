@@ -7,6 +7,7 @@ import ItServices from '~/components/sections/it-support/ItServices.vue'
 import ItPlans from '~/components/sections/it-support/ItPlans.vue'
 import FAQ from '~/components/sections/FAQ.vue'
 import OnlineAccess from '~/components/sections/it-support/OnlineAccess.vue'
+import InfoText from '~/components/sections/InfoText.vue'
 
 const config = useRuntimeConfig();
 const { locale } = useI18n();
@@ -32,6 +33,7 @@ const { data: ITSupportPageData} = await useAsyncData(
         :other_services="ITSupportPageData?.data?.other_services"
         :service_text="ITSupportPageData?.data?.service_text"
     />
+    <InfoText :data="ITSupportPageData?.data?.service_text"/>
     <ItPlans :data="ITSupportPageData?.data?.it_management_plans"/>
     <FAQ :data="ITSupportPageData?.data?.FAQ"/>
     <OnlineAccess :data="ITSupportPageData?.data?.online_access"/>
