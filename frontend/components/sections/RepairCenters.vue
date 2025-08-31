@@ -12,7 +12,7 @@ defineProps({
         <div class="repair-centers">
           <div class="item" v-for="repairCenter in data?.RepairCentersItems">
             <h3>{{repairCenter.Title}}</h3>
-            <div class="desc">{{repairCenter.Description}}</div>
+            <div class="desc" v-html="repairCenter.Description"></div>
             <div class="tel"><a :href="'tel:'+repairCenter.Phone">{{repairCenter.Phone}}</a></div>
             <template v-if="repairCenter?.RepairCenterLinks?.length > 0">
               <div class="links">

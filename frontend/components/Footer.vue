@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
               <div class="cap">{{ itemMenu.Title }}</div>
               <ul v-if="itemMenu.menu_sections.length > 0">
                 <li v-for="subItem in itemMenu.menu_sections" :key="subItem.Title">
-                  <a v-if="subItem.Title" @click.prevent="false">{{ subItem.Title }}</a>
+                  <span v-if="subItem.Title" @click.prevent="false">{{ subItem.Title }}</span>
                   <ul v-if="subItem.Items.length > 0">
                     <li v-for="childItem in subItem.Items" :key="childItem.Title">
                       <nuxt-link
@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
             <div class="cap">{{ footerData?.data?.Shops?.TitleComponent }}</div>
             <div class="shop" v-for="(shop, index) in footerData?.data?.Shops?.Shop" :key="index">
               <div class="title">{{ shop.Title }}</div>
-              <div class="address">{{ shop.Address }}</div>
+              <div class="address" v-html="shop.Address"></div>
               <div class="tel">
                 <a :href="'tel:' + shop.Phone">{{ shop.Phone }}</a>
               </div>
