@@ -6,7 +6,7 @@ const { locale, locales } = useI18n();
 
 const langAttribute = computed(() => {
   const langConfig = locales.value.find(l => l.code === locale.value);
-  return langConfig?.language || locale.value;
+  return langConfig?.code || locale.value;
 });
 
 useHead({
