@@ -1788,6 +1788,9 @@ header .lang .dropdown li a:hover, footer .lang .dropdown li a:hover {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.sect-blog-content .blog-content p a {
+    margin-left: 5px;
+}
 .sect-blog-content .blog-content ul {padding: 15px;}
 .sect-blog-content .blog-content ul li,
 .sect-blog-content .blog-content ol li {
