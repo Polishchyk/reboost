@@ -89,12 +89,12 @@ onBeforeUnmount(() => {
       <div class="box">
         <div class="col">
           <div class="logo">
-            <a href="/">
+            <NuxtLink :to="localizedUrl('/')">
               <img
                   :src="config.public.publicUrl + footerData?.data?.Logo?.url"
                   alt="reboost - logo"
               />
-            </a>
+            </NuxtLink>
           </div>
           <div class="number">
             <a :href="'tel:' + footerData?.data?.Phone">{{
@@ -125,6 +125,7 @@ onBeforeUnmount(() => {
                           v-else
                           :href="childItem.Url"
                           :target="childItem.Target"
+                          rel="noopener"
                           :class="{'active': isActive(childItem.Url)}"
                       >
                         {{ childItem.Title }}
@@ -147,7 +148,11 @@ onBeforeUnmount(() => {
               </div>
               <template v-if="globalDataFooter?.data?.our_repair_centers?.RepairCentersItems[index]?.RepairCenterLinks?.length > 0">
                 <div class="links">
-                  <a :href="link.Url" v-for="link in globalDataFooter?.data?.our_repair_centers?.RepairCentersItems[index]?.RepairCenterLinks">
+                  <a
+                    v-for="link in globalDataFooter?.data?.our_repair_centers?.RepairCentersItems[index]?.RepairCenterLinks"
+                    :key="link.Url"
+                    :href="link.Url"
+                  >
                     <div class="but small" :class="link.ItemCssClass">{{link.Title ?? '' }}</div>
                   </a>
                 </div>
@@ -164,9 +169,9 @@ onBeforeUnmount(() => {
             </div>
             <div class="dropdown" :class="{ active: dropdownActive }">
               <ul>
-                <li v-for="locale in availableLocales" :key="locale.code">
-                  <NuxtLink :to="switchLocalePath(locale.code)">
-                    {{ locale.name }}
+                <li v-for="loc in availableLocales" :key="loc.code">
+                  <NuxtLink :to="switchLocalePath(loc.code, route.fullPath)">
+                    {{ loc.name }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -180,8 +185,8 @@ onBeforeUnmount(() => {
                 v-for="button in footerData?.data?.SocialMediaButtons"
                 :key="button.Url"
             >
-              <a :href="button.Url" target="_blank">
-                <template v-html="button.SvgImage"></template>
+              <a :href="button.Url" target="_blank" rel="noopener">
+                <span v-html="button.SvgImage"></span>
               </a>
             </div>
           </div>
