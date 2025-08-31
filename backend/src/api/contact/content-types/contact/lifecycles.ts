@@ -6,7 +6,8 @@ export default {
     await emailService.sendEmail(
       'sergey@reboost.ch',
       'New Contact Form Submission',
-      `You received a new message from ${result.email}\n\nName: ${result.your_name}\n\nPhone: ${result.phone_number}\n\nMessage:\n${result.message}\n\n`
+      `You received a new message from ${result.email}\n\nName: ${result.your_name}\n\nPhone: ${result.phone_number}\n\nMessage:\n${result.message}\n\n`,
+      result.email
     );
   },
 };
