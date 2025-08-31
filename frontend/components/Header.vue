@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
             <li v-for="itemMenu in mainMenuData?.data?.Items" :key="itemMenu.id">
               <template v-if="itemMenu.__component === 'menu.menu-sub-items'">
                 <template v-if="!itemMenu.IsLink">
-                  <a @click.prevent="false">{{ itemMenu.Title }}</a>
+                  <a @click.prevent="false" href="#">{{ itemMenu.Title }}</a>
                 </template>
                 <template v-if="itemMenu.IsLink && itemMenu.Url">
                   <nuxt-link
