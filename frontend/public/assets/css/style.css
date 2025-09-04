@@ -2044,6 +2044,9 @@ footer .lang .dropdown.active {
 footer .social {
     display: flex;
     margin-top: 46px;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
 }
 footer .social a:hover svg path:not([fill="white"]) {
     fill: url('/img/icons/gradient.svg#icon-gradient')!important;
