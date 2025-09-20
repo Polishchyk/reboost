@@ -2052,7 +2052,6 @@ footer .social a:hover svg path:not([fill="white"]) {
     fill: url('/img/icons/gradient.svg#icon-gradient')!important;
 }
 .sect-blog-content .blog-content a {
-    /*background: -webkit-linear-gradient(left, var(--gradientColor1), var(--gradientColor2));*/
     background: #017cff;
     background-clip: border-box;
     -webkit-background-clip: text;
