@@ -194,7 +194,7 @@ const onSubmit = handleSubmit(async (values) => {
               Submit
             </button>
 
-            <p v-if="successMessage" class="text-green-500 text-sm mt-2">
+            <p v-if="successMessage" class="text-green-500 text-xl mt-2">
               {{ successMessage }}
             </p>
           </form>
