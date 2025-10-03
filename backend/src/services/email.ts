@@ -14,7 +14,7 @@ export default {
 
     try {
       await transporter.sendMail({
-        from: process.env.SMTP_USER,
+        from: process.env.SMTP_EMAIL_FROM,
         to,
         replyTo: replyTo,
         subject,
