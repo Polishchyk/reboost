@@ -2066,22 +2066,22 @@ footer .social a:hover svg path:not([fill="white"]) {
 .sect-blog-content .blog-content ol li {
     position: relative;
     list-style: none;
-    padding-left: 24px;
-    display: flex;
-    align-items: center;
+    padding-left: 28px;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
 }
 .sect-blog-content .blog-content ul li:before,
 .sect-blog-content .blog-content ol li:before {
-    content: '';
-    position: relative;
-    height: 17px;
-    width: 16px;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    transform: translateY(-50%);
+    width: 17px;
+    height: 16px;
     min-width: 16px;
-    background: url(/img/icons/tick-colored.svg) no-repeat center;
-    margin-right: 16px;
+    background: url(/img/icons/tick-colored.svg) no-repeat center/contain;
 }
 .sect-blog-content .blog-content ol {padding: 15px;}
 .sect-blog-content .blog-content .but a {color: #fff;}
